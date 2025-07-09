@@ -1,0 +1,530 @@
+2025-07-05 20:17:32.775 EEST [8336] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-05 20:17:32.786 EEST [8336] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-05 20:17:32.786 EEST [8336] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-05 20:17:33.015 EEST [2980] LOG:  database system was interrupted; last known up at 2025-07-02 16:10:51 EEST
+2025-07-05 20:17:34.109 EEST [2980] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-05 20:17:34.143 EEST [2980] LOG:  redo starts at 0/1AFF8F8
+2025-07-05 20:17:34.144 EEST [2980] LOG:  invalid record length at 0/1AFFA38: expected at least 24, got 0
+2025-07-05 20:17:34.144 EEST [2980] LOG:  redo done at 0/1AFFA00 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-07-05 20:17:34.198 EEST [9560] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-05 20:17:34.310 EEST [9560] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.021 s, total=0.131 s; sync files=2, longest=0.015 s, average=0.011 s; distance=0 kB, estimate=0 kB; lsn=0/1AFFA38, redo lsn=0/1AFFA38
+2025-07-05 20:17:34.381 EEST [8336] LOG:  database system is ready to accept connections
+2025-07-05 20:18:36.617 EEST [8088] ERROR:  syntax error at or near "AlTRER" at character 1
+2025-07-05 20:18:36.617 EEST [8088] STATEMENT:  AlTRER
+	ALTER ;
+2025-07-05 20:19:06.840 EEST [8088] ERROR:  unrecognized configuration parameter "tables"
+2025-07-05 20:19:06.840 EEST [8088] STATEMENT:  SHOW TABLES;
+2025-07-05 20:19:19.727 EEST [8088] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 20:19:19.727 EEST [8088] STATEMENT:  SHOW TABLE;
+2025-07-05 20:19:21.055 EEST [8088] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 20:19:21.055 EEST [8088] STATEMENT:  SHOW TABLE;
+2025-07-05 20:19:33.119 EEST [8088] ERROR:  syntax error at or near ":" at character 5
+2025-07-05 20:19:33.119 EEST [8088] STATEMENT:  SHOW:
+	SHOW;
+2025-07-05 20:19:35.599 EEST [8088] ERROR:  syntax error at or near ";" at character 5
+2025-07-05 20:19:35.599 EEST [8088] STATEMENT:  SHOW;
+2025-07-05 20:19:42.559 EEST [8088] ERROR:  unrecognized configuration parameter "database"
+2025-07-05 20:19:42.559 EEST [8088] STATEMENT:  SHOW DATABASE;
+2025-07-05 20:21:18.790 EEST [8088] ERROR:  syntax error at or near "pg_catalog" at character 1
+2025-07-05 20:21:18.790 EEST [8088] STATEMENT:  pg_catalog;
+2025-07-05 20:23:53.005 EEST [8088] ERROR:  syntax error at or near "SHOW" at character 8
+2025-07-05 20:23:53.005 EEST [8088] STATEMENT:  CREATE SHOW
+	CREATE SHOW;
+2025-07-05 20:24:12.862 EEST [8088] ERROR:  syntax error at or near ";" at character 12
+2025-07-05 20:24:12.862 EEST [8088] STATEMENT:  CREATE VIEW;
+2025-07-05 20:24:27.109 EEST [8088] ERROR:  syntax error at or near ";" at character 12
+2025-07-05 20:24:27.109 EEST [8088] STATEMENT:  CREATE VIEW;
+2025-07-05 20:24:41.829 EEST [8088] ERROR:  syntax error at or near ";" at character 12
+2025-07-05 20:24:41.829 EEST [8088] STATEMENT:  CREATE VIEW;
+2025-07-05 20:24:48.678 EEST [8088] ERROR:  syntax error at or near ";" at character 19
+2025-07-05 20:24:48.678 EEST [8088] STATEMENT:  CREATE VIEW orders;
+2025-07-05 20:26:08.333 EEST [8088] ERROR:  syntax error at or near ";" at character 5
+2025-07-05 20:26:08.333 EEST [8088] STATEMENT:  SHOW;
+2025-07-05 20:26:13.838 EEST [8088] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 20:26:13.838 EEST [8088] STATEMENT:  SHOW TABLE;
+2025-07-05 20:26:15.725 EEST [8088] ERROR:  unrecognized configuration parameter "tables"
+2025-07-05 20:26:15.725 EEST [8088] STATEMENT:  SHOW TABLEs;
+2025-07-05 20:26:18.333 EEST [8088] ERROR:  unrecognized configuration parameter "tables"
+2025-07-05 20:26:18.333 EEST [8088] STATEMENT:  SHOW TABLES;
+2025-07-05 20:27:34.326 EEST [9560] LOG:  checkpoint starting: time
+2025-07-05 20:27:34.917 EEST [9560] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.448 s, sync=0.073 s, total=0.592 s; sync files=5, longest=0.025 s, average=0.015 s; distance=3 kB, estimate=3 kB; lsn=0/1B00900, redo lsn=0/1B008A8
+2025-07-05 20:33:58.140 EEST [2308] FATAL:  password authentication failed for user "aldom"
+2025-07-05 20:33:58.140 EEST [2308] DETAIL:  Role "aldom" does not exist.
+	Connection matched file "C:/PostgreSQL/data/pg_hba.conf" line 117: "host    all             all             ::1/128                 password"
+2025-07-05 20:36:31.812 EEST [8336] LOG:  server process (PID 8088) was terminated by exception 0xC000013A
+2025-07-05 20:36:31.812 EEST [8336] DETAIL:  Failed process was running: SELECT n.nspname as "Schema",
+	  c.relname as "Name",
+	  CASE c.relkind WHEN 'r' THEN 'table' WHEN 'v' THEN 'view' WHEN 'm' THEN 'materialized view' WHEN 'i' THEN 'index' WHEN 'S' THEN 'sequence' WHEN 't' THEN 'TOAST table' WHEN 'f' THEN 'foreign table' WHEN 'p' THEN 'partitioned table' WHEN 'I' THEN 'partitioned index' END as "Type",
+	  pg_catalog.pg_get_userbyid(c.relowner) as "Owner"
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relkind IN ('v','')
+	      AND n.nspname <> 'pg_catalog'
+	      AND n.nspname !~ '^pg_toast'
+	      AND n.nspname <> 'information_schema'
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 1,2;
+2025-07-05 20:36:31.812 EEST [8336] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-05 20:36:31.812 EEST [8336] LOG:  terminating any other active server processes
+2025-07-05 20:36:31.851 EEST [8336] LOG:  all server processes terminated; reinitializing
+2025-07-05 20:36:31.883 EEST [8336] LOG:  startup process (PID 10200) was terminated by exception 0xC0000142
+2025-07-05 20:36:31.883 EEST [8336] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-05 20:36:31.883 EEST [8336] LOG:  aborting startup due to startup process failure
+2025-07-05 20:36:31.885 EEST [8336] LOG:  database system is shut down
+2025-07-05 20:40:30.738 EEST [11084] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-05 20:40:30.744 EEST [11084] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-05 20:40:30.744 EEST [11084] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-05 20:40:30.858 EEST [5276] LOG:  database system was interrupted; last known up at 2025-07-05 20:27:34 EEST
+2025-07-05 20:40:31.418 EEST [5276] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-05 20:40:31.445 EEST [5276] LOG:  redo starts at 0/1B008A8
+2025-07-05 20:40:31.455 EEST [5276] LOG:  invalid record length at 0/1B02730: expected at least 24, got 0
+2025-07-05 20:40:31.455 EEST [5276] LOG:  redo done at 0/1B00B68 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-07-05 20:40:31.484 EEST [8448] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-05 20:40:31.671 EEST [8448] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.076 s, total=0.211 s; sync files=4, longest=0.025 s, average=0.019 s; distance=7 kB, estimate=7 kB; lsn=0/1B02730, redo lsn=0/1B02730
+2025-07-05 20:40:31.724 EEST [11084] LOG:  database system is ready to accept connections
+2025-07-05 20:43:21.590 EEST [5992] FATAL:  database "null" does not exist
+2025-07-05 20:43:21.646 EEST [10700] FATAL:  database "null" does not exist
+2025-07-05 20:45:31.686 EEST [8448] LOG:  checkpoint starting: time
+2025-07-05 20:45:32.138 EEST [8448] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.324 s, sync=0.039 s, total=0.452 s; sync files=2, longest=0.026 s, average=0.020 s; distance=12 kB, estimate=12 kB; lsn=0/1B05AB8, redo lsn=0/1B05A60
+2025-07-05 21:05:23.770 EEST [10728] ERROR:  canceling statement due to user request
+2025-07-05 21:05:23.771 EEST [11084] LOG:  received fast shutdown request
+2025-07-05 21:05:23.819 EEST [11084] LOG:  aborting any active transactions
+2025-07-05 21:05:23.819 EEST [10716] FATAL:  terminating connection due to administrator command
+2025-07-05 21:05:23.819 EEST [9936] FATAL:  terminating connection due to administrator command
+2025-07-05 21:05:23.819 EEST [11084] LOG:  background worker "logical replication launcher" (PID 10728) exited with exit code 1
+2025-07-05 21:05:23.829 EEST [8448] LOG:  shutting down
+2025-07-05 21:05:23.869 EEST [8448] LOG:  checkpoint starting: shutdown immediate
+2025-07-05 21:05:23.976 EEST [8448] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.148 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=11 kB; lsn=0/1B05B68, redo lsn=0/1B05B68
+2025-07-05 21:05:23.987 EEST [11084] LOG:  database system is shut down
+2025-07-05 21:14:43.801 EEST [11512] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-05 21:14:43.807 EEST [11512] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-05 21:14:43.807 EEST [11512] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-05 21:14:44.134 EEST [8960] LOG:  database system was shut down at 2025-07-05 21:05:23 EEST
+2025-07-05 21:14:44.192 EEST [11512] LOG:  database system is ready to accept connections
+2025-07-05 21:14:54.780 EEST [4560] FATAL:  empty password returned by client
+2025-07-05 21:15:33.813 EEST [8752] FATAL:  password authentication failed for user "aldom"
+2025-07-05 21:15:33.813 EEST [8752] DETAIL:  Role "aldom" does not exist.
+	Connection matched file "C:/PostgreSQL/data/pg_hba.conf" line 117: "host    all             all             ::1/128                 password"
+2025-07-05 21:16:15.746 EEST [3068] ERROR:  syntax error at or near "\" at character 30
+2025-07-05 21:16:15.746 EEST [3068] STATEMENT:  -- shared types + extensions
+	\i shared/extensions.sql
+	\i shared/types.sql
+	
+	-- user domain
+	\i user/users.sql
+	\i user/sessions.sql
+	\i user/wishlist.sql
+	
+	-- product domain
+	\i product/products.sql
+	\i product/reviews.sql
+	
+	-- cart domain
+	\i cart/carts.sql
+	\i cart/cartItems.sql
+	
+	-- order domain
+	\i order/orders.sql
+	\i order/orderItems.sql
+	\i order/payments.sql
+	\i order/shipping.sql
+	
+	-- notification domain
+	\i notification/notifications.sql
+	
+2025-07-05 21:17:52.270 EEST [11584] FATAL:  password authentication failed for user "aldom"
+2025-07-05 21:17:52.270 EEST [11584] DETAIL:  Role "aldom" does not exist.
+	Connection matched file "C:/PostgreSQL/data/pg_hba.conf" line 117: "host    all             all             ::1/128                 password"
+2025-07-05 21:19:44.127 EEST [11376] LOG:  checkpoint starting: time
+2025-07-05 21:19:44.273 EEST [11376] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.034 s, total=0.147 s; sync files=2, longest=0.027 s, average=0.017 s; distance=0 kB, estimate=0 kB; lsn=0/1B05C70, redo lsn=0/1B05C18
+2025-07-05 21:21:42.293 EEST [11504] ERROR:  syntax error at or near "drop" at character 6
+2025-07-05 21:21:42.293 EEST [11504] STATEMENT:  drop
+	drop;
+2025-07-05 21:21:53.525 EEST [11504] ERROR:  syntax error at or near ";" at character 11
+2025-07-05 21:21:53.525 EEST [11504] STATEMENT:  DROP TABLE;
+2025-07-05 21:22:25.078 EEST [11504] ERROR:  syntax error at or near "DATABASE" at character 17
+2025-07-05 21:22:25.078 EEST [11504] STATEMENT:  DROP TABLE
+	DROP DATABASE;
+2025-07-05 21:22:31.452 EEST [11504] ERROR:  cannot drop the currently open database
+2025-07-05 21:22:31.452 EEST [11504] STATEMENT:  DROP DATABASE myapp;
+2025-07-05 21:22:42.356 EEST [11504] ERROR:  syntax error at or near "USE" at character 1
+2025-07-05 21:22:42.356 EEST [11504] STATEMENT:  USE ETC;
+2025-07-05 21:22:46.274 EEST [1968] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-05 21:22:47.957 EEST [11504] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-05 21:23:14.729 EEST [11076] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-05 21:23:14.730 EEST [10848] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-05 21:24:44.283 EEST [11376] LOG:  checkpoint starting: time
+2025-07-05 21:24:46.843 EEST [11376] LOG:  checkpoint complete: wrote 18 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.851 s, sync=0.471 s, total=2.561 s; sync files=17, longest=0.108 s, average=0.028 s; distance=91 kB, estimate=91 kB; lsn=0/1B1E870, redo lsn=0/1B1CA38
+2025-07-05 21:24:48.635 EEST [2244] ERROR:  syntax error at or near "DElETE" at character 22
+2025-07-05 21:24:48.635 EEST [2244] STATEMENT:  ALTER TABLE sessions DElETE updated_at;
+2025-07-05 21:24:55.963 EEST [2244] ERROR:  syntax error at or near "DlETE" at character 22
+2025-07-05 21:24:55.963 EEST [2244] STATEMENT:  ALTER TABLE sessions DlETE updated_at;
+2025-07-05 21:25:04.939 EEST [2244] ERROR:  syntax error at or near "REMOVE" at character 22
+2025-07-05 21:25:04.939 EEST [2244] STATEMENT:  ALTER TABLE sessions REMOVE updated_at;
+2025-07-05 21:26:41.450 EEST [2244] ERROR:  syntax error at or near "TABLE" at character 20
+2025-07-05 21:26:41.450 EEST [2244] STATEMENT:  ALTER TABLE 
+	ALTER TABLE sessions DROP updated_at;
+2025-07-05 21:27:15.298 EEST [2244] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:27:15.298 EEST [2244] STATEMENT:  SHOW TABLE ALL;
+2025-07-05 21:27:16.106 EEST [2244] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:27:16.106 EEST [2244] STATEMENT:  SHOW TABLE ALL;
+2025-07-05 21:27:17.162 EEST [2244] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:27:17.162 EEST [2244] STATEMENT:  SHOW TABLE ALL;
+2025-07-05 21:28:00.304 EEST [10632] ERROR:  canceling statement due to user request
+2025-07-05 21:28:00.314 EEST [11512] LOG:  received fast shutdown request
+2025-07-05 21:28:00.350 EEST [11512] LOG:  aborting any active transactions
+2025-07-05 21:28:00.351 EEST [2244] FATAL:  terminating connection due to administrator command
+2025-07-05 21:28:00.351 EEST [11512] LOG:  background worker "logical replication launcher" (PID 10632) exited with exit code 1
+2025-07-05 21:28:00.351 EEST [5772] FATAL:  terminating connection due to administrator command
+2025-07-05 21:28:00.368 EEST [11376] LOG:  shutting down
+2025-07-05 21:28:00.405 EEST [11376] LOG:  checkpoint starting: shutdown immediate
+2025-07-05 21:28:00.614 EEST [11376] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.118 s, total=0.247 s; sync files=6, longest=0.027 s, average=0.020 s; distance=46 kB, estimate=87 kB; lsn=0/1B28520, redo lsn=0/1B28520
+2025-07-05 21:28:00.648 EEST [11512] LOG:  database system is shut down
+2025-07-07 20:00:19.533 EEST [7928] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-07 20:00:19.539 EEST [7928] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-07 20:00:19.539 EEST [7928] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-07 20:00:19.889 EEST [6656] LOG:  database system was interrupted; last known up at 2025-07-05 21:37:06 EEST
+2025-07-07 20:00:21.579 EEST [6656] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-07 20:00:21.619 EEST [6656] LOG:  redo starts at 0/1B2BFB0
+2025-07-07 20:00:21.619 EEST [6656] LOG:  invalid record length at 0/1B2C0D0: expected at least 24, got 0
+2025-07-07 20:00:21.619 EEST [6656] LOG:  redo done at 0/1B2C098 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-07-07 20:00:21.672 EEST [2960] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-07 20:00:21.787 EEST [2960] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.007 s, sync=0.030 s, total=0.134 s; sync files=2, longest=0.023 s, average=0.015 s; distance=0 kB, estimate=0 kB; lsn=0/1B2C0D0, redo lsn=0/1B2C0D0
+2025-07-07 20:00:21.851 EEST [7928] LOG:  database system is ready to accept connections
+2025-07-07 20:01:29.048 EEST [7928] LOG:  received fast shutdown request
+2025-07-07 20:01:29.048 EEST [2624] ERROR:  canceling statement due to user request
+2025-07-07 20:01:29.096 EEST [7928] LOG:  aborting any active transactions
+2025-07-07 20:01:29.097 EEST [7980] FATAL:  terminating connection due to administrator command
+2025-07-07 20:01:29.098 EEST [7928] LOG:  background worker "logical replication launcher" (PID 2624) exited with exit code 1
+2025-07-07 20:01:29.107 EEST [2960] LOG:  shutting down
+2025-07-07 20:01:29.133 EEST [2960] LOG:  checkpoint starting: shutdown immediate
+2025-07-07 20:01:29.224 EEST [2960] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.118 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1B2C180, redo lsn=0/1B2C180
+2025-07-07 20:01:29.241 EEST [7928] LOG:  database system is shut down
+2025-07-07 20:02:06.142 EEST [8248] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-07 20:02:06.148 EEST [8248] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-07 20:02:06.148 EEST [8248] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-07 20:02:06.289 EEST [9452] LOG:  database system was shut down at 2025-07-07 20:01:29 EEST
+2025-07-07 20:02:06.339 EEST [8248] LOG:  database system is ready to accept connections
+2025-07-07 20:02:16.039 EEST [9856] FATAL:  password authentication failed for user "postgres"
+2025-07-07 20:02:16.039 EEST [9856] DETAIL:  Password does not match for user "postgres".
+	Connection matched file "C:/PostgreSQL/data/pg_hba.conf" line 117: "host    all             all             ::1/128                 password"
+2025-07-07 20:06:23.649 EEST [7876] ERROR:  syntax error at or near "ENUM" at character 1
+2025-07-07 20:06:23.649 EEST [7876] STATEMENT:  ENUM
+	ENUM;
+2025-07-07 20:06:35.761 EEST [7876] ERROR:  syntax error at or near "ENUM" at character 1
+2025-07-07 20:06:35.761 EEST [7876] STATEMENT:  ENUM shipping_status;
+2025-07-07 20:07:06.274 EEST [700] LOG:  checkpoint starting: time
+2025-07-07 20:07:07.225 EEST [700] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.668 s, sync=0.198 s, total=0.952 s; sync files=8, longest=0.077 s, average=0.025 s; distance=16 kB, estimate=16 kB; lsn=0/1B30250, redo lsn=0/1B301F8
+2025-07-07 20:57:06.269 EEST [700] LOG:  checkpoint starting: time
+2025-07-07 20:57:07.965 EEST [700] LOG:  checkpoint complete: wrote 14 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.382 s, sync=0.203 s, total=1.696 s; sync files=12, longest=0.026 s, average=0.017 s; distance=69 kB, estimate=69 kB; lsn=0/1B41948, redo lsn=0/1B418F0
+2025-07-07 21:16:21.289 EEST [8248] LOG:  server process (PID 7876) was terminated by exception 0xC000013A
+2025-07-07 21:16:21.289 EEST [8248] DETAIL:  Failed process was running: TABLE wishlist;
+2025-07-07 21:16:21.289 EEST [8248] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-07 21:16:21.289 EEST [8248] LOG:  terminating any other active server processes
+2025-07-07 21:16:21.320 EEST [8248] LOG:  all server processes terminated; reinitializing
+2025-07-07 21:16:21.484 EEST [8248] LOG:  startup process (PID 1848) was terminated by exception 0xC0000142
+2025-07-07 21:16:21.484 EEST [8248] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-07 21:16:21.484 EEST [8248] LOG:  aborting startup due to startup process failure
+2025-07-07 21:16:21.486 EEST [8248] LOG:  database system is shut down
+2025-07-08 19:28:38.209 EEST [8544] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-08 19:28:38.216 EEST [8544] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-08 19:28:38.216 EEST [8544] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-08 19:28:38.579 EEST [1932] LOG:  database system was interrupted; last known up at 2025-07-07 20:57:07 EEST
+2025-07-08 19:28:40.184 EEST [1932] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-08 19:28:40.230 EEST [1932] LOG:  redo starts at 0/1B418F0
+2025-07-08 19:28:40.230 EEST [1932] LOG:  invalid record length at 0/1B419F8: expected at least 24, got 0
+2025-07-08 19:28:40.230 EEST [1932] LOG:  redo done at 0/1B419C0 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-07-08 19:28:40.284 EEST [3216] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-08 19:28:40.401 EEST [3216] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.030 s, total=0.135 s; sync files=2, longest=0.022 s, average=0.015 s; distance=0 kB, estimate=0 kB; lsn=0/1B419F8, redo lsn=0/1B419F8
+2025-07-08 19:28:40.471 EEST [8544] LOG:  database system is ready to accept connections
+2025-07-08 19:48:23.104 EEST [11364] ERROR:  syntax error at or near "device_name" at character 18
+2025-07-08 19:48:23.104 EEST [11364] STATEMENT:  ALTER TABLE DROP device_name;
+2025-07-08 19:48:40.430 EEST [3216] LOG:  checkpoint starting: time
+2025-07-08 19:48:41.316 EEST [3216] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.342 s, sync=0.267 s, total=0.886 s; sync files=4, longest=0.100 s, average=0.067 s; distance=23 kB, estimate=23 kB; lsn=0/1B47698, redo lsn=0/1B47640
+2025-07-08 20:22:44.115 EEST [8544] LOG:  server process (PID 11364) was terminated by exception 0xC000013A
+2025-07-08 20:22:44.115 EEST [8544] DETAIL:  Failed process was running: ALTER TABLE sessions DROP device_name;
+2025-07-08 20:22:44.115 EEST [8544] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-08 20:22:44.115 EEST [8544] LOG:  terminating any other active server processes
+2025-07-08 20:22:44.194 EEST [8544] LOG:  all server processes terminated; reinitializing
+2025-07-08 20:22:44.251 EEST [8544] LOG:  startup process (PID 2552) was terminated by exception 0xC0000142
+2025-07-08 20:22:44.251 EEST [8544] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-08 20:22:44.251 EEST [8544] LOG:  aborting startup due to startup process failure
+2025-07-08 20:22:44.254 EEST [8544] LOG:  database system is shut down
+2025-07-08 22:39:17.469 EEST [9960] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-08 22:39:17.474 EEST [9960] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-08 22:39:17.474 EEST [9960] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-08 22:39:17.648 EEST [2740] LOG:  database system was interrupted; last known up at 2025-07-08 19:48:41 EEST
+2025-07-08 22:39:19.463 EEST [2740] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-08 22:39:19.504 EEST [2740] LOG:  redo starts at 0/1B47640
+2025-07-08 22:39:19.504 EEST [2740] LOG:  invalid record length at 0/1B47748: expected at least 24, got 0
+2025-07-08 22:39:19.504 EEST [2740] LOG:  redo done at 0/1B47710 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-07-08 22:39:19.565 EEST [4640] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-08 22:39:19.688 EEST [4640] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.037 s, total=0.152 s; sync files=2, longest=0.027 s, average=0.019 s; distance=0 kB, estimate=0 kB; lsn=0/1B47748, redo lsn=0/1B47748
+2025-07-08 22:39:19.754 EEST [9960] LOG:  database system is ready to accept connections
+2025-07-08 22:41:53.609 EEST [11136] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-08 22:42:39.892 EEST [4920] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-08 22:45:29.934 EEST [5392] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-08 23:05:47.905 EEST [9960] LOG:  received fast shutdown request
+2025-07-08 23:05:47.981 EEST [9960] LOG:  aborting any active transactions
+2025-07-08 23:05:48.014 EEST [8580] ERROR:  canceling statement due to user request
+2025-07-08 23:05:48.023 EEST [9960] LOG:  background worker "logical replication launcher" (PID 8580) exited with exit code 1
+2025-07-08 23:05:48.023 EEST [4640] LOG:  shutting down
+2025-07-08 23:05:48.057 EEST [4640] LOG:  checkpoint starting: shutdown immediate
+2025-07-08 23:05:48.181 EEST [4640] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.149 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1B477F8, redo lsn=0/1B477F8
+2025-07-08 23:05:48.199 EEST [9960] LOG:  database system is shut down
+2025-07-08 23:06:11.526 EEST [9116] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-08 23:06:11.531 EEST [9116] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-08 23:06:11.531 EEST [9116] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-08 23:06:11.699 EEST [8884] LOG:  database system was shut down at 2025-07-08 23:05:48 EEST
+2025-07-08 23:06:11.752 EEST [9116] LOG:  database system is ready to accept connections
+2025-07-08 23:10:08.905 EEST [11804] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-08 23:10:24.772 EEST [10800] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-08 23:10:31.514 EEST [2720] ERROR:  duplicate key value violates unique constraint "users_username_key"
+2025-07-08 23:10:31.514 EEST [2720] DETAIL:  Key (username)=(abrhem243@gmail.com) already exists.
+2025-07-08 23:10:31.514 EEST [2720] STATEMENT:  INSERT INTO users (username, email, password, phone) VALUES ($1, $2, $3, $4) RETURNING *
+2025-07-08 23:10:53.895 EEST [11352] ERROR:  canceling statement due to user request
+2025-07-08 23:10:53.895 EEST [9116] LOG:  received fast shutdown request
+2025-07-08 23:10:53.920 EEST [9116] LOG:  aborting any active transactions
+2025-07-08 23:10:53.920 EEST [9116] LOG:  background worker "logical replication launcher" (PID 11352) exited with exit code 1
+2025-07-08 23:10:53.921 EEST [3160] FATAL:  terminating connection due to administrator command
+2025-07-08 23:10:53.936 EEST [8428] LOG:  shutting down
+2025-07-08 23:10:53.963 EEST [8428] LOG:  checkpoint starting: shutdown immediate
+2025-07-08 23:10:54.669 EEST [8428] LOG:  checkpoint complete: wrote 21 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.030 s, sync=0.540 s, total=0.734 s; sync files=15, longest=0.121 s, average=0.036 s; distance=10 kB, estimate=10 kB; lsn=0/1B4A160, redo lsn=0/1B4A160
+2025-07-08 23:10:54.697 EEST [9116] LOG:  database system is shut down
+2025-07-08 23:10:54.915 EEST [10212] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-08 23:10:54.921 EEST [10212] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-08 23:10:54.921 EEST [10212] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-08 23:10:55.049 EEST [8468] LOG:  database system was shut down at 2025-07-08 23:10:54 EEST
+2025-07-08 23:10:55.101 EEST [10212] LOG:  database system is ready to accept connections
+2025-07-08 23:11:07.246 EEST [10532] ERROR:  duplicate key value violates unique constraint "users_username_key"
+2025-07-08 23:11:07.246 EEST [10532] DETAIL:  Key (username)=(abrhem243@gmail.com) already exists.
+2025-07-08 23:11:07.246 EEST [10532] STATEMENT:  INSERT INTO users (username, email, password, phone) VALUES ($1, $2, $3, $4) RETURNING *
+2025-07-08 23:15:55.029 EEST [7300] LOG:  checkpoint starting: time
+2025-07-08 23:15:55.577 EEST [7300] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.327 s, sync=0.091 s, total=0.549 s; sync files=5, longest=0.024 s, average=0.019 s; distance=1 kB, estimate=1 kB; lsn=0/1B4A5D8, redo lsn=0/1B4A580
+2025-07-09 00:00:32.078 EEST [6068] ERROR:  duplicate key value violates unique constraint "users_username_key"
+2025-07-09 00:00:32.078 EEST [6068] DETAIL:  Key (username)=(abrhem243@gmail.com) already exists.
+2025-07-09 00:00:32.078 EEST [6068] STATEMENT:  INSERT INTO users (username, email, password, phone) VALUES ($1, $2, $3, $4) RETURNING *
+2025-07-09 00:00:55.681 EEST [7300] LOG:  checkpoint starting: time
+2025-07-09 00:00:56.175 EEST [7300] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.330 s, sync=0.079 s, total=0.494 s; sync files=4, longest=0.023 s, average=0.020 s; distance=1 kB, estimate=1 kB; lsn=0/1B4AB38, redo lsn=0/1B4AAE0
+2025-07-09 00:01:47.394 EEST [1720] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:01:53.721 EEST [6332] ERROR:  duplicate key value violates unique constraint "users_username_key"
+2025-07-09 00:01:53.721 EEST [6332] DETAIL:  Key (username)=(abrhem243@gmail.com) already exists.
+2025-07-09 00:01:53.721 EEST [6332] STATEMENT:  INSERT INTO users (username, email, password, phone) VALUES ($1, $2, $3, $4) RETURNING *
+2025-07-09 00:02:10.255 EEST [9264] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:02:20.713 EEST [11744] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:03:26.081 EEST [5432] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:04:06.263 EEST [9472] ERROR:  column "abrhem243@gmail.com" does not exist at character 35
+2025-07-09 00:04:06.263 EEST [9472] STATEMENT:  SELECT * FROM users WHERE email = "abrhem243@gmail.com";
+2025-07-09 00:04:58.632 EEST [10832] ERROR:  canceling statement due to user request
+2025-07-09 00:04:58.634 EEST [10212] LOG:  received fast shutdown request
+2025-07-09 00:04:58.658 EEST [10212] LOG:  aborting any active transactions
+2025-07-09 00:04:58.659 EEST [10212] LOG:  background worker "logical replication launcher" (PID 10832) exited with exit code 1
+2025-07-09 00:04:58.659 EEST [12212] FATAL:  terminating connection due to administrator command
+2025-07-09 00:04:58.673 EEST [7300] LOG:  shutting down
+2025-07-09 00:04:58.693 EEST [7300] LOG:  checkpoint starting: shutdown immediate
+2025-07-09 00:04:58.883 EEST [7300] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.090 s, total=0.210 s; sync files=4, longest=0.033 s, average=0.023 s; distance=1 kB, estimate=1 kB; lsn=0/1B4B100, redo lsn=0/1B4B100
+2025-07-09 00:04:58.905 EEST [10212] LOG:  database system is shut down
+2025-07-09 00:05:06.733 EEST [9500] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-09 00:05:06.739 EEST [9500] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-09 00:05:06.739 EEST [9500] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-09 00:05:06.938 EEST [8764] LOG:  database system was shut down at 2025-07-09 00:04:58 EEST
+2025-07-09 00:05:07.000 EEST [9500] LOG:  database system is ready to accept connections
+2025-07-09 00:05:46.361 EEST [5424] ERROR:  cannot drop table users because other objects depend on it
+2025-07-09 00:05:46.361 EEST [5424] DETAIL:  constraint sessions_user_id_fkey on table sessions depends on table users
+	constraint reviews_user_id_fkey on table reviews depends on table users
+	constraint orders_user_id_fkey on table orders depends on table users
+	constraint payments_user_id_fkey on table payments depends on table users
+	constraint shipping_user_id_fkey on table shipping depends on table users
+	constraint notifications_user_id_fkey on table notifications depends on table users
+	constraint wishlist_user_id_fkey on table wishlist depends on table users
+	constraint cart_user_id_fkey on table cart depends on table users
+2025-07-09 00:05:46.361 EEST [5424] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2025-07-09 00:05:46.361 EEST [5424] STATEMENT:  DROP TABLE users;
+2025-07-09 00:06:51.157 EEST [5424] ERROR:  table "users" does not exist
+2025-07-09 00:06:51.157 EEST [5424] STATEMENT:  DROP TABLE users;
+2025-07-09 00:07:09.190 EEST [5424] ERROR:  table "users" does not exist
+2025-07-09 00:07:09.190 EEST [5424] STATEMENT:  DROP TABLE users;
+2025-07-09 00:07:13.407 EEST [4780] ERROR:  relation "users" does not exist at character 15
+2025-07-09 00:07:13.407 EEST [4780] STATEMENT:  SELECT * FROM users WHERE email = $1
+2025-07-09 00:07:27.893 EEST [9672] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:07:39.733 EEST [4212] ERROR:  relation "users" does not exist at character 15
+2025-07-09 00:07:39.733 EEST [4212] STATEMENT:  SELECT * FROM users WHERE email = $1
+2025-07-09 00:07:59.231 EEST [5116] ERROR:  canceling statement due to user request
+2025-07-09 00:07:59.231 EEST [9500] LOG:  received fast shutdown request
+2025-07-09 00:07:59.262 EEST [9500] LOG:  aborting any active transactions
+2025-07-09 00:07:59.263 EEST [9500] LOG:  background worker "logical replication launcher" (PID 5116) exited with exit code 1
+2025-07-09 00:07:59.264 EEST [6020] FATAL:  terminating connection due to administrator command
+2025-07-09 00:07:59.287 EEST [9336] LOG:  shutting down
+2025-07-09 00:07:59.304 EEST [9336] LOG:  checkpoint starting: shutdown immediate
+2025-07-09 00:07:59.873 EEST [9336] LOG:  checkpoint complete: wrote 22 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.009 s, sync=0.454 s, total=0.586 s; sync files=12, longest=0.158 s, average=0.038 s; distance=119 kB, estimate=119 kB; lsn=0/1B69058, redo lsn=0/1B69058
+2025-07-09 00:07:59.899 EEST [9500] LOG:  database system is shut down
+2025-07-09 11:34:57.960 EEST [5888] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-09 11:34:57.966 EEST [5888] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-09 11:34:57.966 EEST [5888] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-09 11:35:00.994 EEST [10076] LOG:  database system was interrupted; last known up at 2025-07-09 00:08:39 EEST
+2025-07-09 11:35:11.049 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 10.01 s, current path: ./base/1/2612_fsm
+2025-07-09 11:35:21.092 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 20.05 s, current path: ./base/1/3085
+2025-07-09 11:35:31.074 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 30.03 s, current path: ./base/1/6117
+2025-07-09 11:35:34.976 EEST [5888] LOG:  received fast shutdown request
+2025-07-09 11:35:41.049 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 40.01 s, current path: ./base/24576/2838
+2025-07-09 11:35:51.105 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 50.06 s, current path: ./base/4/14896
+2025-07-09 11:36:01.054 EEST [10076] LOG:  syncing data directory (fsync), elapsed time: 60.01 s, current path: ./base/4/3767
+2025-07-09 11:36:02.684 EEST [10076] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-09 11:36:02.857 EEST [10076] LOG:  redo starts at 0/1B690D0
+2025-07-09 11:36:02.862 EEST [1676] LOG:  shutting down
+2025-07-09 11:36:02.998 EEST [5888] LOG:  database system is shut down
+2025-07-09 11:36:03.458 EEST [3220] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-09 11:36:03.467 EEST [3220] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-09 11:36:03.467 EEST [3220] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-09 11:36:03.718 EEST [9916] LOG:  database system was shut down in recovery at 2025-07-09 11:36:02 EEST
+2025-07-09 11:36:03.720 EEST [9916] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-07-09 11:36:03.759 EEST [9916] LOG:  redo starts at 0/1B690D0
+2025-07-09 11:36:04.097 EEST [9916] LOG:  invalid record length at 0/1B9EE00: expected at least 24, got 0
+2025-07-09 11:36:04.097 EEST [9916] LOG:  redo done at 0/1B9EDC8 system usage: CPU: user: 0.00 s, system: 0.01 s, elapsed: 0.33 s
+2025-07-09 11:36:04.182 EEST [7844] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-07-09 11:36:07.995 EEST [7844] LOG:  checkpoint complete: wrote 62 buffers (0.4%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.050 s, sync=3.366 s, total=3.873 s; sync files=46, longest=0.183 s, average=0.074 s; distance=215 kB, estimate=215 kB; lsn=0/1B9EE00, redo lsn=0/1B9EE00
+2025-07-09 11:36:08.149 EEST [3220] LOG:  database system is ready to accept connections
+2025-07-09 11:37:45.974 EEST [10284] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:38:08.966 EEST [10768] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:39:14.797 EEST [11244] ERROR:  invalid input syntax for type integer: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhYnJoZW0yNDNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTIwNTAyMzYsImV4cCI6MTc1NDY0MjIzNn0.R-qxMN5i6PS7S7OXYPp7kTgQ_T9sfAG7tXiynN1aUVA"
+2025-07-09 11:39:14.797 EEST [11244] CONTEXT:  unnamed portal parameter $1 = '...'
+2025-07-09 11:39:14.797 EEST [11244] STATEMENT:  DELETE FROM sessions WHERE id = $1
+2025-07-09 11:40:21.679 EEST [4784] ERROR:  invalid input syntax for type integer: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhYnJoZW0yNDNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTIwNTA0MDMsImV4cCI6MTc1NDY0MjQwM30.JZzsw_G0dzjPnTm6xGa_o-uPTkYLdC3q2oM1iRBMd-M"
+2025-07-09 11:40:21.679 EEST [4784] CONTEXT:  unnamed portal parameter $1 = '...'
+2025-07-09 11:40:21.679 EEST [4784] STATEMENT:  DELETE FROM sessions WHERE id = $1
+2025-07-09 11:41:05.015 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 11:41:06.567 EEST [7844] LOG:  checkpoint complete: wrote 12 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.237 s, sync=0.220 s, total=1.553 s; sync files=11, longest=0.045 s, average=0.020 s; distance=3 kB, estimate=194 kB; lsn=0/1B9FD88, redo lsn=0/1B9FD30
+2025-07-09 11:42:25.296 EEST [11156] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:45:48.540 EEST [9656] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:45:55.669 EEST [8940] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:46:03.679 EEST [7828] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:46:05.588 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 11:46:06.289 EEST [7844] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.444 s, sync=0.162 s, total=0.702 s; sync files=5, longest=0.063 s, average=0.033 s; distance=5 kB, estimate=175 kB; lsn=0/1BA12E8, redo lsn=0/1BA1290
+2025-07-09 11:46:10.702 EEST [10464] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:46:37.820 EEST [8984] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:46:49.258 EEST [10384] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 11:51:05.300 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 11:51:06.005 EEST [7844] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.451 s, sync=0.107 s, total=0.705 s; sync files=5, longest=0.041 s, average=0.022 s; distance=7 kB, estimate=158 kB; lsn=0/1BA2F18, redo lsn=0/1BA2EC0
+2025-07-09 12:31:41.925 EEST [5424] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:32:29.918 EEST [12284] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:32:42.890 EEST [12840] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:32:42.890 EEST [8232] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:36:05.109 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 12:36:05.702 EEST [7844] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.416 s, sync=0.041 s, total=0.594 s; sync files=5, longest=0.017 s, average=0.009 s; distance=9 kB, estimate=143 kB; lsn=0/1BA5348, redo lsn=0/1BA52F0
+2025-07-09 12:36:34.866 EEST [8468] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:36:44.708 EEST [12300] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:37:28.196 EEST [9192] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:37:53.811 EEST [5012] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:41:30.170 EEST [11564] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:41:47.586 EEST [11492] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:41:55.623 EEST [8536] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:42:02.766 EEST [10568] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:43:07.261 EEST [12104] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:43:30.493 EEST [9800] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:43:49.899 EEST [10948] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:45:39.877 EEST [12096] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:46:05.722 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 12:46:06.356 EEST [7844] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.442 s, sync=0.078 s, total=0.634 s; sync files=5, longest=0.023 s, average=0.016 s; distance=8 kB, estimate=130 kB; lsn=0/1BA76E0, redo lsn=0/1BA7688
+2025-07-09 12:46:11.633 EEST [12128] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:46:19.367 EEST [13216] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:46:44.392 EEST [10076] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:46:53.461 EEST [11788] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:47:05.708 EEST [3016] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:47:13.349 EEST [12292] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:47:31.740 EEST [7224] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:48:02.778 EEST [10736] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:48:08.141 EEST [11300] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:48:15.477 EEST [9904] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:49:08.757 EEST [12928] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:52:25.677 EEST [11496] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:52:30.688 EEST [10640] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:52:50.477 EEST [12596] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:53:04.571 EEST [7376] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:54:19.703 EEST [13216] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:54:48.282 EEST [412] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:54:53.434 EEST [12128] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 12:55:38.442 EEST [12228] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:00:28.217 EEST [5704] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:18:07.098 EEST [7268] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:20:06.733 EEST [9632] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:20:14.426 EEST [7100] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:20:25.789 EEST [11884] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 13:20:40.543 EEST [9836] ERROR:  column "banned" of relation "sessions" does not exist
+2025-07-09 13:20:40.543 EEST [9836] STATEMENT:  ALTER TABLE sessions DROP banned;
+2025-07-09 13:21:05.404 EEST [7844] LOG:  checkpoint starting: time
+2025-07-09 13:21:06.263 EEST [7844] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.541 s, sync=0.185 s, total=0.859 s; sync files=6, longest=0.126 s, average=0.031 s; distance=20 kB, estimate=119 kB; lsn=0/1BAC9D0, redo lsn=0/1BAC978
+2025-07-09 13:22:09.402 EEST [9836] ERROR:  syntax error at or near "EDIT" at character 19
+2025-07-09 13:22:09.402 EEST [9836] STATEMENT:  ALTER TABLE users EDIT username VARCHAR(50) NOT NULL;
+2025-07-09 13:23:12.016 EEST [3220] LOG:  received fast shutdown request
+2025-07-09 13:23:12.017 EEST [7636] ERROR:  canceling statement due to user request
+2025-07-09 13:23:12.042 EEST [3220] LOG:  aborting any active transactions
+2025-07-09 13:23:12.043 EEST [3220] LOG:  background worker "logical replication launcher" (PID 7636) exited with exit code 1
+2025-07-09 13:23:12.043 EEST [9836] FATAL:  terminating connection due to administrator command
+2025-07-09 13:23:12.043 EEST [11412] FATAL:  terminating connection due to administrator command
+2025-07-09 13:23:12.060 EEST [7844] LOG:  shutting down
+2025-07-09 13:23:12.086 EEST [7844] LOG:  checkpoint starting: shutdown immediate
+2025-07-09 13:23:12.226 EEST [7844] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.167 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=107 kB; lsn=0/1BACA80, redo lsn=0/1BACA80
+2025-07-09 13:23:12.239 EEST [3220] LOG:  database system is shut down

@@ -1,0 +1,64 @@
+2025-07-05 21:28:43.365 EEST [11660] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-05 21:28:43.371 EEST [11660] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-05 21:28:43.371 EEST [11660] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-05 21:28:43.565 EEST [11200] LOG:  database system was shut down at 2025-07-05 21:28:00 EEST
+2025-07-05 21:28:43.608 EEST [11660] LOG:  database system is ready to accept connections
+2025-07-05 21:29:05.009 EEST [11160] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:29:05.009 EEST [11160] STATEMENT:  SHOW TABLE ALL;
+2025-07-05 21:29:12.545 EEST [11160] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:29:12.545 EEST [11160] STATEMENT:  SHOW TABLE sessions;
+2025-07-05 21:29:36.353 EEST [11160] ERROR:  unrecognized configuration parameter "sessions"
+2025-07-05 21:29:36.353 EEST [11160] STATEMENT:  SHOW sessions;
+2025-07-05 21:30:18.817 EEST [11160] ERROR:  syntax error at or near "TABLE" at character 6
+2025-07-05 21:30:18.817 EEST [11160] STATEMENT:  SHOW TABLE sessions;
+2025-07-05 21:30:44.406 EEST [11556] ERROR:  canceling statement due to user request
+2025-07-05 21:30:44.415 EEST [11660] LOG:  received fast shutdown request
+2025-07-05 21:30:44.450 EEST [11660] LOG:  aborting any active transactions
+2025-07-05 21:30:44.450 EEST [11660] LOG:  background worker "logical replication launcher" (PID 11556) exited with exit code 1
+2025-07-05 21:30:44.450 EEST [11160] FATAL:  terminating connection due to administrator command
+2025-07-05 21:30:44.476 EEST [12260] LOG:  shutting down
+2025-07-05 21:30:44.499 EEST [12260] LOG:  checkpoint starting: shutdown immediate
+2025-07-05 21:30:44.632 EEST [12260] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.004 s, sync=0.041 s, total=0.157 s; sync files=2, longest=0.030 s, average=0.021 s; distance=0 kB, estimate=0 kB; lsn=0/1B285D0, redo lsn=0/1B285D0
+2025-07-05 21:30:44.650 EEST [11660] LOG:  database system is shut down
+2025-07-05 21:32:06.141 EEST [11536] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-05 21:32:06.146 EEST [11536] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-05 21:32:06.146 EEST [11536] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-05 21:32:06.300 EEST [4672] LOG:  database system was shut down at 2025-07-05 21:30:44 EEST
+2025-07-05 21:32:06.362 EEST [11536] LOG:  database system is ready to accept connections
+2025-07-05 21:37:06.293 EEST [10708] LOG:  checkpoint starting: time
+2025-07-05 21:37:06.937 EEST [10708] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.441 s, sync=0.115 s, total=0.645 s; sync files=6, longest=0.028 s, average=0.020 s; distance=14 kB, estimate=14 kB; lsn=0/1B2C020, redo lsn=0/1B2BFB0
+2025-07-05 23:22:13.367 EEST [844] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-05 23:22:13.680 EEST [11536] LOG:  server process (PID 11348) was terminated by exception 0xC000013A
+2025-07-05 23:22:13.680 EEST [11536] DETAIL:  Failed process was running: TABLE sessions;
+2025-07-05 23:22:13.680 EEST [11536] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-05 23:22:13.680 EEST [11536] LOG:  terminating any other active server processes
+2025-07-05 23:22:13.816 EEST [11536] LOG:  all server processes terminated; reinitializing
+2025-07-05 23:22:13.849 EEST [11536] LOG:  startup process (PID 4768) was terminated by exception 0xC0000142
+2025-07-05 23:22:13.849 EEST [11536] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-05 23:22:13.849 EEST [11536] LOG:  aborting startup due to startup process failure
+2025-07-05 23:22:13.851 EEST [11536] LOG:  database system is shut down
+2025-07-09 00:08:39.155 EEST [9264] LOG:  starting PostgreSQL 17.5 on x86_64-windows, compiled by msvc-19.44.35209, 64-bit
+2025-07-09 00:08:39.161 EEST [9264] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-09 00:08:39.161 EEST [9264] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-09 00:08:39.259 EEST [5892] LOG:  database system was shut down at 2025-07-09 00:07:59 EEST
+2025-07-09 00:08:39.309 EEST [9264] LOG:  database system is ready to accept connections
+2025-07-09 00:08:45.575 EEST [9984] ERROR:  syntax error at or near ")" at character 242
+2025-07-09 00:08:45.575 EEST [9984] STATEMENT:  CREATE TABLE IF NOT EXISTS sessions (
+	    id SERIAL PRIMARY KEY,
+	    user_id INT NOT NULL REFERENCES users(id),
+	    session_token VARCHAR(255) NOT NULL UNIQUE,
+	    created_at TIMESTAMP DEFAULT NOW(),
+	    expires_at TIMESTAMP NOT NULL,
+	);
+2025-07-09 00:10:05.071 EEST [8476] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2025-07-09 00:12:37.006 EEST [9264] LOG:  server process (PID 10300) was terminated by exception 0xC000013A
+2025-07-09 00:12:37.006 EEST [9264] DETAIL:  Failed process was running: TABLE sessions;
+2025-07-09 00:12:37.006 EEST [9264] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-09 00:12:37.006 EEST [9264] LOG:  terminating any other active server processes
+2025-07-09 00:12:37.028 EEST [9264] LOG:  all server processes terminated; reinitializing
+2025-07-09 00:12:37.109 EEST [9264] LOG:  startup process (PID 7300) was terminated by exception 0xC0000142
+2025-07-09 00:12:37.109 EEST [9264] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2025-07-09 00:12:37.109 EEST [9264] LOG:  aborting startup due to startup process failure
+2025-07-09 00:12:37.111 EEST [9264] LOG:  database system is shut down

@@ -4,25 +4,37 @@ import corsMiddleware from "../middlewares/cors";
 import cookiesParser from "../middlewares/cookiesParser";
 import helmetMiddleware from "../middlewares/helmet";
 import expressRateLimitMiddleware from "../middlewares/expressRateLimit";
-import errorMiddleware from "../middlewares/error";
-import authRouter from "../auth/auth.router";
+import authRouter from "../api/auth/auth.router";
 import pool from "../config/postgres";
+import transporter from "../config/nodeMailer";
 class Setup {
   public app = express();
   constructor() {}
-  init() {
-    // Initialization logic for the setup
-    this.loadEnvironmentVariables();
-    this.configureExpressMiddleware(this.app);
-    this.loadDatabase();
-    this.Routes();
-    this.listen(this.app, parseInt(process.env.PORT || "3000", 10));
-    console.log("Setup initialized.");
+  async init() {
+    this.loadEnvironmentVariables()
+      .then(() => {
+        this.configureExpressMiddleware(this.app);
+        this.loadDatabase();
+        this.Routes();
+        this.checkMailConnection();
+        this.listen(this.app, parseInt(process.env.PORT || "3000", 10));
+      })
+      .catch((error) => {
+        console.error("Error during setup initialization:", error);
+      });
   }
 
   loadEnvironmentVariables() {
-    dotenv.config();
-    console.log("Environment variables loaded.");
+    return new Promise((resolve, reject) => {
+      const result = dotenv.config();
+      if (result.error) {
+        console.error("Error loading .env file:", result.error);
+        reject(result.error);
+      } else {
+        console.log("Environment variables loaded successfully.");
+        resolve(result);
+      }
+    });
   }
 
   configureExpressMiddleware(app: express.Application) {
@@ -32,18 +44,27 @@ class Setup {
     app.use(expressRateLimitMiddleware());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(errorMiddleware);
-
-    // Additional middleware or routes can be added here
     console.log("Express configured with middlewares.");
   }
 
   loadDatabase() {
-    pool.connect((err: any) => {
+    const PostgresCleint = pool();
+    PostgresCleint.connect((err: Error | undefined) => {
       if (err) {
         console.error("Database connection error:", err);
       } else {
         console.log("Connected to the database successfully.");
+      }
+    });
+  }
+
+  checkMailConnection() {
+    const nodeMailerClient = transporter();
+    nodeMailerClient.verify((error) => {
+      if (error) {
+        console.error("Error in mail configuration:", error);
+      } else {
+        console.log("Mail configuration is ready to send messages.");
       }
     });
   }

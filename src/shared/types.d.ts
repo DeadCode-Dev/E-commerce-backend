@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import User from "modules/user/users.entity";
+import User from "types/user/users.entity";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -13,11 +12,15 @@ declare global {
       JWT_REFRESH_SECRET: string;
       PORT: string;
       Cookie_SECRET: string;
+      Mail_HOST: string;
+      Mail_PORT: number;
+      Mail_USER: string;
+      Mail_PASS: string;
     }
   }
   namespace Express {
     interface Request {
-      user?: User;
+      user?: Partial<User>;
     }
   }
 }

@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-let application = express.Router();
+const application = express.Router();
 export default function corsMiddleware() {
   application.use(
     cors({

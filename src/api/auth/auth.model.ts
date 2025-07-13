@@ -1,8 +1,8 @@
-import pg from "../config/postgres";
-import Session from "modules/user/sessions.entity";
+import pg from "../../config/postgres";
+import Session from "types/user/sessions.entity";
 
 export default class AuthModel {
-  static db = pg;
+  static db = pg();
 
   static async CreateSession(
     userId: number,
@@ -15,7 +15,7 @@ export default class AuthModel {
       const result = await this.db.query(query, values);
       return result.rows[0];
     } catch (error) {
-      throw new Error("Error creating session");
+      throw new Error("Error creating session:" + error);
     }
   }
 
@@ -25,7 +25,7 @@ export default class AuthModel {
     try {
       await this.db.query(query, values);
     } catch (error) {
-      throw new Error("Error deleting session");
+      throw new Error("Error deleting session" + error);
     }
   }
 }

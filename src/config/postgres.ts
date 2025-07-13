@@ -1,12 +1,13 @@
 import pg from "pg";
 
-const pool = new pg.Pool({
-  user: "postgres",
-  host: "localhost",
-  password: "Youssef010#",
-  database: "myapp",
-  port: 5432,
-  application_name: "postgres",
-});
+const InstlizePool = () =>
+  new pg.Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: +process.env.DB_PORT,
+    application_name: "ecommerce-backend",
+  });
 
-export default pool;
+export default InstlizePool;

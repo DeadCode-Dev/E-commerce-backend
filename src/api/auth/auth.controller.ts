@@ -1,18 +1,13 @@
-// src/modules/auth/auth.controller.ts
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import AuthModel from "./auth.model";
 import AuthService from "./auth.service";
 import { LoginType, RegisterType } from "./auth.type";
-import UserModel from "../shared/User.model";
-import User from "modules/user/users.entity";
+import UserModel from "../../shared/User.model";
+import PasswordUtil from "utils/hashing.util";
 
 class AuthController {
-  static async login(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
+  static async login(req: Request, res: Response): Promise<void> {
     try {
       console.log(req.ip, req.headers["user-agent"]);
       const body = req.body as LoginType;
@@ -22,7 +17,7 @@ class AuthController {
         res.status(404).json({ message: "User not found" });
         return;
       }
-      const isMatch = await AuthService.comparePasswords(
+      const isMatch = await PasswordUtil.comparePasswords(
         body.password,
         user.password
       );
@@ -93,7 +88,7 @@ class AuthController {
         return;
       }
 
-      const hashedPassword = await AuthService.hashPassword(body.password);
+      const hashedPassword = await PasswordUtil.hashPassword(body.password);
       if (!hashedPassword) {
         res.status(500).json({ message: "Error hashing password" });
         return;
@@ -215,22 +210,6 @@ class AuthController {
       res.status(200).json({ message: "Access token refreshed successfully" });
     } catch (error) {
       console.error("Refresh token error:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  }
-
-  static async getUser(req: Request, res: Response) {
-    try {
-      const user = req.user as Partial<User>; // Assuming user is attached to req by authentication middleware
-
-      res.status(200).json({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      });
-    } catch (error) {
-      console.error("Get user error:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   }

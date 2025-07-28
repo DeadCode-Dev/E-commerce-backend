@@ -48,8 +48,8 @@ class Setup {
   }
 
   loadDatabase() {
-    const PostgresCleint = pool();
-    PostgresCleint.connect((err: Error | undefined) => {
+    const PostgresClient = pool();
+    PostgresClient.connect((err: Error | undefined) => {
       if (err) {
         console.error("Database connection error:", err);
       } else {

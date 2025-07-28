@@ -3,7 +3,7 @@ export default interface Shipping {
   order_id: number;
   user_id: string;
   tracking_number: string;
-  adress: string;
+  address: string;
   city: string;
   state: string;
   postal_code: string;

@@ -19,9 +19,9 @@ export default class AuthModel {
     }
   }
 
-  static async DeleteSession(sessionId: string): Promise<void> {
+  static async DeleteSession(sessionToken: string): Promise<void> {
     const query = `DELETE FROM sessions WHERE session_token = $1`;
-    const values = [sessionId];
+    const values = [sessionToken];
     try {
       await this.db.query(query, values);
     } catch (error) {

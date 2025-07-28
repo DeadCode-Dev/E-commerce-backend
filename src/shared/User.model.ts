@@ -11,7 +11,7 @@ export default class UserModel {
       const result = await this.db.query(query, values);
       return result.rows[0];
     } catch (error) {
-      throw new Error("Error creating user" + error);
+      throw new Error(`Error creating user: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -32,7 +32,7 @@ export default class UserModel {
   ): Promise<UserType | null> {
     const dataKeys = Object.keys(data);
     const setClause = dataKeys
-      .map((key, index) => `${key} = ${index + 1}`)
+      .map((key, index) => `${key} = $${index + 1}`)
       .join(", ");
     const values = [...dataKeys.map((key) => data[key as keyof User]), id];
     const query = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = $${dataKeys.length + 1} RETURNING *`;

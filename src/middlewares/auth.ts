@@ -7,7 +7,7 @@ import User from "types/user/users.entity";
 export const isAuthenticated = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const token = req.signedCookies.refresh_token;
   if (!token) {
@@ -42,7 +42,7 @@ export const isAuthenticated = (
           console.error("Error finding user:", error);
           res.status(500).json({ message: "Internal server error" });
         });
-    }
+    },
   );
 };
 

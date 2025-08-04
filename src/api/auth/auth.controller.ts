@@ -4,7 +4,7 @@ import AuthModel from "./auth.model";
 import AuthService from "./auth.service";
 import { LoginType, RegisterType } from "./auth.type";
 import UserModel from "../../shared/User.model";
-import PasswordUtil from "utils/hashing.util";
+import PasswordUtil from "../../utils/hashing.util";
 
 class AuthController {
   static async login(req: Request, res: Response): Promise<void> {
@@ -19,7 +19,7 @@ class AuthController {
       }
       const isMatch = await PasswordUtil.comparePasswords(
         body.password,
-        user.password
+        user.password,
       );
       if (!isMatch) {
         res.status(401).json({ message: "Invalid credentials" });
@@ -33,7 +33,7 @@ class AuthController {
           role: user.role,
           exp: expiresAccessTokenIn, // 15 minutes
         },
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
       );
       const expiresRefreshTokenIn =
         Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 days
@@ -44,7 +44,7 @@ class AuthController {
           role: user.role,
           exp: expiresRefreshTokenIn, // 30 days
         },
-        process.env.JWT_REFRESH_SECRET
+        process.env.JWT_REFRESH_SECRET,
       );
       const expiresAt = new Date(expiresRefreshTokenIn * 1000);
 
@@ -108,7 +108,7 @@ class AuthController {
           role: newUser.role,
           exp: expiresAccessTokenIn, // 15 minutes
         },
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
       );
       const expiresRefreshTokenIn =
         Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 days
@@ -119,7 +119,7 @@ class AuthController {
           role: newUser.role,
           exp: expiresRefreshTokenIn, // 30 days
         },
-        process.env.JWT_REFRESH_SECRET
+        process.env.JWT_REFRESH_SECRET,
       );
       const expiresAt = new Date(expiresRefreshTokenIn * 1000);
 
@@ -182,7 +182,7 @@ class AuthController {
 
       const decoded = jwt.verify(
         refreshToken,
-        process.env.JWT_REFRESH_SECRET!
+        process.env.JWT_REFRESH_SECRET!,
       ) as jwt.JwtPayload;
       if (!decoded) {
         res.status(403).json({ message: "Invalid refresh token" });
@@ -198,7 +198,7 @@ class AuthController {
       const newAccessToken = jwt.sign(
         { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET!,
-        { expiresIn: "15m" }
+        { expiresIn: "15m" },
       );
 
       res.cookie("access_token", newAccessToken, {

@@ -7,34 +7,17 @@ import expressRateLimitMiddleware from "../middlewares/expressRateLimit";
 import authRouter from "../api/auth/auth.router";
 import pool from "../config/postgres";
 import transporter from "../config/nodeMailer";
+import SqlInit from "./sql";
 class Setup {
   public app = express();
   constructor() {}
   async init() {
-    this.loadEnvironmentVariables()
-      .then(() => {
         this.configureExpressMiddleware(this.app);
         this.loadDatabase();
         this.Routes();
         this.checkMailConnection();
         this.listen(this.app, parseInt(process.env.PORT || "3000", 10));
-      })
-      .catch((error) => {
-        console.error("Error during setup initialization:", error);
-      });
-  }
-
-  loadEnvironmentVariables() {
-    return new Promise((resolve, reject) => {
-      const result = dotenv.config();
-      if (result.error) {
-        console.error("Error loading .env file:", result.error);
-        reject(result.error);
-      } else {
-        console.log("Environment variables loaded successfully.");
-        resolve(result);
-      }
-    });
+        this.InitSql()
   }
 
   configureExpressMiddleware(app: express.Application) {
@@ -48,7 +31,7 @@ class Setup {
   }
 
   loadDatabase() {
-    const PostgresClient = pool();
+    const PostgresClient = pool;
     PostgresClient.connect((err: Error | undefined) => {
       if (err) {
         console.error("Database connection error:", err);
@@ -77,6 +60,12 @@ class Setup {
   Routes() {
     this.app.use("/auth", authRouter);
     console.log("Routes configured.");
+  }
+
+  InitSql() {
+    if (process.env.firstTime) {
+      SqlInit()
+    }
   }
 }
 export default new Setup();

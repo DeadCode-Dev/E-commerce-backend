@@ -11,7 +11,7 @@ export default class UserMiddleware {
   static async updateUser(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> {
     const { username, email, phone } = req.body as User;
 
@@ -34,7 +34,7 @@ export default class UserMiddleware {
   static async changePassword(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> {
     const { oldPassword, newPassword } = req.body as ResetPasswordType;
 
@@ -56,7 +56,7 @@ export default class UserMiddleware {
   static async resetPassword(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> {
     const { email } = req.body as Partial<User>;
     const changePasswordValidate = UserSchema.resetPasswordSchema.safeParse({

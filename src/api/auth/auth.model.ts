@@ -2,12 +2,12 @@ import pg from "../../config/postgres";
 import Session from "types/user/sessions.entity";
 
 export default class AuthModel {
-  static db = pg();
+  static db = pg;
 
   static async CreateSession(
     userId: number,
     sessionToken: string,
-    expiresAt: Date
+    expiresAt: Date,
   ): Promise<Partial<Session>> {
     const query = `INSERT INTO sessions (user_id, session_token, expires_at) VALUES ($1, $2, $3) RETURNING *`;
     const values = [userId, sessionToken, expiresAt];

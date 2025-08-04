@@ -7,7 +7,7 @@ export default class AuthMiddleware {
   static async validateRegister(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const { username, email, password, phone } = req.body as User;
     const registerPayloadSchema = AuthSchema.registerSchema.safeParse({

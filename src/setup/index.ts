@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import corsMiddleware from "../middlewares/cors";
 import cookiesParser from "../middlewares/cookiesParser";
 import helmetMiddleware from "../middlewares/helmet";
@@ -12,15 +11,16 @@ class Setup {
   public app = express();
   constructor() {}
   async init() {
-        this.configureExpressMiddleware(this.app);
-        this.loadDatabase();
-        this.Routes();
-        this.checkMailConnection();
-        this.listen(this.app, parseInt(process.env.PORT || "3000", 10));
-        this.InitSql()
+    this.configureExpressMiddleware(this.app);
+    this.loadDatabase();
+    this.Routes();
+    this.checkMailConnection();
+    this.listen(this.app, parseInt(process.env.PORT || "3000", 10));
+    this.InitSql();
   }
 
   configureExpressMiddleware(app: express.Application) {
+    app.set("trust proxy", 1); // Trust first proxy for secure headers
     app.use(corsMiddleware());
     app.use(cookiesParser());
     app.use(helmetMiddleware());
@@ -64,7 +64,7 @@ class Setup {
 
   InitSql() {
     if (process.env.firstTime) {
-      SqlInit()
+      SqlInit();
     }
   }
 }

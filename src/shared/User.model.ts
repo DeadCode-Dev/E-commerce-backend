@@ -18,7 +18,7 @@ export default class UserModel {
   }
 
   static async findUserByEmail(email: string): Promise<UserType | null> {
-    const query = `SELECT id, username, email, phone, user_role, created_at, updated_at FROM users WHERE email = $1`;
+    const query = `SELECT * FROM users WHERE email = $1`;
     const values = [email];
     try {
       const result = await this.db.query(query, values);

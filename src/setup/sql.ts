@@ -9,7 +9,6 @@ async function SqlInit() {
     .readdirSync(sqlRoot)
     .filter((f) => fs.statSync(path.join(sqlRoot, f)).isDirectory());
 
-
   for (const folder of folders) {
     if (!folders.includes(folder)) continue;
 
@@ -21,10 +20,10 @@ async function SqlInit() {
       const sql = fs.readFileSync(filePath, "utf-8");
 
       try {
-        const result = await pg.query(sql);
+        await pg.query(sql);
         console.log(`✅ Executed: ${folder}/${file}`);
       } catch (err) {
-        console.error(`❌ Error in ${folder}/${file}:`, (err as any).message);
+        console.error(`❌ Error in ${folder}/${file}:`, (err as Error).message);
       }
     }
   }

@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 import setup from "./setup/index";
 
 setup.init();
+
+export default setup.app;

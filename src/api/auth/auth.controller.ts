@@ -5,6 +5,9 @@ import AuthService from "./auth.service";
 import { LoginType, RegisterType } from "./auth.type";
 import UserModel from "../../shared/User.model";
 import PasswordUtil from "../../utils/hashing.util";
+import Mailler from "../../utils/mailler.util";
+import OTPCache from "../../shared/otp.model";
+import User from "../../types/user/users.entity";
 
 class AuthController {
   static async login(req: Request, res: Response): Promise<void> {
@@ -212,6 +215,38 @@ class AuthController {
       console.error("Refresh token error:", error);
       res.status(500).json({ message: "Internal server error" });
     }
+  }
+  static async resetPassword(req: Request, res: Response) {
+    const { email } = req.body;
+
+    const user = await UserModel.findUserByEmail(email);
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const otp = OTPCache.generateOTP();
+    OTPCache.addOTP(email, otp);
+    Mailler.sendOTP(email, otp);
+
+    res.status(200).json({ message: "OTP sent To Email successfully" });
+    res.redirect("/auth/reset-password");
+  }
+
+  static async changePassword(req: Request, res: Response) {
+    const userEmail = (req.user as User).email;
+    const { oldPassword, newPassword } = req.body;
+    const isMatch = await PasswordUtil.comparePasswords(
+      oldPassword,
+      (req.user as User).password,
+    );
+    if (!isMatch) {
+      res.status(401).json({ message: "password is incorrect" });
+      return;
+    }
+    await UserModel.changePassword(userEmail, newPassword);
+
+    res.status(200).json({ message: "Password changed successfully" });
   }
 }
 

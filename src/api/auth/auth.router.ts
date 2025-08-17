@@ -11,5 +11,16 @@ authRouter.post(
 authRouter.post("/login", AuthMiddleware.validateLogin, AuthController.login);
 authRouter.post("/logout", isAuthenticated, AuthController.logout);
 authRouter.post("/refresh", isAuthenticated, AuthController.refresh);
+authRouter.post(
+  "/reset-password",
+  AuthMiddleware.resetPassword,
+  AuthController.resetPassword,
+);
+authRouter.post(
+  "/change-password",
+  isAuthenticated,
+  AuthMiddleware.changePassword,
+  AuthController.changePassword,
+);
 
 export default authRouter;

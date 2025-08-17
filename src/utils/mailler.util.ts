@@ -49,7 +49,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "resetPassword"
+      "resetPassword",
     );
     await this.sendEmail(to, subject, html);
   }
@@ -66,7 +66,7 @@ class Mailler {
         currentYear: new Date().getFullYear().toString(),
         otpCode: otp,
       },
-      "sendOTP"
+      "sendOTP",
     );
     await this.sendEmail(email, subject, html);
   }
@@ -83,7 +83,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "signUp"
+      "signUp",
     );
     await this.sendEmail(email, subject, html);
   }
@@ -104,7 +104,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "orderConfirmation"
+      "orderConfirmation",
     );
     await this.sendEmail(email, subject, html);
   }

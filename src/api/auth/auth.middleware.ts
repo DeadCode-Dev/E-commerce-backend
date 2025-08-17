@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import AuthSchema from "./auth.schema";
 import User from "types/user/users.entity";
-import { RegisterType } from "./auth.type";
+import {
+  RegisterType,
+  ChangePasswordType,
+  ResetPasswordType,
+} from "./auth.type";
 
 export default class AuthMiddleware {
   static async validateRegister(
@@ -40,6 +44,47 @@ export default class AuthMiddleware {
       return;
     }
     req.user = loginPayloadSchema.data as User;
+    next();
+  }
+  static async changePassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    const { oldPassword, newPassword } = req.body as ResetPasswordType;
+
+    const resetPasswordValidate = AuthSchema.changePasswordSchema.safeParse({
+      oldPassword,
+      newPassword,
+    });
+    if (!resetPasswordValidate.success) {
+      res.status(400).json({
+        message: "Validation error",
+        errors: resetPasswordValidate.error.errors,
+      });
+      return;
+    }
+    req.body = resetPasswordValidate.data as ResetPasswordType;
+    next();
+  }
+
+  static async resetPassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    const { email } = req.body as Partial<User>;
+    const changePasswordValidate = AuthSchema.resetPasswordSchema.safeParse({
+      email,
+    });
+    if (!changePasswordValidate.success) {
+      res.status(400).json({
+        message: "Validation error",
+        errors: changePasswordValidate.error.errors,
+      });
+      return;
+    }
+    req.body = changePasswordValidate.data as ChangePasswordType;
     next();
   }
 }

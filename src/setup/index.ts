@@ -7,6 +7,7 @@ import authRouter from "../api/auth/auth.router";
 import pool from "../config/postgres";
 import transporter from "../config/nodeMailer";
 import SqlInit from "./sql";
+import userRouter from "../api/user/user.router";
 class Setup {
   public app = express();
   constructor() {}
@@ -58,6 +59,7 @@ class Setup {
   }
   Routes() {
     this.app.use("/auth", authRouter);
+    this.app.use("/user", userRouter);
     console.log("Routes configured.");
   }
 

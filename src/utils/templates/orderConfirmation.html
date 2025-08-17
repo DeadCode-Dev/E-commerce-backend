@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Order Confirmation - {{serviceName}}</title>
+  <style>
+    body { margin:0; padding:0; background:#f4f6f8; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color:#334155; }
+    a { color:#ffffff; text-decoration:none; }
+    .container { width:100%; max-width:600px; margin:0 auto; }
+    .card {
+      background:linear-gradient(135deg, #1f6feb 0%, #3b82f6 100%);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+    .header {
+      padding:36px 28px;
+      text-align:center;
+      background:rgba(255,255,255,0.05);
+    }
+    .logo { width:60px; height:60px; object-fit:contain; border-radius:8px; }
+    .headline {
+      font-size:26px;
+      font-weight:800;
+      color:#ffffff;
+      margin:14px 0 6px;
+    }
+    .subhead {
+      font-size:15px;
+      color:rgba(255,255,255,0.85);
+      margin:0;
+    }
+    .body {
+      background:#ffffff;
+      padding:28px;
+    }
+    .body p {
+      font-size:15px;
+      color:#475569;
+      margin:0 0 16px;
+      line-height:1.5;
+    }
+    .order-summary {
+      background:#f8fafc;
+      border-radius:8px;
+      padding:18px;
+      margin-top:14px;
+      font-size:14px;
+    }
+    .order-summary h3 {
+      font-size:16px;
+      margin-top:0;
+      margin-bottom:8px;
+      color:#1e293b;
+    }
+    .order-summary table {
+      width:100%;
+      border-collapse:collapse;
+    }
+    .order-summary td {
+      padding:6px 0;
+      color:#334155;
+    }
+    .order-summary td:last-child {
+      text-align:right;
+      font-weight:500;
+    }
+    .cta {
+      display:inline-block;
+      background:#1f6feb;
+      color:#ffffff;
+      font-weight:600;
+      padding:14px 26px;
+      border-radius:8px;
+      font-size:15px;
+      margin-top:18px;
+      box-shadow:0 4px 12px rgba(31,111,235,0.3);
+    }
+    .footer {
+      text-align:center;
+      padding:18px;
+      font-size:12px;
+      color:#94a3b8;
+      background:#f8fafc;
+    }
+    @media only screen and (max-width:420px){
+      .headline { font-size:22px; }
+      .body { padding:20px; }
+    }
+  </style>
+</head>
+<body>
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f4f6f8; padding:28px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="container" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td class="card">
+              <!-- HEADER -->
+              <div class="header">
+                <img src="{{logoUrl}}" alt="{{serviceName}} logo" class="logo">
+                <h1 class="headline">Order Confirmed ✅</h1>
+                <p class="subhead">Order #{{orderNumber}} – Placed on {{orderDate}}</p>
+              </div>
+
+              <!-- BODY -->
+              <div class="body">
+                <p>Hi {{firstName}},</p>
+                <p>Thanks for shopping with {{serviceName}}! Your order has been received and is now being processed.</p>
+
+                <!-- ORDER SUMMARY -->
+                <div class="order-summary">
+                  <h3>Order Summary</h3>
+                  <table>
+                    {{table}}
+                  </table>
+                </div>
+
+                <!-- CTA -->
+                <p style="text-align:center;">
+                  <a href="{{orderTrackingUrl}}" class="cta">Track Your Order</a>
+                </p>
+
+                <p>If you have any questions, just reply to this email or <a href="mailto:{{supportEmail}}" style="color:#1f6feb;">contact our support team</a>.</p>
+              </div>
+
+              <!-- FOOTER -->
+              <div class="footer">
+                © <span id="year">{{currentYear}}</span> {{serviceName}} · <a href="mailto:{{supportEmail}}" style="color:#94a3b8; text-decoration:underline;">Support</a>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

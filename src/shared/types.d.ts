@@ -16,6 +16,9 @@ declare global {
       Mail_PORT: number;
       Mail_USER: string;
       Mail_PASS: string;
+      logoUrl: string;
+      serviceName: string;
+      supportEmail: string;
     }
   }
   namespace Express {

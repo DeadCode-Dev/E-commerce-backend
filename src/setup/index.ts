@@ -42,8 +42,7 @@ class Setup {
   }
 
   checkMailConnection() {
-    const nodeMailerClient = transporter();
-    nodeMailerClient.verify((error) => {
+    transporter.verify((error) => {
       if (error) {
         console.error("Error in mail configuration:", error);
       } else {

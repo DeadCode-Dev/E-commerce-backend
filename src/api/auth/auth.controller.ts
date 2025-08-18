@@ -12,7 +12,6 @@ import User from "../../types/user/users.entity";
 class AuthController {
   static async login(req: Request, res: Response): Promise<void> {
     try {
-      console.log(req.ip, req.headers["user-agent"]);
       const body = req.body as LoginType;
 
       const user = await UserModel.findUserByEmail(body.email);
@@ -85,7 +84,6 @@ class AuthController {
       const body = req.body as RegisterType;
 
       const existingUser = await UserModel.findUserByEmail(body.email);
-      console.log(existingUser);
       if (existingUser) {
         res.status(400).json({ message: "User already exists" });
         return;

@@ -24,6 +24,10 @@ class Mailler {
       const regex = new RegExp(`{{\\s*${key}\\s*}}`, "g");
       template = template.replace(regex, data[key]);
     }
+    // Handle case where no placeholders are found
+    const regex = new RegExp("{{\\s*\\w+\\s*}}", "g");
+    template = template.replace(regex, "");
+
     return template;
   }
 
@@ -49,7 +53,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "resetPassword",
+      "resetPassword"
     );
     await this.sendEmail(to, subject, html);
   }
@@ -66,7 +70,7 @@ class Mailler {
         currentYear: new Date().getFullYear().toString(),
         otpCode: otp,
       },
-      "sendOTP",
+      "sendOTP"
     );
     await this.sendEmail(email, subject, html);
   }
@@ -83,7 +87,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "signUp",
+      "signUp"
     );
     await this.sendEmail(email, subject, html);
   }
@@ -104,7 +108,7 @@ class Mailler {
         supportEmail: process.env.supportEmail,
         currentYear: new Date().getFullYear().toString(),
       },
-      "orderConfirmation",
+      "orderConfirmation"
     );
     await this.sendEmail(email, subject, html);
   }

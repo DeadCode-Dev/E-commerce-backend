@@ -7,8 +7,20 @@
     "strict": true,
     "skipLibCheck": true,
     "types": ["node", "express", "cors", "cookie-parser", "dotenv"],
-    "baseUrl": "src"
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@/api/*": ["api/*"],
+      "@/config/*": ["config/*"],
+      "@/middlewares/*": ["middlewares/*"],
+      "@/shared/*": ["shared/*"],
+      "@/types/*": ["types/*"],
+      "@/utils/*": ["utils/*"],
+      "@/tests/*": ["tests/*"]
+    },
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
-
-  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "coverage"]
 }

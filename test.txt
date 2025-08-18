@@ -1,0 +1,1369 @@
+
+> backend@1.0.0 test
+> export NODE_ENV=test && npm run lint && jest
+
+
+> backend@1.0.0 lint
+> npx eslint . --ext .ts,.js --fix && npx prettier --write .
+
+.vscode/settings.json 25ms (unchanged)
+eslint.config.mts 33ms (unchanged)
+jest.config.ts 8ms (unchanged)
+package-lock.json 162ms (unchanged)
+package.json 4ms (unchanged)
+README.md 32ms (unchanged)
+src/api/auth/auth.controller.ts 112ms (unchanged)
+src/api/auth/auth.middleware.ts 22ms (unchanged)
+src/api/auth/auth.model.ts 17ms (unchanged)
+src/api/auth/auth.router.ts 9ms (unchanged)
+src/api/auth/auth.schema.ts 19ms (unchanged)
+src/api/auth/auth.service.ts 8ms (unchanged)
+src/api/auth/auth.type.ts 4ms (unchanged)
+src/api/user/user.controller.ts 6ms (unchanged)
+src/api/user/user.middleware.ts 5ms (unchanged)
+src/api/user/user.router.ts 6ms (unchanged)
+src/api/user/user.schema.ts 4ms (unchanged)
+src/api/user/user.type.ts 2ms (unchanged)
+src/config/nodeMailer.ts 3ms (unchanged)
+src/config/postgres.ts 3ms (unchanged)
+src/index.ts 2ms (unchanged)
+src/middlewares/auth.ts 15ms (unchanged)
+src/middlewares/cookiesParser.ts 3ms (unchanged)
+src/middlewares/cors.ts 3ms (unchanged)
+src/middlewares/expressRateLimit.ts 3ms (unchanged)
+src/middlewares/helmet.ts 2ms (unchanged)
+src/setup/index.ts 19ms (unchanged)
+src/setup/sql.ts 19ms (unchanged)
+src/shared/otp.model.ts 8ms (unchanged)
+src/shared/types.d.ts 7ms (unchanged)
+src/shared/User.model.ts 19ms (unchanged)
+src/tests/auth/login.test.ts 25ms (unchanged)
+src/tests/auth/logout.test.ts 15ms (unchanged)
+src/tests/auth/refresh.test.ts 12ms (unchanged)
+src/tests/auth/register.test.ts 44ms (unchanged)
+src/tests/e2e/auth-flow.test.ts 15ms (unchanged)
+src/tests/factories/user.factory.ts 7ms (unchanged)
+src/tests/integration/auth/change-password.test.ts 21ms (unchanged)
+src/tests/integration/auth/login.test.ts 9ms (unchanged)
+src/tests/integration/auth/logout.test.ts 5ms (unchanged)
+src/tests/integration/auth/register.test.ts 7ms (unchanged)
+src/tests/integration/auth/reset-password.test.ts 7ms (unchanged)
+src/tests/integration/user/user.test.ts 13ms (unchanged)
+src/tests/setup.ts 12ms (unchanged)
+src/tests/unit/shared/otp.test.ts 12ms (unchanged)
+src/tests/unit/utils/hashing.test.ts 12ms (unchanged)
+src/tests/unit/utils/mailler.test.ts 12ms (unchanged)
+src/types/cart/cart.entity.ts 1ms (unchanged)
+src/types/cart/cartitems.entity.ts 1ms (unchanged)
+src/types/notification/notification.entity.ts 1ms (unchanged)
+src/types/order/orderItems.entity.ts 1ms (unchanged)
+src/types/order/orders.entity.ts 1ms (unchanged)
+src/types/order/payments.entity.ts 1ms (unchanged)
+src/types/order/shipping.entity.ts 1ms (unchanged)
+src/types/product/products.entity.ts 4ms (unchanged)
+src/types/product/reviews.entity.ts 1ms (unchanged)
+src/types/user/sessions.entity.ts 1ms (unchanged)
+src/types/user/users.entity.ts 1ms (unchanged)
+src/types/user/wishlist.entity.ts 1ms (unchanged)
+src/utils/cache.util.ts 4ms (unchanged)
+src/utils/hashing.util.ts 1ms (unchanged)
+src/utils/mailler.util.ts 11ms (unchanged)
+src/utils/random.util.ts 3ms (unchanged)
+src/utils/templates/orderConfirmation.html 84ms (unchanged)
+src/utils/templates/resetPassword.html 67ms (unchanged)
+src/utils/templates/sendOTP.html 34ms (unchanged)
+src/utils/templates/signUp.html 43ms (unchanged)
+tsconfig.json 3ms (unchanged)
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.error
+    Login error: Error: Error creating session:error: duplicate key value violates unique constraint "sessions_session_token_key"
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:18:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      76 |       });
+      77 |     } catch (error) {
+    > 78 |       console.error("Login error:", error);
+         |               ^
+      79 |       res.status(500).json({ message: "Internal server error" });
+      80 |     }
+      81 |   }
+
+      at src/api/auth/auth.controller.ts:78:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.error
+    Login error: Error: Error creating session:error: duplicate key value violates unique constraint "sessions_session_token_key"
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:18:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      76 |       });
+      77 |     } catch (error) {
+    > 78 |       console.error("Login error:", error);
+         |               ^
+      79 |       res.status(500).json({ message: "Internal server error" });
+      80 |     }
+      81 |   }
+
+      at src/api/auth/auth.controller.ts:78:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.error
+    Login error: Error: Error creating session:error: duplicate key value violates unique constraint "sessions_session_token_key"
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:18:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      76 |       });
+      77 |     } catch (error) {
+    > 78 |       console.error("Login error:", error);
+         |               ^
+      79 |       res.status(500).json({ message: "Internal server error" });
+      80 |     }
+      81 |   }
+
+      at src/api/auth/auth.controller.ts:78:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    {
+      id: '1099063642078806017',
+      username: 'Beaulah.Hahn-Cronin40',
+      password: '$2b$12$66CtW5YdgLBkxKDKdrbLZOFj8Zt4XRKVITGZFW7i6P5aiTWcCrgBi',
+      email: 'Darwin.Gibson45@gmail.com',
+      created_at: 2025-08-18T00:46:45.613Z,
+      updated_at: 2025-08-18T00:46:45.613Z,
+      phone: '(431) 593-2245',
+      role: 'user'
+    }
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    ✅ Connected to test database
+
+      at src/tests/setup.ts:25:15
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.error
+    Registration error: Error: Error creating user: value too long for type VARCHAR(15)
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/shared/User.model.ts:14:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/shared/User.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      151 |       });
+      152 |     } catch (error) {
+    > 153 |       console.error("Registration error:", error);
+          |               ^
+      154 |       res.status(500).json({ message: "Internal server error" });
+      155 |     }
+      156 |   }
+
+      at src/api/auth/auth.controller.ts:153:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.error
+    Login error: Error: Error creating session:error: duplicate key value violates unique constraint "sessions_session_token_key"
+        at Function.<anonymous> (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:18:13)
+        at Generator.throw (<anonymous>)
+        at rejected (/workspaces/E-commerce-backend/src/api/auth/auth.model.ts:6:65)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+      76 |       });
+      77 |     } catch (error) {
+    > 78 |       console.error("Login error:", error);
+         |               ^
+      79 |       res.status(500).json({ message: "Internal server error" });
+      80 |     }
+      81 |   }
+
+      at src/api/auth/auth.controller.ts:78:15
+          at Generator.throw (<anonymous>)
+      at rejected (src/api/auth/auth.controller.ts:6:65)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    ::ffff:127.0.0.1 undefined
+
+      at src/api/auth/auth.controller.ts:15:15
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    [dotenv@17.0.1] injecting env (0) from .env – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+
+  console.log
+    CORS middleware initialized.
+
+      at corsMiddleware (src/middlewares/cors.ts:12:11)
+
+  console.log
+    Cookies parser middleware initialized.
+
+      at cookiesParser (src/middlewares/cookiesParser.ts:8:11)
+
+  console.log
+    Helmet middleware initialized.
+
+      at helmetMiddleware (src/middlewares/helmet.ts:7:11)
+
+  console.log
+    Express rate limit middleware initialized.
+
+      at expressRateLimitMiddleware (src/middlewares/expressRateLimit.ts:13:11)
+
+  console.log
+    Express configured with middlewares.
+
+      at Setup.configureExpressMiddleware (src/setup/index.ts:31:13)
+
+  console.log
+    Routes configured.
+
+      at Setup.Routes (src/setup/index.ts:63:13)
+
+  console.log
+    Server is running on port 3000
+
+      at Server.<anonymous> (src/setup/index.ts:57:15)
+
+  console.log
+    Connected to the database successfully.
+
+      at PendingItem.callback (src/setup/index.ts:40:17)
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    undefined
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    Mail configuration is ready to send messages.
+
+      at src/setup/index.ts:50:17
+
+  console.log
+    {
+      id: '1099063863683186689',
+      username: 'Arnaldo',
+      password: '$2b$12$56TtlaMdcAoxbF3Ps/2zkuIWTBlvcYT7KiiaJ47tezHJBTd7Bed/C',
+      email: 'Katlynn_Gleason69@yahoo.com',
+      created_at: 2025-08-18T00:47:53.242Z,
+      updated_at: 2025-08-18T00:47:53.242Z,
+      phone: '+12659005724',
+      role: 'user'
+    }
+
+      at src/api/auth/auth.controller.ts:88:15
+
+  console.log
+    [dotenv@17.0.1] injecting env (17) from .env.test – [tip] encrypt with dotenvx: https://dotenvx.com
+
+      at _log (node_modules/dotenv/lib/main.js:102:11)
+

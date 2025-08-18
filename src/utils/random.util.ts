@@ -11,7 +11,7 @@ export type RandomUser = {
 
 export function generateRandomUser(): RandomUser {
   return {
-    username: faker.person.fullName(),
+    username: faker.person.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password({ length: 12 }),
     phone: faker.phone.number({ style: "international" }),

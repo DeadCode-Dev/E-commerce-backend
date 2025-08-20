@@ -1,26 +1,39 @@
 import { Router } from "express";
-import AuthController from "./auth.controller";
-import { isAuthenticated } from "../../middlewares/auth";
-import AuthMiddleware from "./auth.middleware";
-const authRouter = Router();
-authRouter.post(
-  "/register",
-  AuthMiddleware.validateRegister,
-  AuthController.register,
-);
-authRouter.post("/login", AuthMiddleware.validateLogin, AuthController.login);
-authRouter.post("/logout", isAuthenticated, AuthController.logout);
-authRouter.post("/refresh", isAuthenticated, AuthController.refresh);
-authRouter.post(
-  "/reset-password",
-  AuthMiddleware.resetPassword,
-  AuthController.resetPassword,
-);
-authRouter.post(
-  "/change-password",
+import validate from "@/middlewares/validate";
+import * as controllers from "./controllers";
+import { loginSchema } from "./validation/login";
+import { registerSchema } from "./validation/register";
+import { forgotPasswordResetSchema } from "./validation/forgotPasswordResetSchema";
+import { resetPasswordSchema } from "./validation/resetPassword";
+import { verifyOTPSchema } from "./validation/verifyOTP";
+import { isAuthenticated } from "@/middlewares/auth";
+import { changePasswordSchema } from "./validation/changePassword";
+const router = Router();
+
+router.post("/login", validate(loginSchema), controllers.login);
+router.post("/register", validate(registerSchema), controllers.register);
+
+// password
+router.post(
+  "/password/change",
   isAuthenticated,
-  AuthMiddleware.changePassword,
-  AuthController.changePassword,
+  validate(changePasswordSchema),
+  controllers.changePassword
+);
+router.post(
+  "/password/verify-otp",
+  validate(verifyOTPSchema),
+  controllers.verifyOTP
+);
+router.post(
+  "/password/forgot",
+  validate(resetPasswordSchema),
+  controllers.sendPasswordResetOTP
+);
+router.post(
+  "/password/reset",
+  validate(forgotPasswordResetSchema),
+  controllers.resetPassword
 );
 
-export default authRouter;
+export default router;

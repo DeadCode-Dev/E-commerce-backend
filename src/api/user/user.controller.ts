@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UserModel from "@/shared/User.model";
+import UserModel from "@/shared/models/User.model";
 import User from "@/types/user/users.entity";
 export default class UserController {
   // Add methods for user-related operations here

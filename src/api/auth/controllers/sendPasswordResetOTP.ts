@@ -1,0 +1,25 @@
+import UserModel from "@/shared/models/User.model";
+import OTPCache from "@/shared/models/otp.model";
+import responses from "@/shared/responses";
+import Mailler from "@/utils/mailler.util";
+import responder from "@/utils/send.util";
+import { Request, Response } from "express";
+
+export default async function sendPasswordResetOTP(
+  req: Request,
+  res: Response
+) {
+  const { email } = req.body;
+
+  const user = await UserModel.findUserByEmail(email);
+  if (!user) {
+    responder(res, responses.auth.resetPassword.userNotFound);
+    return;
+  }
+
+  const otp = OTPCache.generateOTP();
+  OTPCache.addOTP(email, otp);
+  Mailler.sendOTP(email, otp);
+
+  responder(res, responses.auth.resetPassword.resetPasswordSuccessfully);
+}

@@ -1,4 +1,4 @@
-import pg from "../config/postgres";
+import pg from "../../config/postgres";
 import User from "types/user/users.entity";
 import UserType from "types/user/users.entity";
 
@@ -12,7 +12,7 @@ export default class UserModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating user: ${error instanceof Error ? error.message : String(error)}`,
+        `Error creating user: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -28,9 +28,20 @@ export default class UserModel {
     }
   }
 
+  static async findUserById(id: number): Promise<UserType | null> {
+    const query = `SELECT * FROM users WHERE id = $1`;
+    const values = [id];
+    try {
+      const result = await this.db.query(query, values);
+      return result.rows[0];
+    } catch (error) {
+      throw new Error("Error finding user by email" + error);
+    }
+  }
+
   static async updateUser(
     id: number,
-    data: Partial<User>,
+    data: Partial<User>
   ): Promise<UserType | null> {
     const dataKeys = Object.keys(data);
     const setClause = dataKeys
@@ -38,7 +49,7 @@ export default class UserModel {
         (key) =>
           data[key as keyof User] == undefined ||
           data[key as keyof User] === null ||
-          data[key as keyof User] == "",
+          data[key as keyof User] == ""
       )
       .map((key, index) => `${key} = $${index + 1}`)
       .join(", ");
@@ -54,7 +65,7 @@ export default class UserModel {
 
   static async changePassword(
     email: string,
-    newPassword: string,
+    newPassword: string
   ): Promise<UserType | null> {
     const query = `UPDATE users SET password = $1, updated_at = NOW() WHERE email = $2 RETURNING *`;
     const values = [newPassword, email];

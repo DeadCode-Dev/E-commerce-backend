@@ -4,7 +4,7 @@ export interface MessageType {
 }
 
 const responses = {
-  auth: {
+  api: {
     login: {
       success: {
         code: 200,
@@ -83,6 +83,24 @@ const responses = {
         message: "Passwords do not match.",
       },
     },
+    user: {
+      notFound: {
+        code: 404,
+        message: "User not found",
+      },
+      created: {
+        code: 201,
+        message: "User created successfully",
+      },
+      updated: {
+        code: 200,
+        message: "User updated successfully",
+      },
+      deleted: {
+        code: 200,
+        message: "User deleted successfully",
+      },
+    },
   },
   Error: {
     internalServerError: {
@@ -91,7 +109,7 @@ const responses = {
     },
     invalidInput: {
       code: 400,
-      message: "Validation error",
+      message: "Validation Error",
     },
   },
 } as const;

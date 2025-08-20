@@ -5,25 +5,25 @@ import { Request, Response } from "express";
 import otpModel from "@/shared/models/otp.model";
 
 export default async function resetPassword(req: Request, res: Response) {
-    const { email, newPassword, confirmPassword, otp } = req.body;
-    const isValidOTP = otpModel.verifyOTP(email, otp);
-    
-    if (!isValidOTP) {
-        responder(res, responses.auth.resetPassword.invalidOTP);
-        return;
-    }
-    // Check if passwords match
-    if (newPassword !== confirmPassword) {
-        responder(res, responses.auth.resetPassword.passwordsDoNotMatch);
-        return;
-    }
+  const { email, newPassword, confirmPassword, otp } = req.body;
+  const isValidOTP = otpModel.verifyOTP(email, otp);
 
-    // Update password
-    const user = await UserModel.changePassword(email, newPassword);
-    if (!user) {
-        responder(res, responses.auth.resetPassword.userNotFound);
-        return;
-    }
+  if (!isValidOTP) {
+    responder(res, responses.api.resetPassword.invalidOTP);
+    return;
+  }
+  // Check if passwords match
+  if (newPassword !== confirmPassword) {
+    responder(res, responses.api.resetPassword.passwordsDoNotMatch);
+    return;
+  }
 
-    responder(res, responses.auth.resetPassword.resetPasswordSuccessfully);
+  // Update password
+  const user = await UserModel.changePassword(email, newPassword);
+  if (!user) {
+    responder(res, responses.api.resetPassword.userNotFound);
+    return;
+  }
+
+  responder(res, responses.api.resetPassword.resetPasswordSuccessfully);
 }

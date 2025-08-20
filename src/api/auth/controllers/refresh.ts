@@ -9,20 +9,20 @@ export default async function refresh(req: Request, res: Response) {
   try {
     const refreshToken = req.signedCookies.refresh_token;
     if (!refreshToken) {
-      responder(res, responses.auth.refresh.noToken);
+      responder(res, responses.api.refresh.noToken);
       return;
     }
 
     const session = await AuthModel.GetSession(refreshToken);
     if (!session) {
-      responder(res, responses.auth.refresh.invalidToken);
+      responder(res, responses.api.refresh.invalidToken);
       return;
     }
 
     if (session.expires_at < new Date()) {
       res.clearCookie("refresh_token");
       res.clearCookie("access_token");
-      responder(res, responses.auth.refresh.tokenExpired);
+      responder(res, responses.api.refresh.tokenExpired);
       return;
     }
 
@@ -45,7 +45,7 @@ export default async function refresh(req: Request, res: Response) {
       signed: true,
     });
 
-    responder(res, responses.auth.refresh.success);
+    responder(res, responses.api.refresh.success);
   } catch (error) {
     console.error("Refresh token error:", error);
     responder(res, responses.Error.internalServerError);

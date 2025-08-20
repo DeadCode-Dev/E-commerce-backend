@@ -13,7 +13,7 @@ export default async function sendPasswordResetOTP(
 
   const user = await UserModel.findUserByEmail(email);
   if (!user) {
-    responder(res, responses.auth.resetPassword.userNotFound);
+    responder(res, responses.api.resetPassword.userNotFound);
     return;
   }
 
@@ -21,5 +21,5 @@ export default async function sendPasswordResetOTP(
   OTPCache.addOTP(email, otp);
   Mailler.sendOTP(email, otp);
 
-  responder(res, responses.auth.resetPassword.resetPasswordSuccessfully);
+  responder(res, responses.api.resetPassword.resetPasswordSuccessfully);
 }

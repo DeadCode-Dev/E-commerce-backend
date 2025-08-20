@@ -43,23 +43,32 @@ export default class UserModel {
     id: number,
     data: Partial<User>
   ): Promise<UserType | null> {
-    const dataKeys = Object.keys(data);
+    // Keep only fields with defined values
+    const dataKeys = Object.keys(data).filter(
+      (key) =>
+        data[key as keyof User] !== undefined &&
+        data[key as keyof User] !== null &&
+        data[key as keyof User] !== ""
+    );
+
+    if (dataKeys.length === 0) return null; // nothing to update
+
     const setClause = dataKeys
-      .filter(
-        (key) =>
-          data[key as keyof User] == undefined ||
-          data[key as keyof User] === null ||
-          data[key as keyof User] == ""
-      )
       .map((key, index) => `${key} = $${index + 1}`)
       .join(", ");
-    const values = [...dataKeys.map((key) => data[key as keyof User]), id];
-    const query = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = $${dataKeys.length + 1} RETURNING *`;
+
+    const values = dataKeys.map((key) => data[key as keyof User]);
+    values.push(id); // for WHERE clause
+
+    const query = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = $${
+      dataKeys.length + 1
+    } RETURNING *`;
+
     try {
       const result = await this.db.query(query, values);
       return result.rows[0];
     } catch (error) {
-      throw new Error("Error updating user" + error);
+      throw new Error("Error updating user: " + error);
     }
   }
 

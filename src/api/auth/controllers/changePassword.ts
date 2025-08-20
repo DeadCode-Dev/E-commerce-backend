@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import User from "@/types/user/users.entity";
 import PasswordUtil from "@/utils/hashing.util";
 import UserModel from "@/shared/models/User.model";
+import responder from "@/utils/send.util";
+import responses from "@/shared/responses";
 
 export default async function changePassword(req: Request, res: Response) {
   const userEmail = (req.user as User).email;
@@ -11,10 +13,10 @@ export default async function changePassword(req: Request, res: Response) {
     (req.user as User).password
   );
   if (!isMatch) {
-    res.status(401).json({ message: "password is incorrect" });
+    responder(res, responses.api.resetPassword.passwordsDoNotMatch);
     return;
   }
   await UserModel.changePassword(userEmail, newPassword);
 
-  res.status(200).json({ message: "Password changed successfully" });
+  responder(res, responses.api.resetPassword.resetPasswordSuccessfully);
 }

@@ -1,16 +1,17 @@
 import { Router } from "express";
 import { isAuthenticated } from "../../middlewares/auth";
-import UserMiddleware from "./user.middleware";
-import UserController from "./user.controller";
+import * as controller from "./controllers";
+import { updateUserSchema } from "./validators/updateUser";
+import validate from "@/middlewares/validate";
 const userRouter = Router();
 
-userRouter.get("/me", isAuthenticated, UserController.getUser);
+userRouter.get("/me", isAuthenticated, controller.getUser);
 userRouter.put(
   "/me",
   isAuthenticated,
-  UserMiddleware.updateUser,
-  UserController.updateUser,
+  validate(updateUserSchema),
+  controller.updateUser
 );
-userRouter.delete("/me", isAuthenticated, UserController.deleteUser);
+userRouter.delete("/me", isAuthenticated, controller.deleteUser);
 
 export default userRouter;

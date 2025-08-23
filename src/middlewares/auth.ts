@@ -10,7 +10,7 @@ import User from "types/user/users.entity";
 export const isAuthenticated = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   try {
     const token = req.signedCookies.refresh_token;

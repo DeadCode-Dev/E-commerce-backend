@@ -4,6 +4,7 @@ import cookiesParser from "../middlewares/cookiesParser";
 import helmetMiddleware from "../middlewares/helmet";
 import expressRateLimitMiddleware from "../middlewares/expressRateLimit";
 import authRouter from "../api/auth/auth.router";
+import productRouter from "../modules/product/routes/productRoutes";
 import pool from "../config/postgres";
 import transporter from "../config/nodeMailer";
 import SqlInit from "./sql";
@@ -60,6 +61,7 @@ class Setup {
   Routes() {
     this.app.use("/auth", authRouter);
     this.app.use("/user", userRouter);
+    this.app.use("/api/products", productRouter);
     console.log("Routes configured.");
   }
 

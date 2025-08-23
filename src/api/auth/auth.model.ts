@@ -27,7 +27,7 @@ export default class AuthModel {
   }
 
   // Get session and auto-delete expired
-  static async GetSession(sessionToken: string): Promise<Session| null> {
+  static async GetSession(sessionToken: string): Promise<Session | null> {
     const query = `SELECT * FROM sessions WHERE session_token = $1 LIMIT 1`;
     const values = [sessionToken];
 

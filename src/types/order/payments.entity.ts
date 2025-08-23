@@ -1,5 +1,5 @@
-export type PaymentStatus = 'pending' | 'completed' | 'failed' | 'refunded'; // Extend as needed
-export type PaymentMethodType = 'cash' | 'paymob'; // Extend as needed
+export type PaymentStatus = "pending" | "completed" | "failed" | "refunded"; // Extend as needed
+export type PaymentMethodType = "cash" | "paymob"; // Extend as needed
 
 export default interface Payments {
   id: number;

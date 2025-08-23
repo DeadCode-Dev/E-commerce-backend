@@ -1,6 +1,6 @@
 export default interface orderItems {
   id: number;
-  orderId: string;
-  productId: string;
+  order_id: string;
+  product_id: string;
   quantity: number;
 }

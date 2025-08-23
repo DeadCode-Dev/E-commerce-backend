@@ -5,7 +5,6 @@ export default interface User {
   password: string; // hashed password
   created_at: Date;
   updated_at: Date;
-  banned: boolean;
   role: "user" | "admin";
   phone: string; // optional field
 }

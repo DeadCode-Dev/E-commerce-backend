@@ -1,7 +1,5 @@
--- Shipping table
 CREATE TABLE IF NOT EXISTS shipping (
     id SERIAL PRIMARY KEY,
-    order_id INT NOT NULL REFERENCES orders(id),
     user_id INT NOT NULL REFERENCES users(id),
     tracking_number TEXT,
     address TEXT NOT NULL,

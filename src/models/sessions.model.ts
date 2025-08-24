@@ -1,4 +1,4 @@
-import pg from "../../config/postgres";
+import pg from "../config/postgres";
 import Session from "types/user/sessions.entity";
 
 export default class AuthModel {
@@ -8,7 +8,7 @@ export default class AuthModel {
   static async CreateSession(
     userId: number,
     sessionToken: string,
-    expiresAt: Date,
+    expiresAt: Date
   ): Promise<Partial<Session> | null> {
     const query = `
       INSERT INTO sessions (user_id, session_token, expires_at)
@@ -27,7 +27,7 @@ export default class AuthModel {
   }
 
   // Get session and auto-delete expired
-  static async GetSession(sessionToken: string): Promise<Session| null> {
+  static async GetSession(sessionToken: string): Promise<Session | null> {
     const query = `SELECT * FROM sessions WHERE session_token = $1 LIMIT 1`;
     const values = [sessionToken];
 

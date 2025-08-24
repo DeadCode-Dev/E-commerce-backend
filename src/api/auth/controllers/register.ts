@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import UserModel from "@/shared/models/User.model";
+import UserModel from "@/models/User.model";
 import PasswordUtil from "@/utils/hashing.util";
 import AuthService from "../auth.service";
-import AuthModel from "../auth.model";
+import AuthModel from "../../../models/sessions.model";
 import responder from "@/utils/send.util";
 import responses from "@/shared/responses";
 

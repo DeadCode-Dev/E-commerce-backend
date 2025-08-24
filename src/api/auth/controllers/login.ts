@@ -1,8 +1,8 @@
-import UserModel from "@/shared/models/User.model";
+import UserModel from "@/models/User.model";
 import PasswordUtil from "@/utils/hashing.util";
 import { Request, Response } from "express";
 import AuthService from "../auth.service";
-import AuthModel from "../auth.model";
+import AuthModel from "../../../models/sessions.model";
 import responses from "@/shared/responses";
 import responder from "@/utils/send.util";
 async function Login(req: Request, res: Response) {

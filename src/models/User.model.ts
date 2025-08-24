@@ -1,4 +1,4 @@
-import pg from "../../config/postgres";
+import pg from "../config/postgres";
 import User from "types/user/users.entity";
 import UserType from "types/user/users.entity";
 

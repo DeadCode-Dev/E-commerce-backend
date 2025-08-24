@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import AuthModel from "../auth.model";
+import AuthModel from "../../../models/sessions.model";
 import responder from "@/utils/send.util";
 import responses from "@/shared/responses";
 

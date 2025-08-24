@@ -1,4 +1,4 @@
-import UserModel from "@/shared/models/User.model";
+import UserModel from "@/models/User.model";
 import OTPCache from "@/shared/models/otp.model";
 import responses from "@/shared/responses";
 import Mailler from "@/utils/mailler.util";

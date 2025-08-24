@@ -1,4 +1,4 @@
-import UserModel from "@/shared/models/User.model";
+import UserModel from "@/models/User.model";
 import responses from "@/shared/responses";
 import responder from "@/utils/send.util";
 import { Request, Response } from "express";

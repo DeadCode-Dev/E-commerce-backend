@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import User from "@/types/user/users.entity";
 import PasswordUtil from "@/utils/hashing.util";
-import UserModel from "@/shared/models/User.model";
+import UserModel from "@/models/User.model";
 import responder from "@/utils/send.util";
 import responses from "@/shared/responses";
 

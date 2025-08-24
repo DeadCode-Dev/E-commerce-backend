@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { JwtPayload } from "@/shared/models/types";
-import UserModel from "../shared/models/User.model";
+import UserModel from "../models/User.model";
 import User from "types/user/users.entity";
 
 /**

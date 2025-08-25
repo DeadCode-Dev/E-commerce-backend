@@ -1,6 +1,6 @@
 export default interface Shipping {
   id: number;
-  user_id: string;
+  user_id: number;
   tracking_number: string;
   address: string;
   city: string;

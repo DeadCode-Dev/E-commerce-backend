@@ -54,19 +54,6 @@ export default class CategoryModel {
     }
   }
 
-  static async getAllCategories(): Promise<Category[]> {
-    const query = `SELECT * FROM category ORDER BY name`;
-
-    try {
-      const result = await this.db.query(query);
-      return result.rows || [];
-    } catch (error) {
-      throw new Error(
-        `Error getting all categories: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
   static async getUniqueCategoryNames(): Promise<string[]> {
     const query = `SELECT DISTINCT name FROM category ORDER BY name`;
 

@@ -1,90 +1,76 @@
 import multer from "multer";
+import sharp from "sharp";
 import path from "path";
 import fs from "fs";
-import crypto from "crypto";
-import sharp from "sharp";
-import { Request } from "express";
+import { v4 as uuidv4 } from "uuid";
 
-export interface UploadedFile {
-  originalName: string;
-  filename: string;
-  path: string;
-  size: number;
-  mimetype: string;
+export type ImageSize = "original" | "large" | "medium" | "thumbnail";
+
+interface ProcessedImageResult {
+  [key: string]: {
+    width: number;
+    height: number;
+    size: number;
+  };
 }
 
-export interface ProcessedImage {
-  filename: string;
-  path: string;
-  size: number;
-  width: number;
-  height: number;
-  format: string;
-}
-
-export class StorageService {
-  private uploadDir: string;
-  private allowedMimeTypes: string[];
-  private maxFileSize: number;
-  private maxFiles: number;
+class StorageService {
+  private uploadsDir: string;
+  private maxFileSize: number = 5 * 1024 * 1024; // 5MB
+  private allowedMimeTypes: string[] = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+  ];
+  private allowedExtensions: string[] = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+  ];
 
   constructor() {
-    this.uploadDir = path.join(process.cwd(), "uploads", "images");
-    this.allowedMimeTypes = [
-      "image/jpeg",
-      "image/jpg",
-      "image/png",
-      "image/webp",
-      "image/gif",
-    ];
-    this.maxFileSize = 5 * 1024 * 1024; // 5MB
-    this.maxFiles = 10;
-
-    this.ensureUploadDirectory();
+    this.uploadsDir = path.join(process.cwd(), "uploads");
+    this.initializeDirectories();
   }
 
-  private ensureUploadDirectory(): void {
-    if (!fs.existsSync(this.uploadDir)) {
-      fs.mkdirSync(this.uploadDir, { recursive: true });
-    }
+  private initializeDirectories(): void {
+    const directories = [
+      this.uploadsDir,
+      path.join(this.uploadsDir, "original"),
+      path.join(this.uploadsDir, "large"),
+      path.join(this.uploadsDir, "medium"),
+      path.join(this.uploadsDir, "thumbnail"),
+    ];
 
-    // Create subdirectories for different image sizes
-    const subdirs = ["original", "thumbnail", "medium", "large"];
-    subdirs.forEach((subdir) => {
-      const subdirPath = path.join(this.uploadDir, subdir);
-      if (!fs.existsSync(subdirPath)) {
-        fs.mkdirSync(subdirPath, { recursive: true });
+    directories.forEach((dir) => {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
       }
     });
   }
 
-  private generateFilename(originalName: string): string {
-    const ext = path.extname(originalName).toLowerCase();
-    const timestamp = Date.now();
-    const randomBytes = crypto.randomBytes(16).toString("hex");
-    return `${timestamp}-${randomBytes}${ext}`;
-  }
-
   private fileFilter = (
-    req: Request,
+    req: Express.Request,
     file: Express.Multer.File,
     cb: multer.FileFilterCallback
   ): void => {
-    // Check if file is an image
+    // Check MIME type
     if (!this.allowedMimeTypes.includes(file.mimetype)) {
-      cb(
-        new Error(
-          `Invalid file type. Only ${this.allowedMimeTypes.join(", ")} are allowed.`
-        )
+      const error = new Error(
+        `Invalid file type. Allowed types: ${this.allowedMimeTypes.join(", ")}`
       );
+      cb(error);
       return;
     }
 
-    // Additional file extension check
+    // Check file extension
     const ext = path.extname(file.originalname).toLowerCase();
-    const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
-    if (!allowedExtensions.includes(ext)) {
-      cb(new Error("Invalid file extension."));
+    if (!this.allowedExtensions.includes(ext)) {
+      const error = new Error(
+        `Invalid file extension. Allowed extensions: ${this.allowedExtensions.join(", ")}`
+      );
+      cb(error);
       return;
     }
 
@@ -93,176 +79,152 @@ export class StorageService {
 
   private storage = multer.diskStorage({
     destination: (
-      req: Request,
+      req: Express.Request,
       file: Express.Multer.File,
       cb: (error: Error | null, destination: string) => void
-    ) => {
-      cb(null, path.join(this.uploadDir, "original"));
+    ): void => {
+      cb(null, path.join(this.uploadsDir, "original"));
     },
     filename: (
-      req: Request,
+      req: Express.Request,
       file: Express.Multer.File,
       cb: (error: Error | null, filename: string) => void
-    ) => {
-      const filename = this.generateFilename(file.originalname);
-      cb(null, filename);
+    ): void => {
+      const ext = path.extname(file.originalname);
+      const uniqueName = `${uuidv4()}${ext}`;
+      cb(null, uniqueName);
     },
   });
 
-  public getMulterConfig(): multer.Options {
+  getMulterConfig(): multer.Options {
     return {
       storage: this.storage,
       fileFilter: this.fileFilter,
       limits: {
         fileSize: this.maxFileSize,
-        files: this.maxFiles,
+        files: 10,
       },
     };
   }
 
-  public async processAndStoreImage(
+  async processAndStoreImage(
     file: Express.Multer.File
-  ): Promise<Record<string, ProcessedImage>> {
-    const filename = path.parse(file.filename).name;
+  ): Promise<ProcessedImageResult> {
+    const filename = file.filename;
     const originalPath = file.path;
+    const results: ProcessedImageResult = {};
 
     try {
-      // Get image metadata
-      const metadata = await sharp(originalPath).metadata();
+      // Get original image metadata
+      const originalMetadata = await sharp(originalPath).metadata();
+      results.original = {
+        width: originalMetadata.width || 0,
+        height: originalMetadata.height || 0,
+        size: file.size,
+      };
 
       // Process different sizes
       const sizes = {
-        thumbnail: { width: 150, height: 150 },
-        medium: { width: 500, height: 500 },
         large: { width: 1200, height: 1200 },
+        medium: { width: 600, height: 600 },
+        thumbnail: { width: 200, height: 200 },
       };
 
-      const processedImages: Record<string, ProcessedImage> = {
-        original: {
-          filename: file.filename,
-          path: originalPath,
-          size: file.size,
-          width: metadata.width || 0,
-          height: metadata.height || 0,
-          format: metadata.format || "unknown",
-        },
-      };
-
-      // Generate different sizes
       for (const [sizeName, dimensions] of Object.entries(sizes)) {
-        const outputFilename = `${filename}.webp`;
-        const outputPath = path.join(this.uploadDir, sizeName, outputFilename);
+        const outputPath = path.join(
+          this.uploadsDir,
+          sizeName,
+          `${path.parse(filename).name}.webp`
+        );
 
-        await sharp(originalPath)
+        const info = await sharp(originalPath)
           .resize(dimensions.width, dimensions.height, {
             fit: "inside",
             withoutEnlargement: true,
           })
-          .webp({ quality: 80 })
+          .webp({ quality: 85 })
           .toFile(outputPath);
 
-        const stats = fs.statSync(outputPath);
-        const processedMetadata = await sharp(outputPath).metadata();
-
-        processedImages[sizeName] = {
-          filename: outputFilename,
-          path: outputPath,
-          size: stats.size,
-          width: processedMetadata.width || 0,
-          height: processedMetadata.height || 0,
-          format: "webp",
+        results[sizeName] = {
+          width: info.width,
+          height: info.height,
+          size: info.size,
         };
       }
 
-      return processedImages;
+      return results;
     } catch (error) {
-      // Clean up original file if processing fails
-      this.deleteFile(originalPath);
+      // Clean up on error
+      this.deleteImageFiles(filename);
       throw new Error(
-        `Image processing failed: ${error instanceof Error ? error.message : String(error)}`
+        `Failed to process image: ${error instanceof Error ? error.message : "Unknown error"}`
       );
     }
   }
 
-  public deleteFile(filePath: string): void {
+  getImageUrl(filename: string, size: ImageSize): string {
+    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    return `${baseUrl}/api/images/${size}/${filename}`;
+  }
+
+  getImagePath(filename: string, size: ImageSize): string {
+    if (size === "original") {
+      return path.join(this.uploadsDir, "original", filename);
+    } else {
+      const nameWithoutExt = path.parse(filename).name;
+      return path.join(this.uploadsDir, size, `${nameWithoutExt}.webp`);
+    }
+  }
+
+  validateImageExists(filename: string, size: ImageSize): boolean {
+    const imagePath = this.getImagePath(filename, size);
+    return fs.existsSync(imagePath);
+  }
+
+  deleteFile(filePath: string): void {
     try {
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
     } catch (error) {
-      console.error(`Failed to delete file ${filePath}:`, error);
+      console.error("Error deleting file:", error);
     }
   }
 
-  public deleteImageFiles(filename: string): void {
-    const baseName = path.parse(filename).name;
-    const sizes = ["original", "thumbnail", "medium", "large"];
-
-    sizes.forEach((size) => {
-      const filePath =
-        size === "original"
-          ? path.join(this.uploadDir, size, filename)
-          : path.join(this.uploadDir, size, `${baseName}.webp`);
-
-      this.deleteFile(filePath);
-    });
-  }
-
-  public getImagePath(
-    filename: string,
-    size: "original" | "thumbnail" | "medium" | "large" = "original"
-  ): string {
-    if (size === "original") {
-      return path.join(this.uploadDir, size, filename);
-    } else {
-      const baseName = path.parse(filename).name;
-      return path.join(this.uploadDir, size, `${baseName}.webp`);
-    }
-  }
-
-  public getImageUrl(
-    filename: string,
-    size: "original" | "thumbnail" | "medium" | "large" = "original"
-  ): string {
-    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-    if (size === "original") {
-      return `${baseUrl}/api/images/${size}/${filename}`;
-    } else {
-      const baseName = path.parse(filename).name;
-      return `${baseUrl}/api/images/${size}/${baseName}.webp`;
-    }
-  }
-
-  public validateImageExists(
-    filename: string,
-    size: "original" | "thumbnail" | "medium" | "large" = "original"
-  ): boolean {
-    const imagePath = this.getImagePath(filename, size);
-    return fs.existsSync(imagePath);
-  }
-
-  public getImageStats(filename: string): {
-    original?: fs.Stats;
-    thumbnail?: fs.Stats;
-    medium?: fs.Stats;
-    large?: fs.Stats;
-  } {
-    const stats: Record<string, fs.Stats> = {};
-    const sizes: Array<"original" | "thumbnail" | "medium" | "large"> = [
-      "original",
-      "thumbnail",
-      "medium",
-      "large",
-    ];
+  deleteImageFiles(filename: string): void {
+    const sizes: ImageSize[] = ["original", "large", "medium", "thumbnail"];
 
     sizes.forEach((size) => {
       const imagePath = this.getImagePath(filename, size);
-      if (fs.existsSync(imagePath)) {
-        stats[size] = fs.statSync(imagePath);
+      this.deleteFile(imagePath);
+    });
+  }
+
+  getImageStats(filename: string): Record<string, { size: number } | null> {
+    const sizes: ImageSize[] = ["original", "large", "medium", "thumbnail"];
+    const stats: Record<string, { size: number } | null> = {};
+
+    sizes.forEach((size) => {
+      const imagePath = this.getImagePath(filename, size);
+      try {
+        if (fs.existsSync(imagePath)) {
+          const fileStat = fs.statSync(imagePath);
+          stats[size] = { size: fileStat.size };
+        } else {
+          stats[size] = null;
+        }
+      } catch {
+        stats[size] = null;
       }
     });
 
     return stats;
+  }
+
+  cleanupOrphanedFiles(): void {
+    // This method can be called periodically to clean up files that exist on disk but not in database
+    // Implementation would require database access to check which files are still referenced
+    console.log("Cleanup orphaned files - implementation needed");
   }
 }
 

@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import AuthModel from "../../../models/sessions.model";
-import responder from "@/utils/send.util";
-import responses from "@/shared/responses";
+import responder from "@/services/responder.service";
+import responses from "@/services/responses";
 
 export default async function logout(req: Request, res: Response) {
   try {

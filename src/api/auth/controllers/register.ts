@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import UserModel from "@/models/User.model";
-import PasswordUtil from "@/utils/hashing.util";
+import PasswordUtil from "@/services/hashing.service";
 import AuthService from "../auth.service";
 import AuthModel from "../../../models/sessions.model";
-import responder from "@/utils/send.util";
-import responses from "@/shared/responses";
+import responder from "@/services/responder.service";
+import responses from "@/services/responses";
 
 export default async function register(req: Request, res: Response) {
   try {

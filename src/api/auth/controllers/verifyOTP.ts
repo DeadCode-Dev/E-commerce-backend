@@ -1,6 +1,6 @@
-import OTPCache from "@/shared/models/otp.model";
-import responses from "@/shared/responses";
-import responder from "@/utils/send.util";
+import OTPCache from "@/services/otp.service";
+import responses from "@/services/responses";
+import responder from "@/services/responder.service";
 import { Request, Response } from "express";
 
 export default async function verifyOTP(req: Request, res: Response) {

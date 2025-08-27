@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import UserModel from "@/models/User.model";
 import User from "@/types/user/users.entity";
-import responder from "@/utils/send.util";
-import responses from "@/shared/responses";
+import responder from "@/services/responder.service";
+import responses from "@/services/responses";
 
 export default async function updateUser(req: Request, res: Response) {
   const { email, phone, username } = req.body;

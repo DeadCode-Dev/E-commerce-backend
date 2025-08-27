@@ -1,8 +1,8 @@
 import UserModel from "@/models/User.model";
-import responses from "@/shared/responses";
-import responder from "@/utils/send.util";
+import responses from "@/services/responses";
+import responder from "@/services/responder.service";
 import { Request, Response } from "express";
-import otpModel from "@/shared/models/otp.model";
+import otpModel from "@/services/otp.service";
 
 export default async function resetPassword(req: Request, res: Response) {
   const { email, newPassword, confirmPassword, otp } = req.body;

@@ -1,4 +1,4 @@
-import { MessageType } from "@/shared/responses";
+import { MessageType } from "@/services/responses";
 import { Response } from "express";
 
 /**
@@ -13,6 +13,6 @@ export default function responder(
   return res.status(response.code).json({
     statusCode: response.code,
     message: response.message,
-    ...(data && { data }) // only include if passed
+    ...(data && { data }), // only include if passed
   });
 }

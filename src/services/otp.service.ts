@@ -1,4 +1,4 @@
-import { Cache } from "@/utils/cache.util";
+import { Cache } from "@/services/cache.service";
 /**
  * OTPCache is a utility class for managing One-Time Passwords (OTPs) in memory.
  * It allows generating, storing, retrieving, and verifying OTPs with an optional time-to-live (TTL).

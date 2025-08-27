@@ -1,7 +1,7 @@
 import { AnyZodObject, ZodError } from "zod";
 import { Request, Response, NextFunction } from "express";
-import responder from "@/utils/send.util";
-import responses from "@/shared/responses";
+import responder from "@/services/responder.service";
+import responses from "@/services/responses";
 
 const validate =
   (schema: AnyZodObject) =>

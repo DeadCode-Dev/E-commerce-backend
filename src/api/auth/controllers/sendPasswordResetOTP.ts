@@ -1,8 +1,8 @@
 import UserModel from "@/models/User.model";
-import OTPCache from "@/shared/models/otp.model";
-import responses from "@/shared/responses";
-import Mailler from "@/utils/mailler.util";
-import responder from "@/utils/send.util";
+import OTPCache from "@/services/otp.service";
+import responses from "@/services/responses";
+import Mailler from "@/services/mailler.service";
+import responder from "@/services/responder.service";
 import { Request, Response } from "express";
 
 export default async function sendPasswordResetOTP(

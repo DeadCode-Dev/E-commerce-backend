@@ -15,9 +15,9 @@ interface OrderDetails {
   shippingCost: number;
 }
 
-class Mailler {
+class Mailer {
   static renderTemplate(data: Record<string, string>, templateName: string) {
-    const templatesPathFile = path.join(__dirname, "../templates");
+    const templatesPathFile = path.join(__dirname, "templates");
     const templatePath = path.join(templatesPathFile, `${templateName}.html`);
     let template = fs.readFileSync(templatePath, "utf-8");
     for (const key in data) {
@@ -77,7 +77,7 @@ class Mailler {
 
   static async signUp(email: string, name: string, shopUrl: string) {
     const serviceName = process.env.serviceName;
-    const subject = `🎉 Welcome to ${serviceName} – Let\`s get shopping!`;
+    const subject = `🎉 Welcome to ${serviceName} – Let's get shopping!`;
     const html = this.renderTemplate(
       {
         logoUrl: process.env.logoUrl,
@@ -143,4 +143,4 @@ class Mailler {
   }
 }
 
-export default Mailler;
+export default Mailer;

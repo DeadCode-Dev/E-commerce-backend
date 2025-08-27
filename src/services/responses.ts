@@ -8,7 +8,7 @@ const responses = {
     login: {
       success: {
         code: 200,
-        message: "User Logined successfully",
+        message: "User logged in successfully",
       },
       wrongPassword: {
         code: 401,

@@ -1,6 +1,6 @@
 export default interface Notification {
   id: number;
-  userId: string;
+  user_id: string;
   message: string;
   read: boolean;
   created_at: Date;

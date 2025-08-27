@@ -10,7 +10,9 @@ SELECT products.id AS p_id,
     product_variants.created_at AS v_created_at,
     product_variants.updated_at AS v_updated_at,
     category.name AS category_name,
-    image.url AS image_url
+    image.image_url,
+    image.alt_text,
+    image.display_order AS image_display_order,
 FROM products
     LEFT JOIN product_variants ON products.id = product_variants.product_id
     LEFT JOIN category ON products.id = category.product_id

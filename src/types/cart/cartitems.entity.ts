@@ -1,6 +1,6 @@
 export default interface CartItem {
   id: number;
-  cart_id: string;
-  product_id: string;
+  cart_id: number;
+  product_id: number;
   quantity: number;
 }

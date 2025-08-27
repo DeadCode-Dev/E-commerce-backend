@@ -17,6 +17,14 @@ class ProductModel {
         return result.rows || null;
     }
 
+    static async getProductByName(name: string): Promise<Product[] & ProductVariant [] | null> {
+        const query = `SELECT * FROM ProductWithVariants WHERE name = $1;`;
+        const result = await pg.query(query, [name]);
+        if (!result.rows) return null;
+
+        return result.rows || null;
+    }
+
     static async createProduct(data: Partial<Product>): Promise<Product | null> {
 
         const {name, description, category, images} = data;

@@ -4,4 +4,3 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(100) NOT NULL,
     description TEXT,
 );
-

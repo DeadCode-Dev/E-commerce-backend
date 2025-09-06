@@ -646,11 +646,23 @@ export default class ProductModel {
     }
   }
 
-  static async getAllProducts(): Promise<Product[]> {
-    const query = `SELECT * FROM products ORDER BY id`;
-
+  static async getAllProducts(limit: number = 20, offset: number = 0): Promise<Product[]> {
+    const query = `
+      SELECT 
+        p.id AS product_id,
+        p.name,
+        p.price,
+        i.url AS image_url
+      FROM products p
+      LEFT JOIN image i 
+      ON p.id = i.product_id 
+      AND i.display_order = 0
+      ORDER BY p.id
+      LIMIT $1 OFFSET $2;
+    `;  
     try {
-      const result = await this.db.query(query);
+      const values = [limit, offset];
+      const result = await this.db.query(query, values);
       return result.rows || [];
     } catch (error) {
       throw new Error(

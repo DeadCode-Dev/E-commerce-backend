@@ -634,7 +634,7 @@ export default class ProductModel {
 
   static async deleteProduct(id: number): Promise<void> {
     // Note: This will cascade delete all variants, images, categories due to FK constraints
-    const query = `DELETE FROM products WHERE id = $1`;
+    const query = `DELETE FROM products WHERE id = $1 cascade`;
     const values = [id];
 
     try {

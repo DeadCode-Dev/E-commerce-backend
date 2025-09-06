@@ -93,33 +93,7 @@ export default class ProductModel {
     productId: number
   ): Promise<ProductWithAvailableVariants | null> {
     const query = `
-            SELECT 
-                p.id as product_id,
-                p.name as product_name,
-                p.description,
-                
-                -- Variants info
-                pv.id as variant_id,
-                pv.size,
-                pv.color,
-                pv.stock,
-                pv.price as variant_price,
-                
-                -- Images
-                img.id as image_id,
-                img.image_url,
-                img.alt_text,
-                img.display_order,
-                
-                -- Categories
-                cat.name as category_name
-                
-            FROM products p
-            LEFT JOIN product_variants pv ON p.id = pv.product_id
-            LEFT JOIN image img ON p.id = img.product_id
-            LEFT JOIN category cat ON p.id = cat.product_id
-            WHERE p.id = $1
-            ORDER BY pv.id, img.display_order, cat.name
+            SELECT * FROM productwithvariants WHERE p_id = $1
         `;
 
     try {
@@ -574,7 +548,11 @@ export default class ProductModel {
   }
 
   // ==================== Basic CRUD Operations ====================
-
+/**
+ * 
+ * @param data - Product data for creation
+ * @returns 
+ */
   static async createProduct(
     data: Pick<Product, "name" | "description">
   ): Promise<Product> {
@@ -594,7 +572,12 @@ export default class ProductModel {
       );
     }
   }
-
+  /**
+   * Update product details. Only fields provided in `data` will be updated.
+   * @param id - Product ID to update
+   * @param data - Partial product data to update
+   * @returns The updated product or null if no fields were provided
+   */
   static async updateProduct(
     id: number,
     data: Partial<Product>
@@ -631,7 +614,11 @@ export default class ProductModel {
       );
     }
   }
-
+  /**
+   * 
+   * @param id - Product ID to delete
+   * Deletes the product and cascades to variants, images, categories due to FK constraints
+   */
   static async deleteProduct(id: number): Promise<void> {
     // Note: This will cascade delete all variants, images, categories due to FK constraints
     const query = `DELETE FROM products WHERE id = $1 cascade`;
@@ -646,7 +633,19 @@ export default class ProductModel {
     }
   }
 
-  static async getAllProducts(limit: number = 20, offset: number = 0): Promise<Product[]> {
+  /**
+   * Get all products with optional pagination and search filters.
+   * @param limit - The maximum number of products to return.
+   * @param offset - The number of products to skip before starting to collect the result set.
+   * @param options - Optional search filters.
+   * @returns A promise that resolves to an array of products.
+   */
+  static async getAllProducts(limit: number = 20, offset: number = 0, options?: ProductSearchOptions): Promise<Product[]> {
+    if (options) {
+      const result = await this.searchProducts(options);
+      return result.products;
+    }
+
     const query = `
       SELECT 
         p.id AS product_id,
@@ -667,20 +666,6 @@ export default class ProductModel {
     } catch (error) {
       throw new Error(
         `Error getting all products: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async getProductById(id: number): Promise<Product | null> {
-    const query = `SELECT * FROM products WHERE id = $1`;
-    const values = [id];
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows[0] || null;
-    } catch (error) {
-      throw new Error(
-        `Error getting product by id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

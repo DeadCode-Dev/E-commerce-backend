@@ -4,7 +4,7 @@ import responses from "@/services/responses";
 import { Request, Response } from "express";
 
 export default function deleteProduct(req: Request, res: Response) {
-    const productId = parseInt(req.body.id);
+    const productId = parseInt(req.body.product_id);
 
     ProductModel.deleteProduct(productId).then(() => {
         responder(res, responses.api.products.deleted)

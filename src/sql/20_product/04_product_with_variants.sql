@@ -1,19 +1,22 @@
-CREATE VIEW IF NOT EXISTS productwithvariants AS
-SELECT products.id AS p_id,
-    products.name AS p_name,
-    products.description AS p_description,
-    product_variants.id AS v_id,
-    product_variants.size AS v_size,
-    product_variants.color AS v_color,
-    product_variants.stock AS v_stock,
-    product_variants.price AS v_price,
-    product_variants.created_at AS v_created_at,
-    product_variants.updated_at AS v_updated_at,
-    category.name AS category_name,
-    image.image_url,
-    image.alt_text,
-    image.display_order AS image_display_order,
-FROM products
-    LEFT JOIN product_variants ON products.id = product_variants.product_id
-    LEFT JOIN category ON products.id = category.product_id
-    LEFT JOIN image ON image.product_id = products.id;
+CREATE OR REPLACE VIEW productwithvariants AS
+SELECT p.id AS product_id,
+    p.name AS product_name,
+    p.description AS description,
+    v.id AS variant_id,
+    v.size AS size,
+    v.color AS color,
+    v.hex AS hex,
+    v.stock AS stock,
+    v.price AS variant_price,
+    v.created_at AS variant_created_at,
+    v.updated_at AS variant_updated_at,
+    c.id AS category_id,
+    c.name AS category_name,
+    i.id AS image_id,
+    i.image_url,
+    i.alt_text,
+    i.display_order
+FROM products p
+    LEFT JOIN product_variants v ON p.id = v.product_id
+    LEFT JOIN category c ON p.id = c.product_id
+    LEFT JOIN image i ON i.product_id = p.id;

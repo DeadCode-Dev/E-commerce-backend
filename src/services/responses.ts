@@ -101,6 +101,24 @@ const responses = {
         message: "User deleted successfully",
       },
     },
+    products: {
+      notFound: {
+        code: 404,
+        message: "Product not found",
+      },
+      created: {
+        code: 201,
+        message: "Product created successfully",
+      },
+      updated: {
+        code: 200,
+        message: "Product updated successfully",
+      },
+      deleted: {
+        code: 200,
+        message: "Product deleted successfully",
+      },
+    },
   },
   Error: {
     internalServerError: {

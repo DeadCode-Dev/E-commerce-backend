@@ -4,6 +4,5 @@ CREATE TABLE IF NOT EXISTS notifications (
     user_id INT NOT NULL REFERENCES users(id),
     message TEXT NOT NULL,
     read BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW()
 );

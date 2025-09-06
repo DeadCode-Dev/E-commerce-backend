@@ -575,7 +575,9 @@ export default class ProductModel {
 
   // ==================== Basic CRUD Operations ====================
 
-  static async createProduct(data: Partial<Product>): Promise<Product> {
+  static async createProduct(
+    data: Pick<Product, "name" | "description">
+  ): Promise<Product> {
     const query = `
             INSERT INTO products (name, description) 
             VALUES ($1, $2) 

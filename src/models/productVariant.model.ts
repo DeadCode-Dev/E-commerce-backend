@@ -18,7 +18,10 @@ export default class ProductVariantModel {
   // ==================== Basic CRUD Operations ====================
 
   static async createVariant(
-    data: Partial<ProductVariant>
+    data: Pick<
+      ProductVariant,
+      "product_id" | "size" | "color" | "stock" | "price"
+    >
   ): Promise<ProductVariant> {
     const query = `
             INSERT INTO product_variants (product_id, size, color, stock, price) 
@@ -53,22 +56,6 @@ export default class ProductVariantModel {
     } catch (error) {
       throw new Error(
         `Error finding variant by id: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async findVariantsByProductId(
-    productId: number
-  ): Promise<ProductVariant[]> {
-    const query = `SELECT * FROM product_variants WHERE product_id = $1 ORDER BY id`;
-    const values = [productId];
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows || [];
-    } catch (error) {
-      throw new Error(
-        `Error finding variants by product id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -154,7 +141,7 @@ export default class ProductVariantModel {
     options: VariantSearchOptions
   ): Promise<ProductVariant[]> {
     let baseQuery = `SELECT * FROM product_variants WHERE 1=1`;
-    const values: any[] = [];
+    const values = [];
     let paramCounter = 1;
 
     if (options.productId) {
@@ -202,37 +189,6 @@ export default class ProductVariantModel {
     } catch (error) {
       throw new Error(
         `Error searching variants: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async findVariantByProductAndAttributes(
-    productId: number,
-    size?: string,
-    color?: string
-  ): Promise<ProductVariant | null> {
-    let query = `SELECT * FROM product_variants WHERE product_id = $1`;
-    const values: any[] = [productId];
-    let paramCounter = 2;
-
-    if (size) {
-      query += ` AND size = $${paramCounter}`;
-      values.push(size);
-      paramCounter++;
-    }
-
-    if (color) {
-      query += ` AND color = $${paramCounter}`;
-      values.push(color);
-      paramCounter++;
-    }
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows[0] || null;
-    } catch (error) {
-      throw new Error(
-        `Error finding variant by attributes: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -382,7 +338,17 @@ export default class ProductVariantModel {
 
   // ==================== Analytics ====================
 
-  static async getVariantStatistics(): Promise<any> {
+  static async getVariantStatistics(): Promise<{
+    total_variants: number;
+    total_sizes: number;
+    total_colors: number;
+    average_price: number | null;
+    max_price: number | null;
+    min_price: number | null;
+    total_stock: number;
+    in_stock_count: number;
+    out_of_stock_count: number;
+  }> {
     const query = `
             SELECT 
                 COUNT(*) as total_variants,
@@ -434,6 +400,7 @@ export default class ProductVariantModel {
   // ==================== Bulk Operations ====================
 
   static async createMultipleVariants(
+    product_id: number,
     variants: Partial<ProductVariant>[]
   ): Promise<ProductVariant[]> {
     if (variants.length === 0) return [];
@@ -441,20 +408,21 @@ export default class ProductVariantModel {
     const valueStrings = variants
       .map((_, index) => {
         const offset = index * 5;
-        return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5})`;
+        return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5}), $${offset + 6})`;
       })
       .join(", ");
 
     const values = variants.flatMap((variant) => [
-      variant.product_id,
+      product_id,
       variant.size,
       variant.color,
+      variant.hex,
       variant.stock || 0,
       variant.price,
     ]);
 
     const query = `
-            INSERT INTO product_variants (product_id, size, color, stock, price)
+            INSERT INTO product_variants (product_id, size, color, hex, stock, price)
             VALUES ${valueStrings}
             RETURNING *
         `;

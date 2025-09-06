@@ -6,6 +6,7 @@ import singleUpload from "./controllers/single";
 import getImage from "./controllers/getImage";
 import deleteImage from "./controllers/delete";
 import getInfo from "./controllers/getInfo";
+import multipleUpload from "./controllers/multiple";
 
 const router = Router();
 const upload = multer(storageService.getMulterConfig());
@@ -25,6 +26,7 @@ router.post(
   isAuthenticated,
   Role("admin"),
   upload.array("images", 10),
+  multipleUpload
 );
 
 // Serve images

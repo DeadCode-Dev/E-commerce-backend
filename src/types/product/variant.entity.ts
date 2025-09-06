@@ -3,6 +3,7 @@ export default interface ProductVariant {
     product_id: number;
     size: string | null;
     color: string | null;
+    hex: string | null;
     stock: number;
     price: number | null;
     created_at: Date;

@@ -50,7 +50,7 @@ export default class ReviewModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating review: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating review: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -64,13 +64,13 @@ export default class ReviewModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding review by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding review by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async findReviewsByProductId(
-    productId: number
+    productId: number,
   ): Promise<ReviewWithUser[]> {
     const query = `
             SELECT r.*, u.username, u.email as user_email
@@ -86,7 +86,7 @@ export default class ReviewModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding reviews by product id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding reviews by product id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -106,20 +106,20 @@ export default class ReviewModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding reviews by user id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding reviews by user id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateReview(
     id: number,
-    data: Partial<Review>
+    data: Partial<Review>,
   ): Promise<Review | null> {
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Review] !== undefined &&
         data[key as keyof Review] !== null &&
-        data[key as keyof Review] !== ""
+        data[key as keyof Review] !== "",
     );
 
     if (dataKeys.length === 0) return null;
@@ -143,7 +143,7 @@ export default class ReviewModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating review: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating review: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -156,13 +156,13 @@ export default class ReviewModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting review: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting review: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async searchReviews(
-    options: ReviewSearchOptions
+    options: ReviewSearchOptions,
   ): Promise<ReviewWithUser[]> {
     let baseQuery = `
             SELECT r.*, u.username, p.name as product_name
@@ -225,13 +225,13 @@ export default class ReviewModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error searching reviews: ${error instanceof Error ? error.message : String(error)}`
+        `Error searching reviews: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async getProductReviewSummary(
-    productId: number
+    productId: number,
   ): Promise<ProductReviewSummary> {
     const query = `
             SELECT 
@@ -276,14 +276,14 @@ export default class ReviewModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting product review summary: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting product review summary: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async hasUserReviewedProduct(
     userId: number,
-    productId: number
+    productId: number,
   ): Promise<boolean> {
     const query = `SELECT 1 FROM reviews WHERE user_id = $1 AND product_id = $2`;
     const values = [userId, productId];
@@ -293,7 +293,7 @@ export default class ReviewModel {
       return result.rows.length > 0;
     } catch (error) {
       throw new Error(
-        `Error checking if user reviewed product: ${error instanceof Error ? error.message : String(error)}`
+        `Error checking if user reviewed product: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -314,7 +314,7 @@ export default class ReviewModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting recent reviews: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting recent reviews: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

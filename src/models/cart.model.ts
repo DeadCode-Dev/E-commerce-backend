@@ -46,7 +46,7 @@ export default class CartModel {
   static async addVariantToCart(
     userId: number,
     variantId: number,
-    quantity: number
+    quantity: number,
   ): Promise<CartWithVariant> {
     // First check if variant exists and is available
     const variantCheck = `
@@ -64,7 +64,7 @@ export default class CartModel {
     const variant = variantResult.rows[0];
     if (variant.stock < quantity) {
       throw new Error(
-        `Insufficient stock. Available: ${variant.stock}, Requested: ${quantity}`
+        `Insufficient stock. Available: ${variant.stock}, Requested: ${quantity}`,
       );
     }
 
@@ -82,7 +82,7 @@ export default class CartModel {
       const newQuantity = existingResult.rows[0].quantity + quantity;
       if (newQuantity > variant.stock) {
         throw new Error(
-          `Cannot add ${quantity} items. Cart would have ${newQuantity} items but only ${variant.stock} available.`
+          `Cannot add ${quantity} items. Cart would have ${newQuantity} items but only ${variant.stock} available.`,
         );
       }
 
@@ -120,7 +120,7 @@ export default class CartModel {
   static async updateCartItemQuantity(
     userId: number,
     variantId: number,
-    quantity: number
+    quantity: number,
   ): Promise<CartWithVariant | null> {
     if (quantity <= 0) {
       await this.removeVariantFromCart(userId, variantId);
@@ -137,7 +137,7 @@ export default class CartModel {
     const availableStock = variantResult.rows[0].stock;
     if (quantity > availableStock) {
       throw new Error(
-        `Insufficient stock. Available: ${availableStock}, Requested: ${quantity}`
+        `Insufficient stock. Available: ${availableStock}, Requested: ${quantity}`,
       );
     }
 
@@ -155,7 +155,7 @@ export default class CartModel {
       return this.getCartItemWithDetails(result.rows[0]);
     } catch (error) {
       throw new Error(
-        `Error updating cart item: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating cart item: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -165,7 +165,7 @@ export default class CartModel {
    */
   static async removeVariantFromCart(
     userId: number,
-    variantId: number
+    variantId: number,
   ): Promise<void> {
     const query = `DELETE FROM cart WHERE user_id = $1 AND variant_id = $2`;
 
@@ -173,7 +173,7 @@ export default class CartModel {
       await this.db.query(query, [userId, variantId]);
     } catch (error) {
       throw new Error(
-        `Error removing variant from cart: ${error instanceof Error ? error.message : String(error)}`
+        `Error removing variant from cart: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -240,10 +240,10 @@ export default class CartModel {
       }));
 
       const availableItems = items.filter(
-        (item) => item.is_available && item.is_valid
+        (item) => item.is_available && item.is_valid,
       );
       const unavailableItems = items.filter(
-        (item) => !item.is_available || !item.is_valid
+        (item) => !item.is_available || !item.is_valid,
       );
 
       return {
@@ -251,7 +251,7 @@ export default class CartModel {
         total_quantity: items.reduce((sum, item) => sum + item.quantity, 0),
         subtotal: availableItems.reduce(
           (sum, item) => sum + item.item_total,
-          0
+          0,
         ),
         total_unique_products: new Set(items.map((item) => item.product_id))
           .size,
@@ -261,7 +261,7 @@ export default class CartModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting user cart: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting user cart: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -276,7 +276,7 @@ export default class CartModel {
       await this.db.query(query, [userId]);
     } catch (error) {
       throw new Error(
-        `Error clearing cart: ${error instanceof Error ? error.message : String(error)}`
+        `Error clearing cart: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -285,7 +285,7 @@ export default class CartModel {
    * Remove unavailable items from cart (cleanup)
    */
   static async removeUnavailableItems(
-    userId: number
+    userId: number,
   ): Promise<CartWithVariant[]> {
     const query = `
             DELETE FROM cart c
@@ -301,7 +301,7 @@ export default class CartModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error removing unavailable items: ${error instanceof Error ? error.message : String(error)}`
+        `Error removing unavailable items: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -382,7 +382,7 @@ export default class CartModel {
     for (const item of cart.items) {
       if (!item.is_available) {
         errors.push(
-          `${item.product_name} (${item.variant_size}/${item.variant_color}) is out of stock`
+          `${item.product_name} (${item.variant_size}/${item.variant_color}) is out of stock`,
         );
       } else if (!item.is_valid) {
         // Try to update to maximum available quantity
@@ -391,12 +391,12 @@ export default class CartModel {
           const updated = await this.updateCartItemQuantity(
             userId,
             item.variant_id,
-            maxQuantity
+            maxQuantity,
           );
           if (updated) {
             updatedItems.push(updated);
             errors.push(
-              `${item.product_name} quantity reduced to ${maxQuantity} (max available)`
+              `${item.product_name} quantity reduced to ${maxQuantity} (max available)`,
             );
           }
         } else {
@@ -469,7 +469,7 @@ export default class CartModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting cart statistics: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting cart statistics: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

@@ -12,8 +12,8 @@ export default async function updateUser(req: Request, res: Response) {
   const updates: Partial<User> = Object.fromEntries(
     Object.entries({ email, phone, username }).filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_, value]) => value !== undefined && value !== null && value !== ""
-    )
+      ([_, value]) => value !== undefined && value !== null && value !== "",
+    ),
   );
 
   if (Object.keys(updates).length === 0) {

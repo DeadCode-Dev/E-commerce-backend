@@ -7,7 +7,7 @@ import { Request, Response } from "express";
 
 export default async function sendPasswordResetOTP(
   req: Request,
-  res: Response
+  res: Response,
 ) {
   const { email } = req.body;
 

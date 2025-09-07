@@ -4,11 +4,12 @@ import cookiesParser from "../middlewares/cookiesParser";
 import helmetMiddleware from "../middlewares/helmet";
 import expressRateLimitMiddleware from "../middlewares/expressRateLimit";
 import authRouter from "../api/auth/auth.router";
+import userRouter from "../api/user/user.router";
+import imagesRouter from "@/api/images/images.router";
+import productRouter from "@/api/product/product.router";
 import pool from "../config/postgres";
 import transporter from "../config/nodeMailer";
 import SqlInit from "./sql";
-import userRouter from "../api/user/user.router";
-import imagesRouter from "@/api/images/images.router";
 class Setup {
   public app = express();
   constructor() {}
@@ -62,6 +63,7 @@ class Setup {
     this.app.use("/auth", authRouter);
     this.app.use("/user", userRouter);
     this.app.use("/images", imagesRouter);
+    this.app.use("/products", productRouter);
 
     console.log("Routes configured.");
   }

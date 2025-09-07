@@ -17,7 +17,7 @@ export const createProductVariants = z.object({
         hex: z.string().min(4).max(7),
         stock: z.number().min(0).optional(),
         price: z.number().min(0),
-      })
+      }),
     ),
   }),
 });

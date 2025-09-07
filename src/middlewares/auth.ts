@@ -1,8 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { JwtPayload } from "@/shared/models/types";
 import UserModel from "../models/User.model";
 import User from "types/user/users.entity";
+
+interface JwtPayload {
+  userId: number;
+  email: string;
+  iat?: number;
+  exp?: number;
+}
 
 /**
  * Middleware to check if the user is authenticated via access token

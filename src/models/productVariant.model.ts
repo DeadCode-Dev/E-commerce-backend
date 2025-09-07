@@ -21,7 +21,7 @@ export default class ProductVariantModel {
     data: Pick<
       ProductVariant,
       "product_id" | "size" | "color" | "stock" | "price"
-    >
+    >,
   ): Promise<ProductVariant> {
     const query = `
             INSERT INTO product_variants (product_id, size, color, stock, price) 
@@ -41,7 +41,7 @@ export default class ProductVariantModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating variant: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating variant: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -55,7 +55,7 @@ export default class ProductVariantModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding variant by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding variant by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -68,19 +68,19 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting all variants: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting all variants: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateVariant(
     id: number,
-    data: Partial<ProductVariant>
+    data: Partial<ProductVariant>,
   ): Promise<ProductVariant | null> {
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof ProductVariant] !== undefined &&
-        data[key as keyof ProductVariant] !== null
+        data[key as keyof ProductVariant] !== null,
     );
 
     if (dataKeys.length === 0) return null;
@@ -104,7 +104,7 @@ export default class ProductVariantModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating variant: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating variant: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -117,7 +117,7 @@ export default class ProductVariantModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting variant: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting variant: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -130,7 +130,7 @@ export default class ProductVariantModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting variants by product id: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting variants by product id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -138,7 +138,7 @@ export default class ProductVariantModel {
   // ==================== Advanced Search and Filtering ====================
 
   static async searchVariants(
-    options: VariantSearchOptions
+    options: VariantSearchOptions,
   ): Promise<ProductVariant[]> {
     let baseQuery = `SELECT * FROM product_variants WHERE 1=1`;
     const values = [];
@@ -188,7 +188,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error searching variants: ${error instanceof Error ? error.message : String(error)}`
+        `Error searching variants: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -202,7 +202,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting variants by size: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variants by size: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -216,7 +216,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting variants by color: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variants by color: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -229,7 +229,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting variants in stock: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variants in stock: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -242,14 +242,14 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting variants out of stock: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variants out of stock: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async getVariantsInPriceRange(
     minPrice: number,
-    maxPrice: number
+    maxPrice: number,
   ): Promise<ProductVariant[]> {
     const query = `
             SELECT * FROM product_variants 
@@ -263,7 +263,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting variants in price range: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variants in price range: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -272,7 +272,7 @@ export default class ProductVariantModel {
 
   static async updateStock(
     id: number,
-    stock: number
+    stock: number,
   ): Promise<ProductVariant | null> {
     const query = `
             UPDATE product_variants 
@@ -287,14 +287,14 @@ export default class ProductVariantModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating stock: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating stock: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async increaseStock(
     id: number,
-    amount: number
+    amount: number,
   ): Promise<ProductVariant | null> {
     const query = `
             UPDATE product_variants 
@@ -309,14 +309,14 @@ export default class ProductVariantModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error increasing stock: ${error instanceof Error ? error.message : String(error)}`
+        `Error increasing stock: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async decreaseStock(
     id: number,
-    amount: number
+    amount: number,
   ): Promise<ProductVariant | null> {
     const query = `
             UPDATE product_variants 
@@ -331,7 +331,7 @@ export default class ProductVariantModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error decreasing stock: ${error instanceof Error ? error.message : String(error)}`
+        `Error decreasing stock: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -368,7 +368,7 @@ export default class ProductVariantModel {
       return result.rows[0] || {};
     } catch (error) {
       throw new Error(
-        `Error getting variant statistics: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting variant statistics: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -392,7 +392,7 @@ export default class ProductVariantModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting unique attributes: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting unique attributes: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -401,7 +401,7 @@ export default class ProductVariantModel {
 
   static async createMultipleVariants(
     product_id: number,
-    variants: Partial<ProductVariant>[]
+    variants: Partial<ProductVariant>[],
   ): Promise<ProductVariant[]> {
     if (variants.length === 0) return [];
 
@@ -432,7 +432,7 @@ export default class ProductVariantModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error creating multiple variants: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating multiple variants: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

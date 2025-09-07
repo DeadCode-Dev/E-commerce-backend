@@ -269,7 +269,7 @@ const updatedOrder = await OrderService.updateOrderStatus(
   1,
   "completed",
   "completed",
-  "delivered"
+  "delivered",
 );
 
 // Cancel order

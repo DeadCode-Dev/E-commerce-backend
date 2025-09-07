@@ -3,7 +3,7 @@ import responder from "@/services/responder.service";
 import responses from "@/services/responses";
 import { Request, Response } from "express";
 
-export default function deleteProduct(req: Request, res: Response): void {
+export default function getProductColors(req: Request, res: Response): void {
   const productId = parseInt(req.params.id);
 
   if (isNaN(productId)) {
@@ -13,14 +13,17 @@ export default function deleteProduct(req: Request, res: Response): void {
     return;
   }
 
-  ProductModel.deleteProduct(productId)
-    .then(() => {
-      responder(res, responses.api.products.deleted);
+  ProductModel.getProductColors(productId)
+    .then((colors) => {
+      res.json({
+        success: true,
+        data: { colors },
+      });
     })
     .catch((error: Error) => {
-      console.error("Error deleting product:", error);
+      console.error("Error fetching product colors:", error);
       responder(res, responses.Error.internalServerError, {
-        message: "Failed to delete product",
+        message: "Failed to fetch product colors",
       });
     });
 }

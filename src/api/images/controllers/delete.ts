@@ -5,7 +5,7 @@ import path from "path";
 
 export default async function deleteImage(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   try {
     const imageId = parseInt(req.params.imageId);

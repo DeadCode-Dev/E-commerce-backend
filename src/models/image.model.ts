@@ -29,7 +29,7 @@ export default class ImageModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating image: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating image: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -43,7 +43,7 @@ export default class ImageModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding image by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding image by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -57,7 +57,7 @@ export default class ImageModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding images by product id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding images by product id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -70,20 +70,20 @@ export default class ImageModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting all images: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting all images: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateImage(
     id: number,
-    data: Partial<Image>
+    data: Partial<Image>,
   ): Promise<Image | null> {
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Image] !== undefined &&
         data[key as keyof Image] !== null &&
-        data[key as keyof Image] !== ""
+        data[key as keyof Image] !== "",
     );
 
     if (dataKeys.length === 0) return null;
@@ -107,7 +107,7 @@ export default class ImageModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating image: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating image: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -120,7 +120,7 @@ export default class ImageModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting image: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting image: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -133,7 +133,7 @@ export default class ImageModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting images by product id: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting images by product id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -141,7 +141,7 @@ export default class ImageModel {
   // ==================== Specialized Image Operations ====================
 
   static async getPrimaryImageByProductId(
-    productId: number
+    productId: number,
   ): Promise<Image | null> {
     const query = `
             SELECT * FROM image 
@@ -156,14 +156,14 @@ export default class ImageModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error getting primary image: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting primary image: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async reorderImages(
     productId: number,
-    imageOrders: Array<{ id: number; display_order: number }>
+    imageOrders: Array<{ id: number; display_order: number }>,
   ): Promise<Image[]> {
     if (imageOrders.length === 0) return [];
 
@@ -177,7 +177,7 @@ export default class ImageModel {
       return results.map((result) => result.rows[0]).filter(Boolean);
     } catch (error) {
       throw new Error(
-        `Error reordering images: ${error instanceof Error ? error.message : String(error)}`
+        `Error reordering images: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -190,7 +190,7 @@ export default class ImageModel {
       return parseInt(result.rows[0].count) || 0;
     } catch (error) {
       throw new Error(
-        `Error getting image count: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting image count: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -215,7 +215,7 @@ export default class ImageModel {
       );
     } catch (error) {
       throw new Error(
-        `Error getting image count by product: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting image count by product: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -229,7 +229,7 @@ export default class ImageModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding images by URL: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding images by URL: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -242,7 +242,7 @@ export default class ImageModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting images without alt text: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting images without alt text: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -255,7 +255,7 @@ export default class ImageModel {
       image_url: string;
       alt_text?: string;
       display_order?: number;
-    }>
+    }>,
   ): Promise<Image[]> {
     if (images.length === 0) return [];
 
@@ -284,13 +284,13 @@ export default class ImageModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error creating multiple images: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating multiple images: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateMultipleImages(
-    images: Array<{ id: number } & Partial<Image>>
+    images: Array<{ id: number } & Partial<Image>>,
   ): Promise<Image[]> {
     if (images.length === 0) return [];
 
@@ -304,7 +304,7 @@ export default class ImageModel {
       return results.filter(Boolean) as Image[];
     } catch (error) {
       throw new Error(
-        `Error updating multiple images: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating multiple images: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -343,7 +343,7 @@ export default class ImageModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting image statistics: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting image statistics: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

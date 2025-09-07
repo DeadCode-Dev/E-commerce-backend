@@ -32,7 +32,7 @@ export default class ShippingModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating shipping: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating shipping: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -46,7 +46,7 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding shipping by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding shipping by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -60,13 +60,13 @@ export default class ShippingModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding shipping by user id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding shipping by user id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async findShippingByTrackingNumber(
-    trackingNumber: string
+    trackingNumber: string,
   ): Promise<Shipping | null> {
     const query = `SELECT * FROM shipping WHERE tracking_number = $1`;
     const values = [trackingNumber];
@@ -76,7 +76,7 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding shipping by tracking number: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding shipping by tracking number: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -89,21 +89,21 @@ export default class ShippingModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting all shipping: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting all shipping: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateShipping(
     id: number,
-    data: Partial<Shipping>
+    data: Partial<Shipping>,
   ): Promise<Shipping | null> {
     // Keep only fields with defined values
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Shipping] !== undefined &&
         data[key as keyof Shipping] !== null &&
-        data[key as keyof Shipping] !== ""
+        data[key as keyof Shipping] !== "",
     );
 
     if (dataKeys.length === 0) return null; // nothing to update
@@ -127,14 +127,14 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating shipping: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating shipping: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateShippingStatus(
     id: number,
-    status: string
+    status: string,
   ): Promise<Shipping | null> {
     const query = `
       UPDATE shipping 
@@ -149,14 +149,14 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating shipping status: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating shipping status: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateTrackingNumber(
     id: number,
-    trackingNumber: string
+    trackingNumber: string,
   ): Promise<Shipping | null> {
     const query = `
       UPDATE shipping 
@@ -171,7 +171,7 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating tracking number: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating tracking number: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -184,7 +184,7 @@ export default class ShippingModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting shipping: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting shipping: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -198,13 +198,13 @@ export default class ShippingModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting shipping by status: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting shipping by status: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async getShippingWithUserDetails(
-    id: number
+    id: number,
   ): Promise<ShippingWithUserDetails | null> {
     const query = `
       SELECT 
@@ -223,7 +223,7 @@ export default class ShippingModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error getting shipping with user details: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting shipping with user details: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

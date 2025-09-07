@@ -10,7 +10,7 @@ userRouter.put(
   "/me",
   isAuthenticated,
   validate(updateUserSchema),
-  controller.updateUser
+  controller.updateUser,
 );
 userRouter.delete("/me", isAuthenticated, controller.deleteUser);
 

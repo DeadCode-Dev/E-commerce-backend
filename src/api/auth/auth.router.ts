@@ -18,22 +18,22 @@ router.post(
   "/password/change",
   isAuthenticated,
   validate(changePasswordSchema),
-  controllers.changePassword
+  controllers.changePassword,
 );
 router.post(
   "/password/verify-otp",
   validate(verifyOTPSchema),
-  controllers.verifyOTP
+  controllers.verifyOTP,
 );
 router.post(
   "/password/forgot",
   validate(resetPasswordSchema),
-  controllers.sendPasswordResetOTP
+  controllers.sendPasswordResetOTP,
 );
 router.post(
   "/password/reset",
   validate(forgotPasswordResetSchema),
-  controllers.resetPassword
+  controllers.resetPassword,
 );
 
 export default router;

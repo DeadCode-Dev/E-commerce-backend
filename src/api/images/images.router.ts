@@ -17,7 +17,7 @@ router.post(
   isAuthenticated,
   Role("admin"),
   upload.single("image"),
-  singleUpload
+  singleUpload,
 );
 
 // Upload multiple images
@@ -26,25 +26,16 @@ router.post(
   isAuthenticated,
   Role("admin"),
   upload.array("images", 10),
-  multipleUpload
+  multipleUpload,
 );
 
 // Serve images
-router.get(
-  "/:size/:filename",
-  getImage
-);
+router.get("/:size/:filename", getImage);
 
 // Delete image
-router.delete(
-  "/:imageId",
-  deleteImage
-);
+router.delete("/:imageId", deleteImage);
 
 // Get image info
-router.get(
-  "/info/:imageId",
-  getInfo
-);
+router.get("/info/:imageId", getInfo);
 
 export default router;

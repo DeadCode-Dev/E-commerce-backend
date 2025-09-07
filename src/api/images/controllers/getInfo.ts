@@ -41,7 +41,11 @@ export default async (req: Request, res: Response): Promise<void> => {
           medium: storageService.getImageUrl(filename, "medium"),
           thumbnail: storageService.getImageUrl(filename, "thumbnail"),
         },
-        file_stats: (Object.keys(stats) as Array<"original" | "large" | "medium" | "thumbnail">).map((size) => ({
+        file_stats: (
+          Object.keys(stats) as Array<
+            "original" | "large" | "medium" | "thumbnail"
+          >
+        ).map((size) => ({
           size,
           file_size: stats[size]?.size || 0,
           exists: !!stats[size],

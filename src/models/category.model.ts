@@ -245,4 +245,25 @@ export default class CategoryModel {
       );
     }
   }
+
+  /**
+   * Get all distinct categories for filter dropdowns
+   */
+  static async getAllDistinctCategories(): Promise<string[]> {
+    const query = `
+      SELECT DISTINCT name
+      FROM category 
+      WHERE name IS NOT NULL AND name != ''
+      ORDER BY name
+    `;
+
+    try {
+      const result = await this.db.query(query);
+      return result.rows.map((row) => row.name) || [];
+    } catch (error) {
+      throw new Error(
+        `Error getting distinct categories: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
 }

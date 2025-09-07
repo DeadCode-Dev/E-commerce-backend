@@ -548,11 +548,11 @@ export default class ProductModel {
   }
 
   // ==================== Basic CRUD Operations ====================
-/**
- * 
- * @param data - Product data for creation
- * @returns 
- */
+  /**
+   *
+   * @param data - Product data for creation
+   * @returns
+   */
   static async createProduct(
     data: Pick<Product, "name" | "description">
   ): Promise<Product> {
@@ -615,13 +615,13 @@ export default class ProductModel {
     }
   }
   /**
-   * 
+   *
    * @param id - Product ID to delete
    * Deletes the product and cascades to variants, images, categories due to FK constraints
    */
   static async deleteProduct(id: number): Promise<void> {
-    // Note: This will cascade delete all variants, images, categories due to FK constraints
-    const query = `DELETE FROM products WHERE id = $1 cascade`;
+    // Note: Cascade deletion of variants, images, and categories is handled by foreign key constraints in the database
+    const query = `DELETE FROM products WHERE id = $1`;
     const values = [id];
 
     try {
@@ -640,7 +640,11 @@ export default class ProductModel {
    * @param options - Optional search filters.
    * @returns A promise that resolves to an array of products.
    */
-  static async getAllProducts(limit: number = 20, offset: number = 0, options?: ProductSearchOptions): Promise<Product[]> {
+  static async getAllProducts(
+    limit: number = 20,
+    offset: number = 0,
+    options?: ProductSearchOptions
+  ): Promise<Product[]> {
     if (options) {
       const result = await this.searchProducts(options);
       return result.products;
@@ -648,17 +652,19 @@ export default class ProductModel {
 
     const query = `
       SELECT 
-        p.id AS product_id,
+        p.id,
         p.name,
-        p.price,
-        i.url AS image_url
+        p.description,
+        (SELECT image_url FROM image WHERE product_id = p.id ORDER BY display_order LIMIT 1) as image_url,
+        MIN(pv.price) as min_price,
+        MAX(pv.price) as max_price,
+        SUM(pv.stock) as total_stock
       FROM products p
-      LEFT JOIN image i 
-      ON p.id = i.product_id 
-      AND i.display_order = 0
+      LEFT JOIN product_variants pv ON p.id = pv.product_id
+      GROUP BY p.id, p.name, p.description
       ORDER BY p.id
       LIMIT $1 OFFSET $2;
-    `;  
+    `;
     try {
       const values = [limit, offset];
       const result = await this.db.query(query, values);
@@ -666,6 +672,76 @@ export default class ProductModel {
     } catch (error) {
       throw new Error(
         `Error getting all products: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  // ==================== Filter Options Methods ====================
+
+  /**
+   * Get all distinct sizes across all products for filter dropdowns
+   */
+  static async getAllDistinctSizes(): Promise<string[]> {
+    const query = `
+      SELECT DISTINCT size
+      FROM product_variants 
+      WHERE size IS NOT NULL AND size != ''
+      ORDER BY size
+    `;
+
+    try {
+      const result = await this.db.query(query);
+      return result.rows.map((row) => row.size) || [];
+    } catch (error) {
+      throw new Error(
+        `Error getting distinct sizes: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  /**
+   * Get all distinct colors across all products for filter dropdowns
+   */
+  static async getAllDistinctColors(): Promise<string[]> {
+    const query = `
+      SELECT DISTINCT color
+      FROM product_variants 
+      WHERE color IS NOT NULL AND color != ''
+      ORDER BY color
+    `;
+
+    try {
+      const result = await this.db.query(query);
+      return result.rows.map((row) => row.color) || [];
+    } catch (error) {
+      throw new Error(
+        `Error getting distinct colors: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  /**
+   * Get price range across all products for filter sliders
+   */
+  static async getPriceRange(): Promise<{ min: number; max: number }> {
+    const query = `
+      SELECT 
+        MIN(price) as min_price,
+        MAX(price) as max_price
+      FROM product_variants
+      WHERE price > 0
+    `;
+
+    try {
+      const result = await this.db.query(query);
+      const row = result.rows[0];
+      return {
+        min: parseFloat(row?.min_price || "0"),
+        max: parseFloat(row?.max_price || "1000"),
+      };
+    } catch (error) {
+      throw new Error(
+        `Error getting price range: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

@@ -28,7 +28,7 @@ export default class PaymentsModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating payment: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating payment: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -42,7 +42,7 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding payment by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding payment by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -56,7 +56,7 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding payment by order id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding payment by order id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -70,13 +70,13 @@ export default class PaymentsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding payments by user id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding payments by user id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async findPaymentByStripeId(
-    stripePaymentId: string
+    stripePaymentId: string,
   ): Promise<Payments | null> {
     const query = `SELECT * FROM payments WHERE stripe_payment_id = $1`;
     const values = [stripePaymentId];
@@ -86,7 +86,7 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding payment by stripe id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding payment by stripe id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -99,21 +99,21 @@ export default class PaymentsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting all payments: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting all payments: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updatePayment(
     id: number,
-    data: Partial<Payments>
+    data: Partial<Payments>,
   ): Promise<Payments | null> {
     // Keep only fields with defined values
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Payments] !== undefined &&
         data[key as keyof Payments] !== null &&
-        data[key as keyof Payments] !== ""
+        data[key as keyof Payments] !== "",
     );
 
     if (dataKeys.length === 0) return null; // nothing to update
@@ -137,14 +137,14 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating payment: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating payment: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updatePaymentStatus(
     id: number,
-    status: PaymentStatus
+    status: PaymentStatus,
   ): Promise<Payments | null> {
     const query = `
       UPDATE payments 
@@ -159,21 +159,21 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating payment status: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating payment status: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updatePaymentByOrderId(
     orderId: number,
-    data: Partial<Payments>
+    data: Partial<Payments>,
   ): Promise<Payments | null> {
     // Keep only fields with defined values
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Payments] !== undefined &&
         data[key as keyof Payments] !== null &&
-        data[key as keyof Payments] !== ""
+        data[key as keyof Payments] !== "",
     );
 
     if (dataKeys.length === 0) return null; // nothing to update
@@ -197,7 +197,7 @@ export default class PaymentsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating payment by order id: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating payment by order id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -210,7 +210,7 @@ export default class PaymentsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting payment: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting payment: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -224,13 +224,13 @@ export default class PaymentsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting payments by status: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting payments by status: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async getPaymentsByMethod(
-    paymentMethod: PaymentMethodType
+    paymentMethod: PaymentMethodType,
   ): Promise<Payments[]> {
     const query = `SELECT * FROM payments WHERE payment_method = $1 ORDER BY created_at DESC`;
     const values = [paymentMethod];
@@ -240,7 +240,7 @@ export default class PaymentsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting payments by method: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting payments by method: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

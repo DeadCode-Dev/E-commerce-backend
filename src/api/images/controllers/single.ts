@@ -32,7 +32,7 @@ export default async function singleUpload(req: Request, res: Response) {
       product_id: parseInt(productId),
       image_url: storageService.getImageUrl(req.file.filename, "original"),
       alt_text: req.body.alt_text || null,
-      display_order: req.body.display_order
+      display_order: req.body.display_order,
     } as Image;
 
     const savedImage = await ImageModel.createImage(imageData);

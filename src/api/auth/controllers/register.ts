@@ -36,7 +36,7 @@ export default async function register(req: Request, res: Response) {
         role: newUser.role,
         exp: expiresAccessTokenIn, // 15 minutes
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
     const expiresRefreshTokenIn =
       Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 days
@@ -47,7 +47,7 @@ export default async function register(req: Request, res: Response) {
         role: newUser.role,
         exp: expiresRefreshTokenIn, // 30 days
       },
-      process.env.JWT_REFRESH_SECRET
+      process.env.JWT_REFRESH_SECRET,
     );
     const expiresAt = new Date(expiresRefreshTokenIn * 1000);
 

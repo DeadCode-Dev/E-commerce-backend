@@ -5,7 +5,7 @@ import responses from "@/services/responses";
 import ProductVariant from "@/types/product/variant.entity";
 import { Request, Response } from "express";
 
-export function createProduct(req: Request, res: Response) {
+export function createProduct(req: Request, res: Response): void {
   ProductModel.createProduct({
     name: req.body.name,
     description: req.body.description,
@@ -23,14 +23,15 @@ export function createProduct(req: Request, res: Response) {
     });
 }
 
-export function createProductVariants(req: Request, res: Response) {
+export function createProductVariants(req: Request, res: Response): void {
   const productId = parseInt(req.body.product_id);
   const variants = req.body.variants as ProductVariant[]; // Expecting an array of variants
 
   if (!Array.isArray(variants) || variants.length === 0) {
-    return responder(res, responses.Error.invalidInput, {
+    responder(res, responses.Error.invalidInput, {
       message: "Variants must be a non-empty array",
     });
+    return;
   }
 
   ProductVariantModel.createMultipleVariants(productId, variants)

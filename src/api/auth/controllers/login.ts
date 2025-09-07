@@ -16,7 +16,7 @@ async function Login(req: Request, res: Response) {
     }
     const isMatch = await PasswordUtil.comparePasswords(
       body.password,
-      user.password
+      user.password,
     );
     if (!isMatch) {
       responder(res, responses.api.login.wrongPassword);
@@ -30,7 +30,7 @@ async function Login(req: Request, res: Response) {
         role: user.role,
         exp: expiresAccessTokenIn, // 15 minutes
       },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
     const expiresRefreshTokenIn =
       Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 days
@@ -41,7 +41,7 @@ async function Login(req: Request, res: Response) {
         role: user.role,
         exp: expiresRefreshTokenIn, // 30 days
       },
-      process.env.JWT_REFRESH_SECRET
+      process.env.JWT_REFRESH_SECRET,
     );
     const expiresAt = new Date(expiresRefreshTokenIn * 1000);
 

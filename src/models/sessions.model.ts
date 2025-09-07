@@ -42,7 +42,7 @@ export default class SessionsModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating session: ${error instanceof Error ? error.message : String(error)}`
+        `Error creating session: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -51,7 +51,7 @@ export default class SessionsModel {
   static async CreateSession(
     userId: number,
     sessionToken: string,
-    expiresAt: Date
+    expiresAt: Date,
   ): Promise<Sessions | null> {
     const query = `
             INSERT INTO sessions (user_id, session_token, expires_at)
@@ -78,13 +78,13 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding session by id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding session by id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async findSessionByToken(
-    sessionToken: string
+    sessionToken: string,
   ): Promise<Sessions | null> {
     const query = `SELECT * FROM sessions WHERE session_token = $1`;
     const values = [sessionToken];
@@ -94,7 +94,7 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding session by token: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding session by token: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -124,7 +124,7 @@ export default class SessionsModel {
   }
 
   static async findSessionByRefreshToken(
-    refreshToken: string
+    refreshToken: string,
   ): Promise<Sessions | null> {
     const query = `SELECT * FROM sessions WHERE refresh_token = $1`;
     const values = [refreshToken];
@@ -134,7 +134,7 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding session by refresh token: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding session by refresh token: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -152,20 +152,20 @@ export default class SessionsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding active sessions by user id: ${error instanceof Error ? error.message : String(error)}`
+        `Error finding active sessions by user id: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
 
   static async updateSession(
     id: number,
-    data: Partial<Sessions>
+    data: Partial<Sessions>,
   ): Promise<Sessions | null> {
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof Sessions] !== undefined &&
         data[key as keyof Sessions] !== null &&
-        data[key as keyof Sessions] !== ""
+        data[key as keyof Sessions] !== "",
     );
 
     if (dataKeys.length === 0) return null;
@@ -189,7 +189,7 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating session: ${error instanceof Error ? error.message : String(error)}`
+        `Error updating session: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -202,7 +202,7 @@ export default class SessionsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting session: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting session: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -215,7 +215,7 @@ export default class SessionsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting session by token: ${error instanceof Error ? error.message : String(error)}`
+        `Error deleting session by token: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -247,7 +247,7 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error deactivating session: ${error instanceof Error ? error.message : String(error)}`
+        `Error deactivating session: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -264,7 +264,7 @@ export default class SessionsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deactivating all user sessions: ${error instanceof Error ? error.message : String(error)}`
+        `Error deactivating all user sessions: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -281,7 +281,7 @@ export default class SessionsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error validating session: ${error instanceof Error ? error.message : String(error)}`
+        `Error validating session: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -294,7 +294,7 @@ export default class SessionsModel {
       return result.rowCount || 0;
     } catch (error) {
       throw new Error(
-        `Error cleaning up expired sessions: ${error instanceof Error ? error.message : String(error)}`
+        `Error cleaning up expired sessions: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }
@@ -328,7 +328,7 @@ export default class SessionsModel {
       };
     } catch (error) {
       throw new Error(
-        `Error getting session statistics: ${error instanceof Error ? error.message : String(error)}`
+        `Error getting session statistics: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

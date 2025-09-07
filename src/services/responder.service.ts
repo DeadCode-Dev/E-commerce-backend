@@ -8,7 +8,7 @@ import { Response } from "express";
 export default function responder(
   res: Response,
   response: MessageType,
-  data?: Record<string, unknown> // optional payload (user, token, etc.)
+  data?: Record<string, unknown>, // optional payload (user, token, etc.)
 ) {
   return res.status(response.code).json({
     statusCode: response.code,

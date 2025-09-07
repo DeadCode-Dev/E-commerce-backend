@@ -22,12 +22,7 @@ class StorageService {
     "image/png",
     "image/webp",
   ];
-  private allowedExtensions: string[] = [
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".webp",
-  ];
+  private allowedExtensions: string[] = [".jpg", ".jpeg", ".png", ".webp"];
 
   constructor() {
     this.uploadsDir = path.join(process.cwd(), "uploads");
@@ -53,12 +48,12 @@ class StorageService {
   private fileFilter = (
     req: Express.Request,
     file: Express.Multer.File,
-    cb: multer.FileFilterCallback
+    cb: multer.FileFilterCallback,
   ): void => {
     // Check MIME type
     if (!this.allowedMimeTypes.includes(file.mimetype)) {
       const error = new Error(
-        `Invalid file type. Allowed types: ${this.allowedMimeTypes.join(", ")}`
+        `Invalid file type. Allowed types: ${this.allowedMimeTypes.join(", ")}`,
       );
       cb(error);
       return;
@@ -68,7 +63,7 @@ class StorageService {
     const ext = path.extname(file.originalname).toLowerCase();
     if (!this.allowedExtensions.includes(ext)) {
       const error = new Error(
-        `Invalid file extension. Allowed extensions: ${this.allowedExtensions.join(", ")}`
+        `Invalid file extension. Allowed extensions: ${this.allowedExtensions.join(", ")}`,
       );
       cb(error);
       return;
@@ -81,14 +76,14 @@ class StorageService {
     destination: (
       req: Express.Request,
       file: Express.Multer.File,
-      cb: (error: Error | null, destination: string) => void
+      cb: (error: Error | null, destination: string) => void,
     ): void => {
       cb(null, path.join(this.uploadsDir, "original"));
     },
     filename: (
       req: Express.Request,
       file: Express.Multer.File,
-      cb: (error: Error | null, filename: string) => void
+      cb: (error: Error | null, filename: string) => void,
     ): void => {
       const ext = path.extname(file.originalname);
       const uniqueName = `${uuidv4()}${ext}`;
@@ -108,7 +103,7 @@ class StorageService {
   }
 
   async processAndStoreImage(
-    file: Express.Multer.File
+    file: Express.Multer.File,
   ): Promise<ProcessedImageResult> {
     const filename = file.filename;
     const originalPath = file.path;
@@ -134,7 +129,7 @@ class StorageService {
         const outputPath = path.join(
           this.uploadsDir,
           sizeName,
-          `${path.parse(filename).name}.webp`
+          `${path.parse(filename).name}.webp`,
         );
 
         const info = await sharp(originalPath)
@@ -157,7 +152,7 @@ class StorageService {
       // Clean up on error
       this.deleteImageFiles(filename);
       throw new Error(
-        `Failed to process image: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to process image: ${error instanceof Error ? error.message : "Unknown error"}`,
       );
     }
   }

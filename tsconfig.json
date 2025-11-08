@@ -21,6 +21,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "types.d.ts"],
-  "exclude": ["node_modules", "dist", "coverage"]
+  "typeRoots": ["./node_modules/@types", "./src/types"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "types.d.ts", "src/**/**/*.ts"],
+  "exclude": ["node_modules", "dist", "coverage"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "files": true
+  }
 }

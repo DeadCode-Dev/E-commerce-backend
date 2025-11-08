@@ -1,4 +1,4 @@
-import User from "types/user/users.entity";
+import User from "./src/types/user/users.entity";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {

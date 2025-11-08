@@ -10,7 +10,7 @@ export default async function changePassword(req: Request, res: Response) {
   const { oldPassword, newPassword } = req.body;
   const isMatch = await PasswordUtil.comparePasswords(
     oldPassword,
-    (req.user as User).password,
+    (req.user as User).password
   );
   if (!isMatch) {
     responder(res, responses.api.resetPassword.passwordsDoNotMatch);

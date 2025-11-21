@@ -34,7 +34,7 @@ export default class OrdersModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating order: ${error instanceof Error ? error.message : String(error)}`,
+        `Error creating order: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -48,7 +48,7 @@ export default class OrdersModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding order by id: ${error instanceof Error ? error.message : String(error)}`,
+        `Error finding order by id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -62,35 +62,41 @@ export default class OrdersModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding orders by user id: ${error instanceof Error ? error.message : String(error)}`,
+        `Error finding orders by user id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
-  static async getAllOrders(): Promise<Orders[]> {
-    const query = `SELECT * FROM orders ORDER BY created_at DESC`;
+  static async getAllOrders(
+    offset: number = 0,
+    limit: number = 10
+  ): Promise<Orders[]> {
+    const query = `SELECT * FROM orders ORDER BY created_at DESC LIMIT $1 OFFSET $2`;
+    const values = [limit, offset];
 
     try {
-      const result = await this.db.query(query);
+      const result = await this.db.query(query, values);
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting all orders: ${error instanceof Error ? error.message : String(error)}`,
+        `Error getting all orders: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async updateOrder(
     id: number,
-    data: Partial<Orders>,
+    data: Partial<Orders>
   ): Promise<Orders | null> {
     // Keep only fields with defined values
-    const dataKeys = Object.keys(data).filter(
-      (key) =>
-        data[key as keyof Orders] !== undefined &&
-        data[key as keyof Orders] !== null &&
-        data[key as keyof Orders] !== "",
-    );
+    const dataKeys = Object.keys(data).filter((key) => {
+      const value = data[key as keyof Orders];
+      return (
+        value !== undefined &&
+        value !== null &&
+        !(typeof value === "string" && value.trim() === "")
+      );
+    });
 
     if (dataKeys.length === 0) return null; // nothing to update
 
@@ -113,14 +119,14 @@ export default class OrdersModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating order: ${error instanceof Error ? error.message : String(error)}`,
+        `Error updating order: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async updateOrderStatus(
     id: number,
-    status: string,
+    status: string
   ): Promise<Orders | null> {
     const query = `
       UPDATE orders 
@@ -135,7 +141,7 @@ export default class OrdersModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating order status: ${error instanceof Error ? error.message : String(error)}`,
+        `Error updating order status: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -148,13 +154,13 @@ export default class OrdersModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting order: ${error instanceof Error ? error.message : String(error)}`,
+        `Error deleting order: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async getOrderWithDetails(
-    id: number,
+    id: number
   ): Promise<OrderWithDetails | null> {
     const query = `
       SELECT 
@@ -174,7 +180,7 @@ export default class OrdersModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error getting order with details: ${error instanceof Error ? error.message : String(error)}`,
+        `Error getting order with details: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

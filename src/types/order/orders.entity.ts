@@ -3,7 +3,7 @@ export default interface Orders {
   user_id: number;
   shipping_id: number;
   total: number;
-  status: "pending" | "shipped" | "delivered" | "returned";
+  status: 'pending' | 'completed' | 'cancelled';
   created_at: Date;
   updated_at: Date;
 }

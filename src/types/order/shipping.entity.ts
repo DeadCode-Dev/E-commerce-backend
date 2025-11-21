@@ -7,7 +7,7 @@ export default interface Shipping {
   state: string;
   postal_code: string;
   country: string;
-  shipping_status: string;
+  shipping_status: 'pending' | 'shipped' | 'delivered' | 'returned';
   created_at: Date;
   updated_at: Date;
 }

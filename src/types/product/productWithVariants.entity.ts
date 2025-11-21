@@ -1,16 +1,18 @@
 export default interface ProductWithVariants {
-  p_id: number;
-  p_name: string;
-  p_description: string;
-  v_id: number;
-  v_size: string;
-  v_color: string;
-  v_stock: number;
-  v_price: number;
-  v_created_at: Date;
-  v_updated_at: Date;
+  product_id: number;
+  product_name: string;
+  description: string;
+  variant_id: number;
+  size: string;
+  color: string;
+  stock: number;
+  variant_price: number;
+  created_at: Date;
+  updated_at: Date;
+  category_id: number;
   category_name: string;
+  image_id: number;
   image_url: string;
   alt_text?: string;
-  image_display_order: number;
+  display_order: number;
 }

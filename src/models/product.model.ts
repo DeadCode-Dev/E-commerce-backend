@@ -1,3 +1,4 @@
+import ProductWithVariants from "@/types/product/productWithVariants.entity";
 import pg from "../config/postgres";
 import Product from "../types/product/products.entity";
 
@@ -209,6 +210,15 @@ export default class ProductModel {
         `Error getting product with variants: ${error instanceof Error ? error.message : String(error)}`
       );
     }
+  }
+
+  static async getProductByVariantId(
+    variantId: number
+  ): Promise<ProductWithVariants | null> {
+    const query = `SELECT * FROM productwithvariants WHERE variant_id = $1;`;
+    const result = await this.db.query(query, [variantId]);
+    if (result.rows.length === 0) return null;
+    return result.rows[0];
   }
 
   /**

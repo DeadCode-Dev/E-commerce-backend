@@ -24,7 +24,7 @@ export default class OrderItemsModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Error creating order item: ${error instanceof Error ? error.message : String(error)}`,
+        `Error creating order item: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -38,7 +38,7 @@ export default class OrderItemsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error finding order item by id: ${error instanceof Error ? error.message : String(error)}`,
+        `Error finding order item by id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -52,13 +52,13 @@ export default class OrderItemsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error finding order items by order id: ${error instanceof Error ? error.message : String(error)}`,
+        `Error finding order items by order id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async getOrderItemsWithProductDetails(
-    orderId: number,
+    orderId: number
   ): Promise<OrderItemWithProductDetails[]> {
     const query = `
       SELECT 
@@ -78,20 +78,20 @@ export default class OrderItemsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error getting order items with product details: ${error instanceof Error ? error.message : String(error)}`,
+        `Error getting order items with product details: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async updateOrderItem(
     id: number,
-    data: Partial<OrderItems>,
+    data: Partial<OrderItems>
   ): Promise<OrderItems | null> {
     // Keep only fields with defined values
     const dataKeys = Object.keys(data).filter(
       (key) =>
         data[key as keyof OrderItems] !== undefined &&
-        data[key as keyof OrderItems] !== null,
+        data[key as keyof OrderItems] !== null
     );
 
     if (dataKeys.length === 0) return null; // nothing to update
@@ -115,14 +115,14 @@ export default class OrderItemsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating order item: ${error instanceof Error ? error.message : String(error)}`,
+        `Error updating order item: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async updateOrderItemQuantity(
     id: number,
-    quantity: number,
+    quantity: number
   ): Promise<OrderItems | null> {
     const query = `
       UPDATE order_items 
@@ -137,7 +137,7 @@ export default class OrderItemsModel {
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
-        `Error updating order item quantity: ${error instanceof Error ? error.message : String(error)}`,
+        `Error updating order item quantity: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -150,7 +150,7 @@ export default class OrderItemsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting order item: ${error instanceof Error ? error.message : String(error)}`,
+        `Error deleting order item: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -163,13 +163,14 @@ export default class OrderItemsModel {
       await this.db.query(query, values);
     } catch (error) {
       throw new Error(
-        `Error deleting order items by order id: ${error instanceof Error ? error.message : String(error)}`,
+        `Error deleting order items by order id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
 
   static async createMultipleOrderItems(
-    orderItems: Partial<OrderItems>[],
+    orderId: number,
+    orderItems: Partial<OrderItems>[]
   ): Promise<OrderItems[]> {
     if (orderItems.length === 0) return [];
 
@@ -181,7 +182,7 @@ export default class OrderItemsModel {
       .join(", ");
 
     const values = orderItems.flatMap((item) => [
-      item.order_id,
+      orderId,
       item.product_id,
       item.quantity,
     ]);
@@ -197,7 +198,7 @@ export default class OrderItemsModel {
       return result.rows || [];
     } catch (error) {
       throw new Error(
-        `Error creating multiple order items: ${error instanceof Error ? error.message : String(error)}`,
+        `Error creating multiple order items: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

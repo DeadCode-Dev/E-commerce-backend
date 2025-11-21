@@ -7,9 +7,9 @@ interface OrderDetails {
   orderDate: string;
   firstName: string;
   products: Array<{
-    productName: string;
+    product_name: string;
     quantity: number;
-    price: number;
+    variant_price: number;
   }>;
   trackingUrl: string;
   shippingCost: number;
@@ -117,13 +117,13 @@ class Mailer {
     let data = ``;
     orderDetails.products.forEach((item) => {
       data += `<tr>
-        <td>${item.productName}</td>
+        <td>${item.product_name}</td>
         <td>${item.quantity}</td>
-        <td>${item.price}</td>
+        <td>${item.variant_price * item.quantity}</td>
       </tr>`;
     });
     let total = orderDetails.products.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+      return acc + item.variant_price * item.quantity;
     }, 0);
 
     total += orderDetails.shippingCost;

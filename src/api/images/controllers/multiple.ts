@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import storageService from "@/services/storage.service";
 import ImageModel from "@/models/image.model";
-import { UploadResponse } from "../image.types";
+import { UploadResponse } from "../../../types/product/image.types";
 export default async function multipleUpload(req: Request, res: Response) {
   try {
     if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {

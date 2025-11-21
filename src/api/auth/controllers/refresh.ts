@@ -3,7 +3,7 @@ import AuthModel from "../../../models/sessions.model";
 import responder from "@/services/responder.service";
 import responses from "@/services/responses";
 import User from "@/types/user/users.entity";
-import AuthService from "../auth.service";
+import AuthService from "../../../services/auth.service";
 
 export default async function refresh(req: Request, res: Response) {
   try {
@@ -36,7 +36,7 @@ export default async function refresh(req: Request, res: Response) {
         role: user.role,
         exp: expiresAccessTokenIn, // 15 minutes
       },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET
     );
 
     res.cookie("access_token", accessToken, {

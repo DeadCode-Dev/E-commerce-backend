@@ -745,4 +745,57 @@ export default class ProductModel {
       );
     }
   }
+
+  // ==================== Inventory Management Methods ====================
+
+  /**
+   * Get products with low stock variants
+   * @param threshold - Stock level below which variants are considered low stock (default: 10)
+   * @returns Array of products with their low stock variants
+   */
+  static async getLowStockProducts(threshold: number = 5): Promise<
+    Array<{
+      product_id: number;
+      product_name: string;
+      variant_id: number;
+      size: string | null;
+      color: string | null;
+      stock: number;
+      price: number;
+      image_url: string | null;
+    }>
+  > {
+    const query = `
+      SELECT 
+        product_id,
+        product_name,
+        variant_id,
+        size,
+        color,
+        stock,
+        price,
+        (SELECT image_url FROM image WHERE product_id = product_id ORDER BY display_order LIMIT 1) as image_url
+      FROM productwithvariants
+      WHERE stock >= 0 AND stock <= $1
+      ORDER BY stock ASC, product_name ASC
+    `;
+
+    try {
+      const result = await this.db.query(query, [threshold]);
+      return result.rows.map((row) => ({
+        product_id: row.product_id,
+        product_name: row.product_name,
+        variant_id: row.variant_id,
+        size: row.size,
+        color: row.color,
+        stock: row.stock,
+        price: parseFloat(row.price),
+        image_url: row.image_url,
+      }));
+    } catch (error) {
+      throw new Error(
+        `Error getting low stock products: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
 }

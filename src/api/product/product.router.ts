@@ -15,7 +15,7 @@ import getProductVariants from "./controllers/getProductVariants";
 import getProductSizes from "./controllers/getProductSizes";
 import getProductColors from "./controllers/getProductColors";
 import searchProducts from "./controllers/searchProducts";
-
+import lowStockProducts from "./controllers/lowStockProducts";
 // Import filter options controller
 import getFilterOptions from "./controllers/getFilterOptions";
 
@@ -105,4 +105,5 @@ router.delete(
   deleteProduct
 );
 
+router.get("/low-stock", isAuthenticated, Role("admin"), lowStockProducts);
 export default router;

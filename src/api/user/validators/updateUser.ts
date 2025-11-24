@@ -5,5 +5,3 @@ export const updateUserSchema = z.object({
   email: z.string().email().max(100).optional(),
   phone: z.string().max(20).optional(),
 });
-
-export type UpdateUserInput = z.infer<typeof updateUserSchema>;

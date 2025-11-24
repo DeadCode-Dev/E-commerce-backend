@@ -6,7 +6,7 @@ export default interface ProductWithVariants {
   size: string;
   color: string;
   stock: number;
-  variant_price: number;
+  variant_price: string;
   created_at: Date;
   updated_at: Date;
   category_id: number;

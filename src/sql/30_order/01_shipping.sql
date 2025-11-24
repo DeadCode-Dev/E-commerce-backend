@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS shipping (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users(id),
     tracking_number TEXT,
     address TEXT NOT NULL,
     city VARCHAR(100) NOT NULL,

@@ -1,4 +1,5 @@
 import pg from "../config/postgres";
+import type { PoolClient } from "pg";
 import Orders from "../types/order/orders.entity";
 
 interface OrderEmailPayload {
@@ -116,6 +117,20 @@ export default class OrdersModel {
     return r.rows[0];
   }
 
+  static async createOrderWithClient(
+    client: PoolClient,
+    data: Partial<Orders>
+  ): Promise<Orders> {
+    const values = [
+      data.user_id,
+      data.shipping_id || null,
+      data.total,
+      data.status || null,
+    ];
+    const r = await client.query(this.q.insert, values);
+    return r.rows[0];
+  }
+
   static async findOrderById(id: number): Promise<Orders | null> {
     const r = await this.db.query(this.q.byId, [id]);
     return r.rows[0] || null;
@@ -193,7 +208,7 @@ export default class OrdersModel {
 
   static async deleteOrder(id: number): Promise<boolean> {
     const r = await this.db.query(this.q.delete, [id]);
-    return r.rowCount as number > 0;
+    return (r.rowCount as number) > 0;
   }
 
   static async getOrderEmailPayload(

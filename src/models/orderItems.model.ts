@@ -1,5 +1,6 @@
 import pg from "../config/postgres";
 import OrderItems from "../types/order/orderItems.entity";
+import type { PoolClient } from "pg";
 
 interface OrderItemWithProductDetails extends OrderItems {
   product_name: string;
@@ -8,19 +9,32 @@ interface OrderItemWithProductDetails extends OrderItems {
   product_category: string;
 }
 
+interface OrderItemInput {
+  order_id: number;
+  product_variant_id: number;
+  quantity: number;
+  unit_price: number;
+}
+
 export default class OrderItemsModel {
   static db = pg;
 
-  static async createOrderItem(data: Partial<OrderItems>): Promise<OrderItems> {
-    const query = `
-      INSERT INTO order_items (order_id, product_id, quantity) 
-      VALUES ($1, $2, $3) 
-      RETURNING *
-    `;
-    const values = [data.order_id, data.product_id, data.quantity];
+  private static insertQuery = `
+    INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+  `;
+
+  static async createOrderItem(data: OrderItemInput): Promise<OrderItems> {
+    const values = [
+      data.order_id,
+      data.product_variant_id,
+      data.quantity,
+      data.unit_price,
+    ];
 
     try {
-      const result = await this.db.query(query, values);
+      const result = await this.db.query(this.insertQuery, values);
       return result.rows[0];
     } catch (error) {
       throw new Error(
@@ -29,12 +43,84 @@ export default class OrderItemsModel {
     }
   }
 
-  static async findOrderItemById(id: number): Promise<OrderItems | null> {
-    const query = `SELECT * FROM order_items WHERE id = $1`;
-    const values = [id];
+  static async createMultipleOrderItems(
+    orderId: number,
+    orderItems: OrderItemInput[]
+  ): Promise<OrderItems[]> {
+    if (orderItems.length === 0) return [];
+
+    const valueStrings = orderItems
+      .map((_, index) => {
+        const offset = index * 4;
+        return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4})`;
+      })
+      .join(", ");
+
+    const values = orderItems.flatMap((item) => [
+      orderId,
+      item.product_variant_id,
+      item.quantity,
+      item.unit_price,
+    ]);
+
+    const query = `
+      INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price)
+      VALUES ${valueStrings}
+      RETURNING *
+    `;
 
     try {
       const result = await this.db.query(query, values);
+      return result.rows || [];
+    } catch (error) {
+      throw new Error(
+        `Error creating multiple order items: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  static async createMultipleOrderItemsWithClient(
+    client: PoolClient,
+    orderId: number,
+    orderItems: OrderItemInput[]
+  ): Promise<OrderItems[]> {
+    if (orderItems.length === 0) return [];
+
+    const valueStrings = orderItems
+      .map((_, index) => {
+        const offset = index * 4;
+        return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4})`;
+      })
+      .join(", ");
+
+    const values = orderItems.flatMap((item) => [
+      orderId,
+      item.product_variant_id,
+      item.quantity,
+      item.unit_price,
+    ]);
+
+    const query = `
+      INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price)
+      VALUES ${valueStrings}
+      RETURNING *
+    `;
+
+    try {
+      const result = await client.query(query, values);
+      return result.rows || [];
+    } catch (error) {
+      throw new Error(
+        `Error creating multiple order items: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+  }
+
+  static async findOrderItemById(id: number): Promise<OrderItems | null> {
+    const query = `SELECT * FROM order_items WHERE id = $1`;
+
+    try {
+      const result = await this.db.query(query, [id]);
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
@@ -45,10 +131,9 @@ export default class OrderItemsModel {
 
   static async findOrderItemsByOrderId(orderId: number): Promise<OrderItems[]> {
     const query = `SELECT * FROM order_items WHERE order_id = $1`;
-    const values = [orderId];
 
     try {
-      const result = await this.db.query(query, values);
+      const result = await this.db.query(query, [orderId]);
       return result.rows || [];
     } catch (error) {
       throw new Error(
@@ -65,57 +150,19 @@ export default class OrderItemsModel {
         oi.*,
         p.name as product_name,
         p.description as product_description,
-        p.images as product_images,
-        p.category as product_category
+        ARRAY(SELECT image_url FROM image WHERE product_id = p.id ORDER BY display_order) as product_images
       FROM order_items oi
-      LEFT JOIN products p ON oi.product_id = p.id
+      LEFT JOIN product_variants pv ON oi.product_variant_id = pv.id
+      LEFT JOIN products p ON pv.product_id = p.id
       WHERE oi.order_id = $1
     `;
-    const values = [orderId];
 
     try {
-      const result = await this.db.query(query, values);
+      const result = await this.db.query(query, [orderId]);
       return result.rows || [];
     } catch (error) {
       throw new Error(
         `Error getting order items with product details: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async updateOrderItem(
-    id: number,
-    data: Partial<OrderItems>
-  ): Promise<OrderItems | null> {
-    // Keep only fields with defined values
-    const dataKeys = Object.keys(data).filter(
-      (key) =>
-        data[key as keyof OrderItems] !== undefined &&
-        data[key as keyof OrderItems] !== null
-    );
-
-    if (dataKeys.length === 0) return null; // nothing to update
-
-    const setClause = dataKeys
-      .map((key, index) => `${key} = $${index + 1}`)
-      .join(", ");
-
-    const values = dataKeys.map((key) => data[key as keyof OrderItems]);
-    values.push(id); // for WHERE clause
-
-    const query = `
-      UPDATE order_items 
-      SET ${setClause} 
-      WHERE id = $${dataKeys.length + 1} 
-      RETURNING *
-    `;
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows[0] || null;
-    } catch (error) {
-      throw new Error(
-        `Error updating order item: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -130,10 +177,9 @@ export default class OrderItemsModel {
       WHERE id = $2 
       RETURNING *
     `;
-    const values = [quantity, id];
 
     try {
-      const result = await this.db.query(query, values);
+      const result = await this.db.query(query, [quantity, id]);
       return result.rows[0] || null;
     } catch (error) {
       throw new Error(
@@ -144,10 +190,9 @@ export default class OrderItemsModel {
 
   static async deleteOrderItem(id: number): Promise<void> {
     const query = `DELETE FROM order_items WHERE id = $1`;
-    const values = [id];
 
     try {
-      await this.db.query(query, values);
+      await this.db.query(query, [id]);
     } catch (error) {
       throw new Error(
         `Error deleting order item: ${error instanceof Error ? error.message : String(error)}`
@@ -157,48 +202,12 @@ export default class OrderItemsModel {
 
   static async deleteOrderItemsByOrderId(orderId: number): Promise<void> {
     const query = `DELETE FROM order_items WHERE order_id = $1`;
-    const values = [orderId];
 
     try {
-      await this.db.query(query, values);
+      await this.db.query(query, [orderId]);
     } catch (error) {
       throw new Error(
         `Error deleting order items by order id: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async createMultipleOrderItems(
-    orderId: number,
-    orderItems: Partial<OrderItems>[]
-  ): Promise<OrderItems[]> {
-    if (orderItems.length === 0) return [];
-
-    const valueStrings = orderItems
-      .map((_, index) => {
-        const offset = index * 3;
-        return `($${offset + 1}, $${offset + 2}, $${offset + 3})`;
-      })
-      .join(", ");
-
-    const values = orderItems.flatMap((item) => [
-      orderId,
-      item.product_id,
-      item.quantity,
-    ]);
-
-    const query = `
-      INSERT INTO order_items (order_id, product_id, quantity)
-      VALUES ${valueStrings}
-      RETURNING *
-    `;
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows || [];
-    } catch (error) {
-      throw new Error(
-        `Error creating multiple order items: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

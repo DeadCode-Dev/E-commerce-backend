@@ -31,4 +31,4 @@ interface UploadResponse {
   }>;
 }
 
-export { ProcessedImageInfo, UploadResponse };
+export { UploadResponse };

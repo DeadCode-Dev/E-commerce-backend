@@ -1,6 +1,9 @@
 import ProductWithVariants from "@/types/product/productWithVariants.entity";
 import pg from "../config/postgres";
 import Product from "../types/product/products.entity";
+import Image from "@/types/product/image.entity";
+import Category from "@/types/product/category.entity";
+import ProductVariant from "@/types/product/variant.entity";
 
 // Enhanced interfaces for product-variant relationships
 export interface ProductWithAvailableVariants {
@@ -10,25 +13,13 @@ export interface ProductWithAvailableVariants {
   description: string;
 
   // Images (all variants share same product images)
-  images: Array<{
-    id: number;
-    image_url: string;
-    alt_text: string;
-    display_order: number;
-  }>;
+  images: Image[];
 
   // Categories
-  categories: string[];
+  categories: Partial<Category>[];
 
   // Available variants with stock/pricing
-  available_variants: Array<{
-    variant_id: number;
-    size: string | null;
-    color: string | null;
-    stock: number;
-    price: number; // variant specific price
-    is_available: boolean;
-  }>;
+  available_variants: (ProductVariant & { is_available: boolean })[];
 
   // Variant selection options (what combinations are possible)
   variant_options: {
@@ -101,37 +92,22 @@ export default class ProductModel {
       const result = await this.db.query(query, [productId]);
       if (result.rows.length === 0) return null;
 
-      const rows = result.rows;
-      const product = rows[0];
+      const rows: Array<ProductWithVariants & Image> = result.rows;
+      const product: ProductWithVariants = rows[0];
 
       // Group data
       const variants = new Map<
         number,
-        {
-          variant_id: number;
-          size: string | null;
-          color: string | null;
-          stock: number;
-          price: number;
-          is_available: boolean;
-        }
+        Partial<ProductVariant> & { is_available: boolean }
       >();
-      const images = new Map<
-        number,
-        {
-          id: number;
-          image_url: string;
-          alt_text: string;
-          display_order: number;
-        }
-      >();
+      const images = new Map<number, Image>();
       const categories = new Set<string>();
 
-      rows.forEach((row) => {
+      rows.forEach((row: ProductWithVariants & Image) => {
         // Collect variants
         if (row.variant_id && !variants.has(row.variant_id)) {
           variants.set(row.variant_id, {
-            variant_id: row.variant_id,
+            id: row.variant_id,
             size: row.size,
             color: row.color,
             stock: row.stock,
@@ -145,8 +121,9 @@ export default class ProductModel {
           images.set(row.image_id, {
             id: row.image_id,
             image_url: row.image_url,
-            alt_text: row.alt_text,
+            alt_text: row.alt_text || "",
             display_order: row.display_order,
+            product_id: product.product_id,
           });
         }
 
@@ -175,8 +152,12 @@ export default class ProductModel {
 
       // Calculate price range
       const prices = variantArray.map((v) => v.price);
-      const minPrice = Math.min(...prices);
-      const maxPrice = Math.max(...prices);
+      const minPrice = Math.min(...(prices as number[]));
+      const maxPrice = Math.max(...(prices as number[]));
+      const totalStock = variantArray.reduce(
+        (sum, v) => sum + (v.stock || 0),
+        0
+      );
 
       return {
         id: product.product_id,
@@ -184,25 +165,27 @@ export default class ProductModel {
         description: product.description,
         images: Array.from(images.values()).sort(
           (a, b) => a.display_order - b.display_order
-        ),
-        categories: Array.from(categories),
-        available_variants: availableVariants,
+        ) as Image[],
+        categories: Array.from(categories) as Partial<Category>[],
+        available_variants: availableVariants as (ProductVariant & {
+          is_available: boolean;
+        })[],
         variant_options: {
           sizes,
           colors,
           available_combinations: availableVariants.map((v) => ({
-            size: v.size,
-            color: v.color,
-            variant_id: v.variant_id,
-            stock: v.stock,
-            price: v.price,
+            size: v.size || null,
+            color: v.color || null,
+            variant_id: v.id!,
+            stock: v.stock || 0,
+            price: v.price || 0,
           })),
         },
         price_range: {
           min_price: minPrice,
           max_price: maxPrice,
         },
-        total_stock: variantArray.reduce((sum, v) => sum + v.stock, 0),
+        total_stock: totalStock,
         is_available: availableVariants.length > 0,
       };
     } catch (error) {

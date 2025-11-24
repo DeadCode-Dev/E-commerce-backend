@@ -49,13 +49,7 @@ export function updateProduct(req: Request, res: Response): void {
   }
 
   // Handle PUT/PATCH request to update the product
-  const { product, variants, categories, last_updated } = updateData;
-
-  // Basic conflict detection (optional - you can implement more sophisticated versioning)
-  if (last_updated) {
-    // Here you could check if the product was modified since last_updated
-    // For now, we'll proceed with the merge
-  }
+  const { product, variants, categories } = updateData;
 
   // Start transaction-like updates
   const updatePromises: Promise<unknown>[] = [];
@@ -145,72 +139,4 @@ export function updateProduct(req: Request, res: Response): void {
         details: error.message,
       });
     });
-}
-
-/**
- * Update specific variant stock
- */
-export function updateProductStock(req: Request, res: Response): void {
-  const { variant_id, stock } = req.body;
-
-  ProductVariantModel.updateVariant(variant_id, { stock })
-    .then((variant: ProductVariant | null) => {
-      if (!variant) {
-        responder(res, responses.api.products.notFound, {
-          message: "Product variant not found",
-        });
-        return;
-      }
-      responder(res, responses.api.products.updated, { variant });
-    })
-    .catch((error: Error) => {
-      console.error("Error updating product stock:", error);
-      responder(res, responses.Error.internalServerError, {
-        message: "Failed to update product stock",
-      });
-    });
-}
-
-/**
- * Bulk update product details (alternative to updateProduct for simple updates)
- */
-export function updateProductDetails(req: Request, res: Response): void {
-  const productId = parseInt(req.params.id);
-  const updateData = req.body;
-
-  ProductModel.updateProduct(productId, updateData)
-    .then((product) => {
-      if (!product) {
-        responder(res, responses.api.products.notFound);
-        return;
-      }
-      responder(res, responses.api.products.updated, { product });
-    })
-    .catch((error: Error) => {
-      console.error("Error updating product details:", error);
-      responder(res, responses.Error.internalServerError, {
-        message: "Failed to update product details",
-      });
-    });
-}
-
-/**
- * Update product images (placeholder for future implementation)
- */
-export function updateProductImages(req: Request, res: Response): void {
-  responder(res, {
-    code: 501,
-    message: "Image management not implemented yet. Use /images API endpoints.",
-  });
-}
-
-/**
- * Update product categories (placeholder - use updateProduct for full merge)
- */
-export function updateProductCategories(req: Request, res: Response): void {
-  responder(res, {
-    code: 501,
-    message:
-      "Use PUT /products/:id for category management with full merge support.",
-  });
 }

@@ -2,31 +2,27 @@ import pg from "../config/postgres";
 import Shipping from "../types/order/shipping.entity";
 import type { PoolClient } from "pg";
 
-interface ShippingWithUserDetails extends Shipping {
-  username: string;
-  email: string;
-  phone: string;
-}
-
 export default class ShippingModel {
   static db = pg;
 
   private static insertQuery = `
-    INSERT INTO shipping (user_id, tracking_number, address, city, state, postal_code, country, status)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO shipping (tracking_number, customer_name, email, phone, address, city, state, postal_code, country, status)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING *
   `;
 
   static async createShipping(data: Partial<Shipping>): Promise<Shipping> {
     const values = [
-      data.user_id,
-      data.tracking_number,
+      data.tracking_number || null,
+      data.customer_name,
+      data.email,
+      data.phone,
       data.address,
       data.city,
       data.state || null,
       data.postal_code,
       data.country,
-      data.shipping_status || "pending",
+      data.status || "pending",
     ];
 
     try {
@@ -44,14 +40,16 @@ export default class ShippingModel {
     data: Partial<Shipping>
   ): Promise<Shipping> {
     const values = [
-      data.user_id,
-      data.tracking_number,
+      data.tracking_number || null,
+      data.customer_name,
+      data.email,
+      data.phone,
       data.address,
       data.city,
       data.state || null,
       data.postal_code,
       data.country,
-      data.shipping_status || "pending",
+      data.status || "pending",
     ];
 
     try {
@@ -74,20 +72,6 @@ export default class ShippingModel {
     } catch (error) {
       throw new Error(
         `Error finding shipping by id: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async findShippingByUserId(userId: number): Promise<Shipping[]> {
-    const query = `SELECT * FROM shipping WHERE user_id = $1 ORDER BY created_at DESC`;
-    const values = [userId];
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows || [];
-    } catch (error) {
-      throw new Error(
-        `Error finding shipping by user id: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -165,7 +149,7 @@ export default class ShippingModel {
   ): Promise<Shipping | null> {
     const query = `
       UPDATE shipping 
-      SET shipping_status = $1, updated_at = NOW() 
+      SET status = $1, updated_at = NOW() 
       WHERE id = $2 
       RETURNING *
     `;
@@ -217,7 +201,7 @@ export default class ShippingModel {
   }
 
   static async getShippingByStatus(status: string): Promise<Shipping[]> {
-    const query = `SELECT * FROM shipping WHERE shipping_status = $1 ORDER BY created_at DESC`;
+    const query = `SELECT * FROM shipping WHERE status = $1 ORDER BY created_at DESC`;
     const values = [status];
 
     try {
@@ -226,31 +210,6 @@ export default class ShippingModel {
     } catch (error) {
       throw new Error(
         `Error getting shipping by status: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  static async getShippingWithUserDetails(
-    id: number
-  ): Promise<ShippingWithUserDetails | null> {
-    const query = `
-      SELECT 
-        s.*,
-        u.username,
-        u.email,
-        u.phone
-      FROM shipping s
-      LEFT JOIN users u ON s.user_id = u.id
-      WHERE s.id = $1
-    `;
-    const values = [id];
-
-    try {
-      const result = await this.db.query(query, values);
-      return result.rows[0] || null;
-    } catch (error) {
-      throw new Error(
-        `Error getting shipping with user details: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

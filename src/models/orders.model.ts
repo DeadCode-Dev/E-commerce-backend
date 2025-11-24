@@ -7,10 +7,13 @@ interface OrderEmailPayload {
   total: number;
   status: string;
   created_at: string;
-  username: string | null;
+  customer_name: string | null;
   email: string | null;
   phone: string | null;
   shipping: {
+    customer_name: string | null;
+    email: string | null;
+    phone: string | null;
     address: string | null;
     city: string | null;
     state: string | null;
@@ -37,29 +40,23 @@ export default class OrdersModel {
   // Predefined query texts (avoid re-parsing)
   private static q = {
     insert: `
-      INSERT INTO orders (user_id, shipping_id, total, status)
-      VALUES ($1, $2, $3, COALESCE($4,'pending'))
-      RETURNING id, user_id, shipping_id, total, status, created_at, updated_at
+      INSERT INTO orders (shipping_id, total, status)
+      VALUES ($1, $2, COALESCE($3,'pending'))
+      RETURNING id, shipping_id, total, status, created_at, updated_at
     `,
     byId: `
-      SELECT id, user_id, shipping_id, total, status, created_at, updated_at
+      SELECT id, shipping_id, total, status, created_at, updated_at
       FROM orders WHERE id = $1
     `,
-    byUser: `
-      SELECT id, user_id, shipping_id, total, status, created_at, updated_at
-      FROM orders WHERE user_id = $1
-      ORDER BY created_at DESC
-      LIMIT $2 OFFSET $3
-    `,
     allPaged: `
-      SELECT id, user_id, shipping_id, total, status, created_at, updated_at
+      SELECT id, shipping_id, total, status, created_at, updated_at
       FROM orders ORDER BY created_at DESC
       LIMIT $1 OFFSET $2
     `,
     updateStatus: `
       UPDATE orders SET status = $1, updated_at = NOW()
       WHERE id = $2
-      RETURNING id, user_id, shipping_id, total, status, created_at, updated_at
+      RETURNING id, shipping_id, total, status, created_at, updated_at
     `,
     delete: `DELETE FROM orders WHERE id = $1`,
     emailPayload: `
@@ -68,10 +65,13 @@ export default class OrdersModel {
         o.total,
         o.status,
         o.created_at::text,
-        u.username,
-        u.email,
-        u.phone,
+        s.customer_name,
+        s.email,
+        s.phone,
         CASE WHEN s.id IS NOT NULL THEN json_build_object(
+          'customer_name', s.customer_name,
+          'email', s.email,
+          'phone', s.phone,
           'address', s.address,
           'city', s.city,
           'state', s.state,
@@ -96,23 +96,17 @@ export default class OrdersModel {
           '[]'
         ) AS items
       FROM orders o
-      LEFT JOIN users u ON u.id = o.user_id
       LEFT JOIN shipping s ON s.id = o.shipping_id
       LEFT JOIN order_items oi ON oi.order_id = o.id
       LEFT JOIN product_variants pv ON pv.id = oi.product_variant_id
       LEFT JOIN products p ON p.id = pv.product_id
       WHERE o.id = $1
-      GROUP BY o.id, u.id, s.id
+      GROUP BY o.id, s.id
     `,
   };
 
   static async createOrder(data: Partial<Orders>): Promise<Orders> {
-    const values = [
-      data.user_id,
-      data.shipping_id || null,
-      data.total,
-      data.status || null,
-    ];
+    const values = [data.shipping_id || null, data.total, data.status || null];
     const r = await this.db.query(this.q.insert, values);
     return r.rows[0];
   }
@@ -121,12 +115,7 @@ export default class OrdersModel {
     client: PoolClient,
     data: Partial<Orders>
   ): Promise<Orders> {
-    const values = [
-      data.user_id,
-      data.shipping_id || null,
-      data.total,
-      data.status || null,
-    ];
+    const values = [data.shipping_id || null, data.total, data.status || null];
     const r = await client.query(this.q.insert, values);
     return r.rows[0];
   }
@@ -134,15 +123,6 @@ export default class OrdersModel {
   static async findOrderById(id: number): Promise<Orders | null> {
     const r = await this.db.query(this.q.byId, [id]);
     return r.rows[0] || null;
-  }
-
-  static async findOrdersByUserId(
-    userId: number,
-    limit = 50,
-    offset = 0
-  ): Promise<Orders[]> {
-    const r = await this.db.query(this.q.byUser, [userId, limit, offset]);
-    return r.rows;
   }
 
   static async getAllOrders(
@@ -160,12 +140,7 @@ export default class OrdersModel {
     id: number,
     data: Partial<Orders>
   ): Promise<Orders | null> {
-    const allowed: (keyof Orders)[] = [
-      "user_id",
-      "shipping_id",
-      "total",
-      "status",
-    ];
+    const allowed: (keyof Orders)[] = ["shipping_id", "total", "status"];
     const entries = allowed
       .filter((k) => data[k] !== undefined && data[k] !== null)
       .map((k) => [k, data[k]] as [string, unknown]);
@@ -178,7 +153,7 @@ export default class OrdersModel {
       UPDATE orders
       SET ${setClause}, updated_at = NOW()
       WHERE id = $${entries.length + 1}
-      RETURNING id, user_id, shipping_id, total, status, created_at, updated_at
+      RETURNING id, shipping_id, total, status, created_at, updated_at
     `;
     const values = [...entries.map(([, v]) => v), id];
     const r = await this.db.query(sql, values);

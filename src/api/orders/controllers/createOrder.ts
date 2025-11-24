@@ -10,21 +10,48 @@ interface IncomingItem {
   quantity: number;
 }
 
+interface CreateOrderBody {
+  customer_name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+  state?: string;
+  items: IncomingItem[];
+}
+
 export default async function createOrder(
   req: Request,
   res: Response
 ): Promise<void> {
-  const { address, city, postal_code, country, state, items } = req.body as {
-    address: string;
-    city: string;
-    postal_code: string;
-    country: string;
-    state?: string;
-    items: IncomingItem[];
-  };
+  const {
+    customer_name,
+    email,
+    phone,
+    address,
+    city,
+    postal_code,
+    country,
+    state,
+    items,
+  } = req.body as CreateOrderBody;
 
-  if (!req.user?.id) {
-    res.status(401).json({ message: "Unauthorized" });
+  // Validate required guest checkout fields
+  if (!customer_name || !email || !phone) {
+    res
+      .status(400)
+      .json({ message: "Customer name, email, and phone are required" });
+    return;
+  }
+
+  if (!address || !city || !postal_code || !country) {
+    res
+      .status(400)
+      .json({
+        message: "Address, city, postal code, and country are required",
+      });
     return;
   }
 
@@ -86,19 +113,20 @@ export default async function createOrder(
 
     // Create shipping
     const shipping = await ShippingModel.createShippingWithClient(client, {
-      user_id: req.user.id,
       tracking_number: `TRACK${Date.now()}`,
+      customer_name,
+      email,
+      phone,
       address,
       city,
       state: state || undefined,
       postal_code,
       country,
-      shipping_status: "pending",
+      status: "pending",
     });
 
     // Create order with computed total
     const order = await OrdersModel.createOrderWithClient(client, {
-      user_id: req.user.id,
       shipping_id: shipping.id,
       total,
       status: "pending",
@@ -122,7 +150,7 @@ export default async function createOrder(
     const emailPayload = await OrdersModel.getOrderEmailPayload(order.id);
     if (emailPayload?.email) {
       Mailer.OrderConfirmation(emailPayload.email, {
-        firstName: req.user.username || "Customer",
+        firstName: emailPayload.customer_name || customer_name,
         orderNumber: `${order.id}`,
         orderDate: `${order.created_at}`,
         products: emailPayload.items.map((i) => ({

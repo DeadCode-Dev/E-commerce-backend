@@ -8,6 +8,7 @@
     "-lintignore"
   ],
   "entry": [
-    "src/index.{js,ts,tsx}"
+    "src/index.{js,ts,tsx}",
+    "src/api/**/*.router.ts"
   ]
 }

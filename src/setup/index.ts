@@ -8,6 +8,7 @@ import userRouter from "../api/user/user.router";
 import imagesRouter from "@/api/images/images.router";
 import productRouter from "@/api/product/product.router";
 import ordersRouter from "@/api/orders/orders.router";
+import reviewsRouter from "@/api/reviews/reviews.router";
 import pool from "../config/postgres";
 import transporter from "../config/nodeMailer";
 import SqlInit from "./sql";
@@ -66,6 +67,7 @@ class Setup {
     this.app.use("/images", imagesRouter);
     this.app.use("/products", productRouter);
     this.app.use("/orders", ordersRouter);
+    this.app.use("/reviews", reviewsRouter);
 
     console.log("Routes configured.");
   }

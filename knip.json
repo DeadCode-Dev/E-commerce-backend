@@ -9,6 +9,8 @@
   ],
   "entry": [
     "src/index.{js,ts,tsx}",
-    "src/api/**/*.router.ts"
+    "src/api/**/*.router.ts",
+    "src/sql/**/*.sql",
+    "src/api/**/**/*.ts"
   ]
 }

@@ -3,6 +3,7 @@ import pg from "@/config/postgres";
 import OrdersModel from "@/models/orders.model";
 import ShippingModel from "@/models/shipping.model";
 import OrderItemsModel from "@/models/orderItems.model";
+import PaymentsModel from "@/models/payments.model";
 import Mailer from "@/services/mailler.service";
 
 interface IncomingItem {
@@ -47,11 +48,9 @@ export default async function createOrder(
   }
 
   if (!address || !city || !postal_code || !country) {
-    res
-      .status(400)
-      .json({
-        message: "Address, city, postal code, and country are required",
-      });
+    res.status(400).json({
+      message: "Address, city, postal code, and country are required",
+    });
     return;
   }
 
@@ -144,6 +143,14 @@ export default async function createOrder(
       }))
     );
 
+    // Create payment record (Cash on Delivery - unpaid by default)
+    const payment = await PaymentsModel.createPaymentWithClient(client, {
+      order_id: order.id,
+      amount: total.toFixed(2),
+      currency: "egp",
+      is_paid: false,
+    });
+
     await client.query("COMMIT");
 
     // Send confirmation email asynchronously (don't block response)
@@ -169,6 +176,13 @@ export default async function createOrder(
       status: order.status,
       tracking_number: shipping.tracking_number,
       items_count: items.length,
+      payment: {
+        id: payment.id,
+        is_paid: payment.is_paid,
+        amount: payment.amount,
+        currency: payment.currency,
+        method: "cash_on_delivery",
+      },
     });
   } catch (e) {
     await client.query("ROLLBACK");

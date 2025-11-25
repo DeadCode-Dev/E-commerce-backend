@@ -69,3 +69,16 @@ export const updateShippingStatusSchema = z.object({
       message: "At least status or tracking_number is required",
     }),
 });
+
+// Payment validations
+export const getPaymentByOrderIdSchema = z.object({
+  params: z.object({
+    orderId: z.string().regex(/^\d+$/, "Order ID must be a number"),
+  }),
+});
+
+export const paymentIdSchema = z.object({
+  params: z.object({
+    id: z.string().regex(/^\d+$/, "Payment ID must be a number"),
+  }),
+});
